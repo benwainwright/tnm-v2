@@ -4,17 +4,7 @@ import MenuIcon from "../images/icons/menu.inline.svg"
 import TnmNLogo from "../images/icons/tnm-n-logo.inline.svg"
 import styled from "@emotion/styled"
 
-const GetStartedButton = styled("button")`
-  height: 100%;
-  outline: 0;
-  border-radius: 25px;
-  border: 0;
-  cursor: pointer;
-  text-align: center;
-  background: #292929;
-  color: white;
-  font-size: 13;
-`
+import GetStartedButton from "./get-started-button"
 
 const StyledMenuIcon = styled(MenuIcon)`
   width: 40px;

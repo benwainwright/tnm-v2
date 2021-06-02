@@ -2,6 +2,7 @@ import { FC } from "react"
 
 import styled from "@emotion/styled"
 import TnmHeader from "../images/TNM-Header.svg"
+import GetStartedButton from "./get-started-button"
 
 const HeaderUnorderedList = styled("ul")`
   display: flex;
@@ -14,8 +15,7 @@ const HeaderUnorderedList = styled("ul")`
 
 const TheNutritionistLogo = styled("a")`
   background: url(${TnmHeader});
-  max-width: 315px;
-  width: 100%;
+  width: 315px;
   height: 34px;
   display: block;
   text-indent: 100%;
@@ -36,6 +36,9 @@ const DesktopHeader: FC = () => (
       <TheNutritionistLogo href="/" />
     </HeaderListItem>
     <HeaderListItem>The Plans</HeaderListItem>
+    <HeaderListItem>
+      <GetStartedButton />
+    </HeaderListItem>
   </HeaderUnorderedList>
 )
 

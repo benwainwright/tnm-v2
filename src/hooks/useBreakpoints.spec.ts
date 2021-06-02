@@ -9,6 +9,22 @@ const setWindowWidth = (value: number) =>
   })
 
 describe("useBreakpoints", () => {
+  it("defaults to the largest breakpoint if misconfigured", () => {
+    const breakpoints: Breakpoints = {
+      medium: {
+        start: 300,
+        end: 500,
+      },
+      large: {
+        start: 501,
+      },
+    }
+    setWindowWidth(4)
+
+    const { result } = renderHook(() => useBreakpoints(breakpoints))
+    expect(result.current).toEqual("large")
+  })
+
   describe("before any events are fired", () => {
     it("sets the breakpoint correctly for a breakpoint that has a start and an end", () => {
       const breakpoints: Breakpoints = {

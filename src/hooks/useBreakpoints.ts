@@ -17,7 +17,14 @@ const findBreakpoint = (breakpoints: Breakpoints) => {
     return window.innerWidth >= start && window.innerWidth <= end
   })
 
-  return (betweenBreakpoint ?? [""])[0]
+  if (!betweenBreakpoint) {
+    const largestStart = Object.entries(breakpoints).reduce((accum, current) =>
+      (current[1].start ?? 0) > (accum[1].start ?? 0) ? current : accum
+    )
+    return largestStart[0]
+  }
+
+  return betweenBreakpoint[0]
 }
 
 export const useBreakpoints = (breakpoints: Breakpoints): string => {

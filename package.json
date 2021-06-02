@@ -23,6 +23,7 @@
     "gatsby-source-filesystem": "^3.4.0",
     "gatsby-transformer-sharp": "^3.4.0",
     "jest": "^27.0.3",
+    "jest-extended": "^0.11.5",
     "jest-svg-transformer": "^1.0.0",
     "jest-transform-stub": "^2.0.0",
     "prop-types": "^15.7.2",
@@ -46,7 +47,8 @@
     "start": "npm run develop",
     "serve": "gatsby serve",
     "clean": "gatsby clean",
-    "test": "echo \"Write tests! -> https://gatsby.dev/unit-testing\" && exit 1"
+    "test": "jest",
+    "test:coverage": "jest --coverage"
   },
   "repository": {
     "type": "git",
