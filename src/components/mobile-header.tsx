@@ -1,7 +1,7 @@
 import { FC, Fragment } from "react"
 
-import MenuIcon from "../images/icons/menu.svg"
-import TnmNLogo from "../images/icons/tnm-n-logo.svg"
+import MenuIcon from "../images/icons/menu.inline.svg"
+import TnmNLogo from "../images/icons/tnm-n-logo.inline.svg"
 import styled from "@emotion/styled"
 
 const GetStartedButton = styled("button")`
@@ -13,6 +13,7 @@ const GetStartedButton = styled("button")`
   text-align: center;
   background: #292929;
   color: white;
+  font-size: 13;
 `
 
 const StyledMenuIcon = styled(MenuIcon)`

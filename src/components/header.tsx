@@ -9,6 +9,8 @@ import { breakpoints } from "../breakpoints"
 const SiteNavbar = styled("nav")`
   display: flex;
   flex-direction: row;
+  font-family: "Acumin Pro";
+  font-weight: 700;
   height: 88px;
   padding: 0 30px;
   border-bottom: 1px solid black;
