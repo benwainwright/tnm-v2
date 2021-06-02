@@ -2,6 +2,9 @@ import { FC } from "react"
 
 import styled from "@emotion/styled"
 import MobileHeader from "./mobile-header"
+import DesktopHeader from "./desktop-header"
+import { useBreakpoints } from "../hooks/useBreakpoints"
+import { breakpoints } from "../breakpoints"
 
 const SiteNavbar = styled("nav")`
   display: flex;
@@ -14,10 +17,13 @@ const SiteNavbar = styled("nav")`
   background-color: white;
 `
 
-const Header: FC = () => (
-  <SiteNavbar>
-    <MobileHeader />
-  </SiteNavbar>
-)
+const Header: FC = () => {
+  const currentBreakpoint = useBreakpoints(breakpoints)
+  return (
+    <SiteNavbar>
+      {currentBreakpoint === "large" ? <DesktopHeader /> : <MobileHeader />}
+    </SiteNavbar>
+  )
+}
 
 export default Header

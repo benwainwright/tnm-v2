@@ -1,4 +1,4 @@
-import { Fragment } from "react"
+import { FC, Fragment } from "react"
 
 import MenuIcon from "../images/icons/menu.svg"
 import TnmNLogo from "../images/icons/tnm-n-logo.svg"
@@ -45,3 +45,5 @@ const MobileHeader: FC = () => (
     </MenuButtonContainerRight>
   </Fragment>
 )
+
+export default MobileHeader
