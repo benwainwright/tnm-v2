@@ -6,6 +6,7 @@
  */
 import { FC } from "react"
 import Header from "./header"
+import Hero from "./hero"
 import "./layout.css"
 
 import styled from "@emotion/styled"
@@ -18,6 +19,7 @@ const Layout: FC = props => {
   return (
     <>
       <Header />
+      <Hero />
       <MainContainer>{props.children}</MainContainer>
     </>
   )

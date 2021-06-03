@@ -15,7 +15,7 @@ const HeaderUnorderedList = styled("ul")`
 
 const TheNutritionistLogo = styled("a")`
   background: url(${TnmHeader});
-  width: 315px;
+  width: 313px;
   height: 34px;
   display: block;
   text-indent: 100%;
@@ -26,6 +26,7 @@ const TheNutritionistLogo = styled("a")`
 const HeaderListItem = styled("li")`
   list-style: none;
   margin: 0;
+  white-space: nowrap;
 `
 
 const DesktopHeader: FC = () => (

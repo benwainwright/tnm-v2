@@ -33,6 +33,6 @@ export const useBreakpoints = (breakpoints: Breakpoints): string => {
     const handleResize = () => setBreakpoint(findBreakpoint(breakpoints))
     window.addEventListener("resize", handleResize)
     return () => window.removeEventListener("resize", handleResize)
-  })
+  }, [])
   return breakpoint
 }
