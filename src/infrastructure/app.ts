@@ -4,6 +4,7 @@ import { ApplicationStack } from "./application-stack"
 const app = new cdk.App()
 
 new ApplicationStack(app, {
+  environmentName: "test",
   env: {
     account: "426446031572",
     region: "eu-west-2",

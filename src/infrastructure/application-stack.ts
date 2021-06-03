@@ -1,6 +1,7 @@
 import * as cdk from "aws-cdk-lib"
 import * as s3 from "aws-cdk-lib/aws-s3"
 import * as s3Deploy from "aws-cdk-lib/aws-s3-deployment"
+import * as path from "path"
 
 import { Construct } from "constructs"
 
@@ -19,7 +20,9 @@ export class ApplicationStack extends cdk.Stack {
     })
 
     new s3Deploy.BucketDeployment(this, "TnmV2Deploy", {
-      sources: [s3Deploy.Source.asset("../../public")],
+      sources: [
+        s3Deploy.Source.asset(path.join(__dirname, "..", "..", "public")),
+      ],
       destinationBucket: deployBucket,
     })
   }
