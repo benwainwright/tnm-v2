@@ -3,6 +3,11 @@
   src: url("../fonts/acumin-pro/Acumin\ Pro\ Bold.otf");
 }
 
+@font-face {
+  font-family: "Acumin Pro Semicondensed";
+  src: url("../fonts/acumin-pro-semi-condensed//Acumin\ Pro\ SemiCond\ Bold.otf");
+}
+
 html {
   -ms-text-size-adjust: 100%;
   -webkit-text-size-adjust: 100%;
