@@ -1,0 +1,8 @@
+{
+  "test-TnmV2BackendStack": {
+    "UserPoolId": "eu-west-2_STGr0ooNo",
+    "AuthUrl": "https://test-tnmv2-auth.auth.eu-west-2.amazoncognito.com",
+    "ClientId": "1ee4eqjm7mpi85rngf5rese5g9",
+    "RedirectUrl": "https://test-tnmv2-auth.auth.eu-west-2.amazoncognito.com/login?client_id=1ee4eqjm7mpi85rngf5rese5g9&response_type=code&redirect_uri=https://d2bnp0b9ah9f76.cloudfront.net/"
+  }
+}
