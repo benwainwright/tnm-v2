@@ -60,7 +60,7 @@ const UnStyledUl = styled.ul`
 
 const Footer: FC = () => (
   <StyledFooter>
-    <FooterStrip aria-ignore="true"></FooterStrip>
+    <FooterStrip aria-hidden></FooterStrip>
     <FooterContent>
       <FooterColumns>
         <FooterColumn>

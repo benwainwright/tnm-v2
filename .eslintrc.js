@@ -7,5 +7,12 @@ module.exports = {
   rules: {
     "no-console": "error",
   },
-  ignorePatterns: ["node_modules", "public", "cdk.out", "coverage", "template"],
+  ignorePatterns: [
+    "node_modules",
+    "public",
+    "cdk.out",
+    "coverage",
+    "template",
+    "storybook-static",
+  ],
 }

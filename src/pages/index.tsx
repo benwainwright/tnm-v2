@@ -1,11 +1,9 @@
-import * as React from "react"
-import { Link } from "gatsby"
-import { StaticImage } from "gatsby-plugin-image"
+import { FC } from "react"
 
 import Layout from "../components/layout"
 import Seo from "../components/seo"
 
-const IndexPage = () => (
+const IndexPage: FC = () => (
   <Layout>
     <Seo title="Home" />
     <h1>Hi people</h1>

@@ -79,6 +79,7 @@
     "test": "jest",
     "test:coverage": "jest --coverage",
     "storybook": "start-storybook --port 6006 --static-dir ./src/fonts",
+    "storybook:build": "build-storybook --static-dir ./src/fonts",
     "lint": "eslint .",
     "build-storybook": "build-storybook"
   },
