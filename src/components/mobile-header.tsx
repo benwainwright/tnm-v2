@@ -3,8 +3,7 @@ import { FC, Fragment } from "react"
 import MenuIcon from "../images/icons/menu.inline.svg"
 import TnmNLogo from "../images/icons/tnm-n-logo.inline.svg"
 import styled from "@emotion/styled"
-
-import GetStartedButton from "./get-started-button"
+import { Button } from "../components/atoms"
 
 const StyledMenuIcon = styled(MenuIcon)`
   width: 40px;
@@ -32,7 +31,7 @@ const MobileHeader: FC = () => (
     </MenuButtonContainerLeft>
     <StyledTnmLogo />
     <MenuButtonContainerRight>
-      <GetStartedButton>Get Started</GetStartedButton>
+      <Button primary>Get Started</Button>
     </MenuButtonContainerRight>
   </Fragment>
 )

@@ -14,6 +14,12 @@ export default {
 const Template: Story<ButtonProps> = args => <Button {...args}>Click Me</Button>
 
 export const Primary = Template.bind({})
+
 Primary.args = {
   primary: true,
+}
+
+export const Secondary = Template.bind({})
+Secondary.args = {
+  primary: false,
 }

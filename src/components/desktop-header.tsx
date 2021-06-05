@@ -2,7 +2,7 @@ import { FC } from "react"
 
 import styled from "@emotion/styled"
 import TnmHeader from "../images/TNM-Header.svg"
-import GetStartedButton from "./get-started-button"
+import { Button } from "../components/atoms"
 
 const HeaderUnorderedList = styled("ul")`
   display: flex;
@@ -39,7 +39,7 @@ const DesktopHeader: FC = () => (
     </HeaderListItem>
     <HeaderListItem>The Plans</HeaderListItem>
     <HeaderListItem>
-      <GetStartedButton />
+      <Button primary>Get Started</Button>
     </HeaderListItem>
   </HeaderUnorderedList>
 )
