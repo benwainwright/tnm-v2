@@ -7,7 +7,7 @@ module.exports = {
   },
   collectCoverageFrom: [
     "<rootDir>/src/**/*.{ts,tsx}",
-    "!<rootDir>/src/infrastructure",
+    "!<rootDir>/src/infrastructure/**",
   ],
   testPathIgnorePatterns: [`node_modules`, `\\.cache`, `<rootDir>.*/public`],
   transformIgnorePatterns: [`node_modules/(?!(gatsby)/)`],
