@@ -33,17 +33,5 @@ export class ApplicationStack extends cdk.Stack {
       distributionPaths: ["/*"],
       destinationBucket: deployBucket,
     })
-
-    new s3Deploy.BucketDeployment(this, "TnmV2DeployStorybook", {
-      sources: [
-        s3Deploy.Source.asset(
-          path.join(__dirname, "..", "..", "storybook-static")
-        ),
-      ],
-      distributionPaths: ["/storybook/*"],
-      distribution,
-      destinationBucket: deployBucket,
-      destinationKeyPrefix: "storybook",
-    })
   }
 }

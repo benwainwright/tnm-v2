@@ -24,8 +24,8 @@ const FlexForm = styled.form`
   gap: 1.5rem;
   width: 500px;
   border: 1px solid black;
-  border-top: 0;
   padding: 1.5rem 5rem 3rem 5rem;
+  margin-top: -1px;
 `
 
 const StyledH2 = styled.h2`
