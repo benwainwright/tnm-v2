@@ -1,6 +1,8 @@
 import { shallow } from "enzyme"
 import { act } from "react-dom/test-utils"
 import Input from "./input"
+import { BUTTON_BLACK } from "../../config"
+import renderer from "react-test-renderer"
 
 describe("The input component", () => {
   it("renders an html input component", () => {

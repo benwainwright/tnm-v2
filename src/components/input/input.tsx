@@ -22,17 +22,18 @@ const InputField = styled.input`
   margin: 0;
   border-radius: 0;
   border: 1px solid ${BUTTON_BLACK};
-  line-height: 1.3rem;
+  line-height: 1.5rem;
   padding: 0.5rem 0.5rem;
 `
 InputField.displayName = "input"
 
-interface InputProps {
+export interface InputProps {
   label?: string
   placeholder?: string
   value?: string
   name?: string
   type?: string
+  errorMessage?: string
   onChange?: (event: ChangeEvent<HTMLInputElement>) => void
 }
 
