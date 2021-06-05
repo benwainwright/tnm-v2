@@ -13,10 +13,10 @@ interface ApplicationStackProps extends cdk.StackProps {
 
 export class ApplicationStack extends cdk.Stack {
   constructor(scope: Construct, props: ApplicationStackProps) {
-    super(scope, `${props.environmentName}-TnmV2ApplicationStack`, props)
+    super(scope, `${props.environmentName}-TnmV2AppStack`, props)
 
     const deployBucket = new s3.Bucket(this, "TnmV2DeployBucket", {
-      bucketName: `${props.environmentName}-tnm-v2-deploy-bucket`,
+      bucketName: `${props.environmentName}-tnm-v2-app-deploy-bucket`,
       publicReadAccess: true,
       websiteIndexDocument: "index.html",
     })
@@ -36,7 +36,9 @@ export class ApplicationStack extends cdk.Stack {
 
     new s3Deploy.BucketDeployment(this, "TnmV2DeployStorybook", {
       sources: [
-        s3Deploy.Source.asset(path.join(__dirname, "..", "..", "public")),
+        s3Deploy.Source.asset(
+          path.join(__dirname, "..", "..", "storybook-static")
+        ),
       ],
       distributionPaths: ["/storybook/*"],
       distribution,
