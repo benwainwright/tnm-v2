@@ -1,8 +1,7 @@
 import { FC } from "react"
-import { Input } from "../input"
-import { Button } from "../button"
+import { Button, Input } from "../../atoms"
 import styled from "@emotion/styled"
-import { BUTTON_BLACK } from "../../config"
+import { BUTTON_BLACK } from "../../../config"
 
 interface LoginData {
   email: string

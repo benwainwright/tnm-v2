@@ -1,6 +1,6 @@
-import { shallow, render } from "enzyme"
+import { shallow } from "enzyme"
 import Button from "./button"
-import { BUTTON_BLACK } from "../../config"
+import { BUTTON_BLACK } from "../../../config"
 import renderer from "react-test-renderer"
 
 describe("The button component", () => {

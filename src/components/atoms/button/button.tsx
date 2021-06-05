@@ -1,7 +1,7 @@
 import { FC } from "react"
 
 import styled from "@emotion/styled"
-import { BUTTON_BLACK } from "../../config"
+import { BUTTON_BLACK } from "../../../config"
 
 export interface ButtonProps {
   onClick?: () => void

@@ -2,7 +2,7 @@ module.exports = {
   testEnvironment: "jsdom",
   setupFilesAfterEnv: ["<rootDir>/src/testSetup.ts"],
   transform: {
-    "^.+\\.(svg|css)$": "jest-transform-stub",
+    "^.+\\.(svg|css|png)$": "jest-transform-stub",
     "^.+\\.[jt]sx?$": "<rootDir>/jest-preprocess.js",
   },
   collectCoverageFrom: [

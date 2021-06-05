@@ -6,6 +6,7 @@
  */
 import { FC } from "react"
 import Header from "./header"
+import { Footer } from "./molecules"
 import Hero from "./hero"
 import "./layout.css"
 
@@ -23,6 +24,7 @@ const Layout: FC = props => {
       <Header />
       <Hero />
       <MainContainer>{props.children}</MainContainer>
+      <Footer />
     </>
   )
 }
