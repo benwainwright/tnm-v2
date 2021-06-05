@@ -1,7 +1,7 @@
 import { User } from "../user-context"
 import { Dispatch, SetStateAction } from "react"
 import { ErrorResponse } from "../components/molecules/login-box"
-import { login, currentUser } from "../aws/authenticate"
+import { login } from "../aws/authenticate"
 import { navigate } from "gatsby"
 import { ApiError } from "../types/api-error"
 import Cookies from "universal-cookie"

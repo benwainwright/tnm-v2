@@ -24,7 +24,6 @@ export const currentUser = async () => {
   try {
     return await Auth.currentAuthenticatedUser()
   } catch (error) {
-    console.log(error)
     return undefined
   }
 }
