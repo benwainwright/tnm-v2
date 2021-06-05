@@ -1,19 +1,17 @@
 import { FC } from "react"
 import styled from "@emotion/styled"
-import SeasonalPattern from "../../../images/Seasonal Pattern_SPRING_TNM.png"
+
+import SeasonalPattern from "../../../images/Seasonal-pattern-spring-tnm.png"
 
 const StyledFooter = styled.footer`
   width: 100%;
-  height: auto;
-  padding: 100px 30px;
-  box-sizing: boeder-box;
-  background: #253a3d;
-  color: white;
+  font-family: "Acumin Pro";
+  box-sizing: border-box;
   position: relative;
 `
 
 const FooterStrip = styled.div`
-  background-image: url(${SeasonalPattern});
+  background: url(${SeasonalPattern});
   background-size: cover;
   background-position: 50%;
   width: 100vw;
@@ -22,9 +20,103 @@ const FooterStrip = styled.div`
   border-bottom: 1px solid black;
 `
 
+const FooterContent = styled.div`
+  background: #253a3d;
+  color: white;
+`
+
+const FooterColumns = styled.div`
+  display: flex;
+  justify-content: space-evenly;
+`
+
+const FooterHeaders = styled.h3`
+  margin: 0;
+  padding: 0;
+  color: #177f7a;
+  font-size: 45px;
+  line-height: 49px;
+  font-weight: 700;
+`
+const FooterLink = styled.a`
+  color: #cafbe2;
+  font-size: 27px;
+  line-height: 33px;
+  font-family: acumin-pro-semi-condensed, sans-serif;
+  text-decoration: none;
+`
+
+const FooterLi = styled.li`
+  margin: 20px 0;
+  padding: 0;
+`
+
+const FooterColumn = styled.div``
+
+const UnStyledUl = styled.ul`
+  list-style: none;
+  padding: 0;
+`
+
 const Footer: FC = () => (
   <StyledFooter>
-    <FooterStrip></FooterStrip>
+    <FooterStrip aria-ignore="true"></FooterStrip>
+    <FooterContent>
+      <FooterColumns>
+        <FooterColumn>
+          <FooterHeaders>Sign up to emails</FooterHeaders>
+        </FooterColumn>
+
+        <FooterColumn>
+          <FooterHeaders>Order</FooterHeaders>
+          <UnStyledUl>
+            <FooterLi>
+              <FooterLink href="/the-plans/#UnStyledUltra-Micro">
+                Ultra Micro
+              </FooterLink>
+            </FooterLi>
+            <FooterLi>
+              <FooterLink href="/the-plans/#Micro">Micro</FooterLink>
+            </FooterLi>
+            <FooterLi>
+              <FooterLink href="/the-plans/#Equilibrium">
+                Equilibrium
+              </FooterLink>
+            </FooterLi>
+            <FooterLi>
+              <FooterLink href="/the-plans/#Mass">Mass</FooterLink>
+            </FooterLi>
+          </UnStyledUl>
+        </FooterColumn>
+
+        <FooterColumn>
+          <FooterHeaders>About</FooterHeaders>
+          <UnStyledUl>
+            <FooterLi>
+              <FooterLink href="/our-story">Our Story</FooterLink>
+            </FooterLi>
+            <FooterLi>
+              <FooterLink href="/why-choose-us">Why Choose Us?</FooterLink>
+            </FooterLi>
+            <FooterLi>
+              <FooterLink href="/the-plans">Meal Plans</FooterLink>
+            </FooterLi>
+          </UnStyledUl>
+        </FooterColumn>
+
+        <FooterColumn>
+          <FooterHeaders>Contact</FooterHeaders>
+          <UnStyledUl>
+            <FooterLi>
+              <FooterLink href="/faq">FAQ</FooterLink>
+            </FooterLi>
+            <FooterLi>
+              <FooterLink href="/get-started">Get Started</FooterLink>
+            </FooterLi>
+          </UnStyledUl>
+        </FooterColumn>
+      </FooterColumns>
+    </FooterContent>
   </StyledFooter>
 )
 
