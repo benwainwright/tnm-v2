@@ -2,54 +2,52 @@ import * as cdk from "aws-cdk-lib"
 import * as codebuild from "aws-cdk-lib/aws-codebuild"
 import * as codepipeline from "aws-cdk-lib/aws-codepipeline"
 import * as codepipelineActions from "aws-cdk-lib/aws-codepipeline-actions"
-import * as secretsManager from "aws-cdk-lib/aws-secretsmanager"
 
 interface ApplicationCiStackProps extends cdk.StackProps {}
+
+const project = (
+  commands: string[],
+  outputFolder?: string
+): codebuild.PipelineProjectProps => ({
+  environment: {
+    buildImage: codebuild.LinuxBuildImage.STANDARD_5_0,
+  },
+  buildSpec: codebuild.BuildSpec.fromObject({
+    version: "0.2",
+    phases: {
+      install: {
+        commands: "yarn install",
+      },
+      build: {
+        commands,
+      },
+    },
+    artifacts: outputFolder
+      ? {
+          "base-directory": outputFolder,
+          files: ["**/*"],
+        }
+      : undefined,
+  }),
+})
 
 export class ApplicationCiStack extends cdk.Stack {
   constructor(app: cdk.App, props: ApplicationCiStackProps) {
     super(app, "TnmV2CIStack", props)
 
     const buildOutput = new codepipeline.Artifact("AppBuildOutput")
-    const testAndBuild = new codebuild.PipelineProject(this, "TnmV2Build", {
-      buildSpec: codebuild.BuildSpec.fromObject({
-        version: "0.2",
-        phases: {
-          install: {
-            commands: "yarn install",
-          },
-          build: {
-            commands: ["yarn lint", "yarn test:coverage", "yarn build"],
-          },
-        },
-        artifacts: {
-          "base-directory": "public",
-          files: ["**/*"],
-        },
-      }),
-    })
 
-    const deployToTest = new codebuild.PipelineProject(this, "TnmV2Deploy", {
-      buildSpec: codebuild.BuildSpec.fromObject({
-        version: "0.2",
-        phases: {
-          install: {
-            commands: "yarn install",
-          },
-          build: {
-            commands: ["yarn cdk deploy --require-approval never"],
-          },
-        },
-        artifacts: {
-          "base-directory": "public",
-          files: ["**/*"],
-        },
-      }),
-    })
+    const testAndBuild = new codebuild.PipelineProject(
+      this,
+      "TnmV2Build",
+      project(["yarn lint", "yarn test:coverage", "yarn build"], "public")
+    )
 
-    const githubToken = new secretsManager.Secret(this, "TnmV2OauthToken", {
-      secretName: "TNMV2/GITHUB_TOKEN",
-    })
+    const deployToTest = new codebuild.PipelineProject(
+      this,
+      "TnmV2Deploy",
+      project(["yarn cdk deploy --require-approval never"])
+    )
 
     const sourceOutput = new codepipeline.Artifact()
 
@@ -63,13 +61,13 @@ export class ApplicationCiStack extends cdk.Stack {
               branch: "master",
               owner: "benwainwright",
               repo: "tnm-v2",
-              oauthToken: githubToken.secretValue,
+              oauthToken: cdk.SecretValue.secretsManager("TNM_V2/GITHUB_TOKEN"),
               output: sourceOutput,
             }),
           ],
         },
         {
-          stageName: "Test and Build",
+          stageName: "Test-and-build",
           actions: [
             new codepipelineActions.CodeBuildAction({
               actionName: "TestAndBuild",
@@ -80,7 +78,7 @@ export class ApplicationCiStack extends cdk.Stack {
           ],
         },
         {
-          stageName: "Deploy to test",
+          stageName: "Deploy-to-test",
           actions: [
             new codepipelineActions.CodeBuildAction({
               actionName: "DeployToTest",

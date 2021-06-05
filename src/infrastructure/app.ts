@@ -1,12 +1,9 @@
 import * as cdk from "aws-cdk-lib"
 import { ApplicationStack } from "./application-stack"
 
-import { PipelineStack } from "./pipeline-stack"
+import { ApplicationCiStack } from "./pipeline-stack"
 
 const app = new cdk.App()
-
-const environmentName =
-  process.env.DEPLOY_ENVIRONMENT === "prod" ? "prod" : "test"
 
 const env = {
   account: "426446031572",
@@ -14,10 +11,15 @@ const env = {
 }
 
 new ApplicationStack(app, {
-  environmentName,
+  environmentName: "test",
   env,
 })
 
-new PipelineStack(app, {
+new ApplicationStack(app, {
+  environmentName: "prod",
+  env,
+})
+
+new ApplicationCiStack(app, {
   env,
 })
