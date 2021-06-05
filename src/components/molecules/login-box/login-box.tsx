@@ -61,7 +61,13 @@ const LoginBox: FC<LoginBoxProps> = props => {
         onChange={event => setData({ ...data, password: event.target.value })}
       />
       <StyledLink href="#">Forgot your password?</StyledLink>
-      <Button onClick={() => props.onLogin?.(data)} primary>
+      <Button
+        onClick={event => {
+          props.onLogin?.(data)
+          event.preventDefault()
+        }}
+        primary
+      >
         Login
       </Button>
     </FlexForm>
