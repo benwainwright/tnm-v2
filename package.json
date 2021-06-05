@@ -48,6 +48,7 @@
     "jest": "^27.0.4",
     "jest-enzyme": "^7.1.2",
     "jest-extended": "^0.11.5",
+    "jest-mock-extended": "^1.0.15",
     "jest-svg-transformer": "^1.0.0",
     "jest-transform-stub": "^2.0.0",
     "prop-types": "^15.7.2",
@@ -56,7 +57,8 @@
     "react-helmet": "^6.1.0",
     "ts-jest": "^27.0.2",
     "ts-node": "^10.0.0",
-    "typescript": "^4.3.2"
+    "typescript": "^4.3.2",
+    "universal-cookie": "^4.0.4"
   },
   "devDependencies": {
     "@babel/core": "^7.14.3",

@@ -1,11 +1,14 @@
 import { handleLogin } from "./handle-login"
 import { login } from "../aws/authenticate"
 import { mocked } from "ts-jest/utils"
+import { mock as mockExtended } from "jest-mock-extended"
 import { ApiError } from "../types/api-error"
 import { navigate } from "gatsby"
+import Cookies from "universal-cookie"
 
 jest.mock("gatsby")
 jest.mock("../aws/authenticate")
+jest.mock("universal-cookie")
 
 describe("the login handler", () => {
   afterEach(() => {
@@ -56,6 +59,46 @@ describe("the login handler", () => {
     })
   })
 
+  it("sets TNMV2_CHALLENGE_USERNAME cookie if new password challenge is required", async () => {
+    const setUser = jest.fn()
+    const setErrorMessage = jest.fn()
+
+    mocked(login, true).mockResolvedValue({
+      challengeName: "NEW_PASSWORD_REQUIRED",
+    })
+
+    const mockCookies = mockExtended<Cookies>()
+
+    mocked(Cookies, true).mockImplementation(() => mockCookies)
+
+    await handleLogin("foo-user", "bar", setUser, setErrorMessage)
+
+    expect(mockCookies.set).toBeCalledWith(
+      "TNMV2_CHALLENGE_USERNAME",
+      "foo-user"
+    )
+  })
+
+  it("sets TNMV2_CHALLENGE_USERNAME cookie if MFA challenge is required", async () => {
+    const setUser = jest.fn()
+    const setErrorMessage = jest.fn()
+
+    mocked(login, true).mockResolvedValue({
+      challengeName: "SMS_MFA",
+    })
+
+    const mockCookies = mockExtended<Cookies>()
+
+    mocked(Cookies, true).mockImplementation(() => mockCookies)
+
+    await handleLogin("foo-user", "bar", setUser, setErrorMessage)
+
+    expect(mockCookies.set).toBeCalledWith(
+      "TNMV2_CHALLENGE_USERNAME",
+      "foo-user"
+    )
+  })
+
   it("redirects to the new password page if the response is a new password challenge", async () => {
     const setUser = jest.fn()
     const setErrorMessage = jest.fn()
@@ -66,9 +109,20 @@ describe("the login handler", () => {
 
     await handleLogin("foo", "bar", setUser, setErrorMessage)
 
-    expect(mocked(navigate, true)).toHaveBeenCalledWith(
-      `/new-password?username=foo`
-    )
+    expect(mocked(navigate, true)).toHaveBeenCalledWith(`/new-password`)
+  })
+
+  it("redirects to the MFA password page if the response is a MFA challenge", async () => {
+    const setUser = jest.fn()
+    const setErrorMessage = jest.fn()
+
+    mocked(login, true).mockResolvedValue({
+      challengeName: "SMS_MFA",
+    })
+
+    await handleLogin("foo", "bar", setUser, setErrorMessage)
+
+    expect(mocked(navigate, true)).toHaveBeenCalledWith(`/mfa-login`)
   })
 
   it("redirects to the account page if the response is successful", () => {})
