@@ -1,4 +1,4 @@
-import { FC } from "react"
+import { FC, useState } from "react"
 import { Button, Input } from "../../atoms"
 import styled from "@emotion/styled"
 import { BUTTON_BLACK } from "../../../config"
@@ -39,14 +39,33 @@ const StyledLink = styled.a`
   text-decoration: 0;
 `
 
-const LoginBox: FC<LoginBoxProps> = () => (
-  <FlexForm>
-    <StyledH2>Login</StyledH2>
-    <Input label="Email" placeholder="a@b.com" name="email" type="email" />
-    <Input label="Password" name="password" type="password" />
-    <StyledLink href="#">Forgot your password?</StyledLink>
-    <Button primary>Login</Button>
-  </FlexForm>
-)
+const LoginBox: FC<LoginBoxProps> = props => {
+  const [data, setData] = useState<LoginData>({ email: "", password: "" })
+
+  return (
+    <FlexForm>
+      <StyledH2>Login</StyledH2>
+      <Input
+        label="Email"
+        placeholder="a@b.com"
+        name="email"
+        type="email"
+        value={data.email}
+        onChange={event => setData({ ...data, email: event.target.value })}
+      />
+      <Input
+        label="Password"
+        name="password"
+        type="password"
+        value={data.password}
+        onChange={event => setData({ ...data, password: event.target.value })}
+      />
+      <StyledLink href="#">Forgot your password?</StyledLink>
+      <Button onClick={() => props.onLogin?.(data)} primary>
+        Login
+      </Button>
+    </FlexForm>
+  )
+}
 
 export default LoginBox
