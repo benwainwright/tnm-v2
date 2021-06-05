@@ -14,4 +14,5 @@ export const InputStory = Template.bind({})
 InputStory.args = {
   label: "Some Field",
   value: "",
+  placeholder: "Enter something",
 }

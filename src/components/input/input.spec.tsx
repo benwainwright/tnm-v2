@@ -28,6 +28,18 @@ describe("The input component", () => {
     expect(wrapper.find("label").prop("htmlFor")).toEqual("input-name")
   })
 
+  it("passes the 'type' prop through to the underlying input field", () => {
+    const wrapper = shallow(<Input type="a@b.c" />)
+
+    expect(wrapper.find("input").prop("type")).toEqual("a@b.c")
+  })
+
+  it("passes the 'placeholder' prop through to the underlying input field", () => {
+    const wrapper = shallow(<Input placeholder="type something" />)
+
+    expect(wrapper.find("input").prop("placeholder")).toEqual("type something")
+  })
+
   it("triggers the component onChange handler if there is a change in the element", () => {
     const onChange = jest.fn()
     const wrapper = shallow(<Input name="input-name" onChange={onChange} />)
