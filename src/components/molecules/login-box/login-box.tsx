@@ -8,8 +8,8 @@ interface LoginData {
   password: string
 }
 
-interface ErrorResponse {
-  field: keyof LoginData
+export interface ErrorResponse {
+  field?: keyof LoginData
   message: string
 }
 

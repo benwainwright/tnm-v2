@@ -1,2 +1,2 @@
-import LoginBox from "./login-box"
-export { LoginBox }
+import LoginBox, { ErrorResponse } from "./login-box"
+export { LoginBox, ErrorResponse }

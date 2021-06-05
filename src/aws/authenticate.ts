@@ -21,5 +21,10 @@ export const signout = async () => {
 }
 
 export const currentUser = async () => {
-  return Auth.currentAuthenticatedUser()
+  try {
+    return await Auth.currentAuthenticatedUser()
+  } catch (error) {
+    console.log(error)
+    return undefined
+  }
 }
