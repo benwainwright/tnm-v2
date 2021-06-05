@@ -5,6 +5,10 @@ module.exports = {
     "^.+\\.(svg|css)$": "jest-transform-stub",
     "^.+\\.[jt]sx?$": "<rootDir>/jest-preprocess.js",
   },
+  collectCoverageFrom: [
+    "<rootDir>/src/**/*.{ts,tsx}",
+    "!<rootDir>/src/infrastructure",
+  ],
   testPathIgnorePatterns: [`node_modules`, `\\.cache`, `<rootDir>.*/public`],
   transformIgnorePatterns: [`node_modules/(?!(gatsby)/)`],
   globals: {
