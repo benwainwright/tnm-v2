@@ -5,29 +5,38 @@ import { BUTTON_BLACK } from "../../config"
 
 export interface ButtonProps {
   onClick?: () => void
+  primary?: boolean
+  color?: string
 }
 
-const ButtonElement = styled("button")`
-  height: 100%;
-  outline: 0;
-  border-radius: 25px;
-  border: 1px solid ${BUTTON_BLACK};
-  cursor: pointer;
-  text-align: center;
-  white-space: nowrap;
-  background: ${BUTTON_BLACK};
-  color: white;
-  line-height: 17px;
-  font-size: 16px;
-  padding: 10px;
-  font-weight: 700;
-  padding: 10px 30px;
-`
+const ButtonElement = styled.button((props: ButtonProps) => {
+  const color = props.color || BUTTON_BLACK
+  return {
+    height: "100%",
+    outline: 0,
+    borderRadius: "25px",
+    border: props.primary ? `1px solid ${color}` : 0,
+    cursor: "pointer",
+    textAlign: "center",
+    whiteSpace: "nowrap",
+    background: props.primary ? color : "white",
+    color: props.primary ? "white" : color,
+    lineHeight: "17px",
+    fontSize: "16px",
+    fontWeight: 700,
+    padding: "10px 30px",
+    textDecoration: props.primary ? 0 : "underline",
+    "&:hover": {
+      color: props.primary ? color : "white",
+      backgroundColor: props.primary ? "white" : color,
+    },
+  }
+})
 
 ButtonElement.displayName = "button"
 
 const Button: FC<ButtonProps> = props => (
-  <ButtonElement>{props.children}</ButtonElement>
+  <ButtonElement {...props}>{props.children}</ButtonElement>
 )
 
 export default Button

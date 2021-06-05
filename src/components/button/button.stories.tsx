@@ -6,11 +6,14 @@ export default {
   title: "TNM/Button",
   component: Button,
   argTypes: {
-    backgroundColor: { control: "color" },
+    primary: { name: "Primary", type: "boolean", defaultValue: false },
+    color: { name: "Color", type: "string", defaultValue: undefined },
   },
 } as Meta
 
 const Template: Story<ButtonProps> = args => <Button {...args}>Click Me</Button>
 
 export const Primary = Template.bind({})
-Primary.args = {}
+Primary.args = {
+  primary: true,
+}
