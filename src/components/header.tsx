@@ -21,6 +21,7 @@ const SiteNavbar = styled("nav")`
 `
 
 const Header: FC = () => {
+  console.log("foo")
   const currentBreakpoint = useBreakpoints(breakpoints)
   return (
     <SiteNavbar>

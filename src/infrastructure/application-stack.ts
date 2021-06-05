@@ -11,7 +11,7 @@ interface ApplicationStackProps extends cdk.StackProps {
 
 export class ApplicationStack extends cdk.Stack {
   constructor(scope: Construct, props: ApplicationStackProps) {
-    super(scope, "TnmV2ApplicationStack", props)
+    super(scope, `${props.environmentName}-TnmV2ApplicationStack`, props)
 
     const deployBucket = new s3.Bucket(this, "TnmV2DeployBucket", {
       bucketName: `${props.environmentName}-tnm-v2-deploy-bucket`,
