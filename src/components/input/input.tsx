@@ -1,4 +1,16 @@
-import { FC, Fragment, ChangeEvent } from "react"
+import { FC, ChangeEvent } from "react"
+
+import styled from "@emotion/styled"
+
+const InputContainer = styled.div`
+  font-family: "Acumin Pro";
+  display: flex;
+  flex-direction: column;
+`
+
+const InputLabel = styled.label`
+  font-family: "Acumin Pro";
+`
 
 interface InputProps {
   label?: string
@@ -10,15 +22,15 @@ interface InputProps {
 
 const Input: FC<InputProps> = props => {
   return (
-    <Fragment>
-      <label htmlFor={props.name}>{props.label}</label>
+    <InputContainer>
+      <InputLabel htmlFor={props.name}>{props.label}</InputLabel>
       <input
         id={props.name}
         name={props.name}
         value={props.value}
         onChange={props.onChange}
       />
-    </Fragment>
+    </InputContainer>
   )
 }
 

@@ -3,7 +3,7 @@ import { Story, Meta } from "@storybook/react"
 import Button, { ButtonProps } from "./button"
 
 export default {
-  title: "TNM/Button",
+  title: "atoms/Button",
   component: Button,
   argTypes: {
     primary: { name: "Primary", type: "boolean", defaultValue: false },
