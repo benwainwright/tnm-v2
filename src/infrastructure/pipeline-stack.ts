@@ -1,4 +1,5 @@
 import * as cdk from "aws-cdk-lib"
+import * as s3 from "aws-cdk-lib/aws-s3"
 import * as codebuild from "aws-cdk-lib/aws-codebuild"
 import * as codepipeline from "aws-cdk-lib/aws-codepipeline"
 import * as codepipelineActions from "aws-cdk-lib/aws-codepipeline-actions"
@@ -7,8 +8,10 @@ interface ApplicationCiStackProps extends cdk.StackProps {}
 
 const project = (
   commands: string[],
+  cacheBucket: s3.IBucket,
   outputFolder?: string
 ): codebuild.PipelineProjectProps => ({
+  cache: codebuild.Cache.bucket(cacheBucket),
   environment: {
     buildImage: codebuild.LinuxBuildImage.STANDARD_5_0,
   },
@@ -21,6 +24,9 @@ const project = (
       build: {
         commands,
       },
+    },
+    cache: {
+      paths: ["node_modules/**/*", "package.json"],
     },
     artifacts: outputFolder
       ? {
@@ -37,16 +43,24 @@ export class ApplicationCiStack extends cdk.Stack {
 
     const buildOutput = new codepipeline.Artifact("AppBuildOutput")
 
+    const pipelineCache = new s3.Bucket(this, "TnmV2PipelineCache", {
+      bucketName: "tnm-v2-pipeline-cache",
+    })
+
     const testAndBuild = new codebuild.PipelineProject(
       this,
       "TnmV2Build",
-      project(["yarn lint", "yarn test:coverage", "yarn build"], "public")
+      project(
+        ["yarn lint", "yarn test:coverage", "yarn build"],
+        pipelineCache,
+        "public"
+      )
     )
 
     const deployToTest = new codebuild.PipelineProject(
       this,
       "TnmV2Deploy",
-      project(["yarn cdk deploy --require-approval never"])
+      project(["yarn cdk deploy --require-approval never"], pipelineCache)
     )
 
     const sourceOutput = new codepipeline.Artifact()
