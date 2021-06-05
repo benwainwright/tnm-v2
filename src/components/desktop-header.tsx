@@ -7,6 +7,7 @@ import GetStartedButton from "./get-started-button"
 const HeaderUnorderedList = styled("ul")`
   display: flex;
   width: 100%;
+  font-size: 21px;
   justify-content: space-between;
   margin: 0;
   height: 100%;

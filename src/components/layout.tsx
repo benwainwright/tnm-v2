@@ -12,7 +12,9 @@ import "./layout.css"
 import styled from "@emotion/styled"
 
 const MainContainer = styled("main")`
-  padding: 88px 0 0 0;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
 `
 
 const Layout: FC = props => {

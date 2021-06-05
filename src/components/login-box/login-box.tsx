@@ -15,16 +15,17 @@ interface ErrorResponse {
 }
 
 export interface LoginBoxProps {
-  onLogin: (data: LoginData) => void
-  errors: ErrorResponse[]
+  onLogin?: (data: LoginData) => void
+  errors?: ErrorResponse[]
 }
 
 const FlexForm = styled.form`
   display: flex;
   flex-direction: column;
   gap: 1.5rem;
-  max-width: 400px;
+  width: 500px;
   border: 1px solid black;
+  border-top: 0;
   padding: 1.5rem 5rem 3rem 5rem;
 `
 
