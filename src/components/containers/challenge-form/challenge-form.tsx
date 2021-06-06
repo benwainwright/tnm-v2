@@ -1,7 +1,7 @@
 import { FC } from "react";
 import styled from "@emotion/styled";
 
-interface ChallengeFormProps {
+export interface ChallengeFormProps {
   header?: string;
 }
 
