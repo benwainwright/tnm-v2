@@ -1,15 +1,10 @@
-/**
- * Layout component that queries for data
- * with Gatsby's useStaticQuery component
- *
- * See: https://www.gatsbyjs.com/docs/use-static-query/
- */
 import { FC, useState, useEffect } from "react";
 import { Footer, Header } from "./molecules";
 import Hero from "./hero";
 import "./layout.css";
 import { UserContext, User } from "../user-context";
 import { currentUser } from "../aws/authenticate";
+import { useAxe } from "../hooks/useAxe";
 
 import styled from "@emotion/styled";
 
@@ -22,6 +17,7 @@ const MainContainer = styled("main")`
 
 const Layout: FC = (props) => {
   const [user, setUser] = useState<User | undefined>(undefined);
+  useAxe();
 
   useEffect(() => {
     (async () => {
