@@ -1,4 +1,5 @@
-import { LoginBox } from "./login-box"
-import { Footer } from "./footer"
+import { LoginBox } from "./login-box";
+import { Footer } from "./footer";
+import { Header } from "./header";
 
-export { LoginBox, Footer }
+export { LoginBox, Footer, Header };
