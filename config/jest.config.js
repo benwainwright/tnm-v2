@@ -1,9 +1,10 @@
 module.exports = {
   testEnvironment: "jsdom",
+  rootDir: "../",
   setupFilesAfterEnv: ["<rootDir>/src/testSetup.ts"],
   transform: {
     "^.+\\.(svg|css|png)$": "jest-transform-stub",
-    "^.+\\.[jt]sx?$": "<rootDir>/jest-preprocess.js",
+    "^.+\\.[jt]sx?$": "<rootDir>/config/jest-preprocess.js",
   },
   collectCoverageFrom: [
     "<rootDir>/src/**/*.{ts,tsx}",
@@ -15,5 +16,5 @@ module.exports = {
   globals: {
     __PATH_PREFIX__: ``,
   },
-  setupFiles: [`<rootDir>/loadershim.js`],
+  setupFiles: [`<rootDir>/config/loadershim.js`],
 }

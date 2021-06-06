@@ -1,5 +1,5 @@
 {
-  "app": "npx ts-node  --project tsconfig.cdk.json src/infrastructure/app.ts",
+  "app": "npx ts-node  --project config/tsconfig.cdk.json src/infrastructure/app.ts",
   "output": "template",
   "context": {
     "aws-cdk:enableDiffNoFail": "true"
