@@ -3,7 +3,7 @@ import { FC } from "react";
 import styled from "@emotion/styled";
 import MobileHeader from "./mobile-header";
 import DesktopHeader from "./desktop-header";
-import { useBreakpoints } from "../../../hooks/useBreakpoints";
+import { useBreakpoints } from "../../../hooks";
 import { breakpoints } from "../../../breakpoints";
 import { MENUBAR_HEIGHT } from "../../../config";
 

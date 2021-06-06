@@ -4,7 +4,7 @@ import Hero from "./hero";
 import "./layout.css";
 import { UserContext, User } from "../user-context";
 import { currentUser } from "../aws/authenticate";
-import { useAxe } from "../hooks/useAxe";
+import { useAxe } from "../hooks";
 
 import styled from "@emotion/styled";
 
