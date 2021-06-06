@@ -1,17 +1,20 @@
-import { User } from "../user-context"
-import { Dispatch, SetStateAction } from "react"
-import { ErrorResponse } from "../components/molecules/login-box"
-import { login } from "../aws/authenticate"
-import { navigate } from "gatsby"
-import { ApiError } from "../types/api-error"
-import Cookies from "universal-cookie"
+import { User } from "../user-context";
+import { Dispatch, SetStateAction } from "react";
+import { ErrorResponse } from "../components/molecules/login-box";
+import { login } from "../aws/authenticate";
+import { navigate } from "gatsby";
+import { ApiError } from "../types/api-error";
+import Cookies from "universal-cookie";
 
 interface ErrorMap {
-  [code: string]: ErrorResponse
+  [code: string]: ErrorResponse;
 }
 
+const CHALLENGE_USERNAME_COOKIE_STRING = "TNMV2_CHALLENGE_USERNAME";
+const SESSION_COOKIE_STRING = "TNMV2_SESSION";
+
 const isApiError = (error: Error): error is ApiError =>
-  (error as ApiError).code !== undefined
+  (error as ApiError).code !== undefined;
 
 export const handleLogin = async (
   user: string,
@@ -19,18 +22,22 @@ export const handleLogin = async (
   setUser: Dispatch<SetStateAction<User | undefined>> | undefined,
   setErrorMessage: Dispatch<SetStateAction<ErrorResponse | undefined>>
 ): Promise<void> => {
-  const cookies = new Cookies()
+  const cookies = new Cookies();
   try {
-    const loginResponse = await login(user, password)
+    const loginResponse = await login(user, password);
 
-    if (loginResponse.challengeName === "NEW_PASSWORD_REQUIRED") {
-      cookies.set("TNMV2_CHALLENGE_USERNAME", user)
-      navigate(`/new-password`)
+    if (loginResponse.Session) {
+      cookies.set(SESSION_COOKIE_STRING, loginResponse.Session);
     }
 
-    if (loginResponse.challengeName === "SMS_MFA") {
-      cookies.set("TNMV2_CHALLENGE_USERNAME", user)
-      navigate(`/mfa-login`)
+    if (loginResponse.ChallengeName === "NEW_PASSWORD_REQUIRED") {
+      cookies.set(CHALLENGE_USERNAME_COOKIE_STRING, user);
+      navigate(`/new-password`);
+    }
+
+    if (loginResponse.ChallengeName === "SMS_MFA") {
+      cookies.set(CHALLENGE_USERNAME_COOKIE_STRING, user);
+      navigate(`/mfa-login`);
     }
   } catch (error) {
     if (isApiError(error)) {
@@ -43,14 +50,14 @@ export const handleLogin = async (
           field: "password",
           message: "Incorrect password",
         },
-      }
+      };
 
       if (errorMap.hasOwnProperty(error.code)) {
-        setErrorMessage(errorMap[error.code])
+        setErrorMessage(errorMap[error.code]);
       }
-      return
+      return;
     }
 
-    throw error
+    throw error;
   }
-}
+};
