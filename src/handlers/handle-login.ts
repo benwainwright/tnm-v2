@@ -22,19 +22,16 @@ export const handleLogin = async (
   setUser: Dispatch<SetStateAction<User | undefined>> | undefined,
   setErrorMessage: Dispatch<SetStateAction<ErrorResponse | undefined>>
 ): Promise<void> => {
-  console.log("handling")
   const cookies = new Cookies();
   try {
     const loginResponse = await login(user, password);
 
-    console.log(loginResponse);
     if (loginResponse.Session) {
       cookies.set(SESSION_COOKIE_STRING, loginResponse.Session);
     }
 
     if (loginResponse.challengeName === "NEW_PASSWORD_REQUIRED") {
       cookies.set(CHALLENGE_USERNAME_COOKIE_STRING, user);
-      console.log("REDIRECT");
       navigate(`/change-password`);
     }
 
