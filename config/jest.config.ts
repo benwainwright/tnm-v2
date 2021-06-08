@@ -1,4 +1,6 @@
-module.exports = {
+import type { Config } from "@jest/types"
+
+const config: Config.InitialOptions = {
   testEnvironment: "jsdom",
   rootDir: "../",
   setupFilesAfterEnv: ["<rootDir>/src/testSetup.ts"],
@@ -13,8 +15,7 @@ module.exports = {
   ],
   testPathIgnorePatterns: [`node_modules`, `\\.cache`, `<rootDir>.*/public`],
   transformIgnorePatterns: [`node_modules/(?!(gatsby)/)`],
-  globals: {
-    __PATH_PREFIX__: ``,
-  },
   setupFiles: [`<rootDir>/config/loadershim.js`],
 }
+
+export default config
