@@ -13,6 +13,14 @@ const config: Config.InitialOptions = {
     "!<rootDir>/src/infrastructure/**",
     "!<rootDir>/src/**/*.stories.{ts,tsx}",
   ],
+  coverageThreshold: {
+    global: {
+      statements: 90,
+      lines: 90,
+      branches: 90,
+      functions: 90,
+    },
+  },
   testPathIgnorePatterns: [`node_modules`, `\\.cache`, `<rootDir>.*/public`],
   transformIgnorePatterns: [`node_modules/(?!(gatsby)/)`],
   setupFiles: [`<rootDir>/config/loadershim.js`],
