@@ -1,8 +1,8 @@
-import { Auth } from "aws-amplify"
-import { getPoolConfig } from "./getPoolConfig"
-import backendOutputs from "../backend-outputs.json"
+import { Auth } from "aws-amplify";
+import { getPoolConfig } from "./getPoolConfig";
+import backendOutputs from "../backend-outputs.json";
 
-const outputs = getPoolConfig(backendOutputs)
+const outputs = getPoolConfig(backendOutputs);
 
 Auth.configure({
   Auth: {
@@ -10,20 +10,20 @@ Auth.configure({
     userPoolId: outputs.UserPoolId,
     userPoolWebClientId: outputs.ClientId,
   },
-})
+});
 
 export const login = async (username: string, password: string) => {
-  return Auth.signIn(username, password)
-}
+  return Auth.signIn(username, password);
+};
 
-export const signout = async () => {
-  return Auth.signOut()
-}
+export const signOut = async () => {
+  return Auth.signOut();
+};
 
 export const currentUser = async () => {
   try {
-    return await Auth.currentAuthenticatedUser()
+    return await Auth.currentAuthenticatedUser();
   } catch (error) {
-    return undefined
+    return undefined;
   }
-}
+};
