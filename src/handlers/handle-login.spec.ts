@@ -64,7 +64,7 @@ describe("the login handler", () => {
     const setErrorMessage = jest.fn();
 
     mocked(login, true).mockResolvedValue({
-      ChallengeName: "NEW_PASSWORD_REQUIRED",
+      challengeName: "NEW_PASSWORD_REQUIRED",
       Session: "foo-session",
     });
 
@@ -82,7 +82,7 @@ describe("the login handler", () => {
     const setErrorMessage = jest.fn();
 
     mocked(login, true).mockResolvedValue({
-      ChallengeName: "SMS_MFA",
+      challengeName: "SMS_MFA",
       Session: "foo-session",
     });
 
@@ -100,7 +100,7 @@ describe("the login handler", () => {
     const setErrorMessage = jest.fn();
 
     mocked(login, true).mockResolvedValue({
-      ChallengeName: "NEW_PASSWORD_REQUIRED",
+      challengeName: "NEW_PASSWORD_REQUIRED",
     });
 
     const mockCookies = mockExtended<Cookies>();
@@ -120,7 +120,7 @@ describe("the login handler", () => {
     const setErrorMessage = jest.fn();
 
     mocked(login, true).mockResolvedValue({
-      ChallengeName: "SMS_MFA",
+      challengeName: "SMS_MFA",
     });
 
     const mockCookies = mockExtended<Cookies>();
@@ -140,12 +140,12 @@ describe("the login handler", () => {
     const setErrorMessage = jest.fn();
 
     mocked(login, true).mockResolvedValue({
-      ChallengeName: "NEW_PASSWORD_REQUIRED",
+      challengeName: "NEW_PASSWORD_REQUIRED",
     });
 
     await handleLogin("foo", "bar", setUser, setErrorMessage);
 
-    expect(mocked(navigate, true)).toHaveBeenCalledWith(`/new-password`);
+    expect(mocked(navigate, true)).toHaveBeenCalledWith(`/change-password`);
   });
 
   it("redirects to the MFA password page if the response is a MFA challenge", async () => {
@@ -153,7 +153,7 @@ describe("the login handler", () => {
     const setErrorMessage = jest.fn();
 
     mocked(login, true).mockResolvedValue({
-      ChallengeName: "SMS_MFA",
+      challengeName: "SMS_MFA",
     });
 
     await handleLogin("foo", "bar", setUser, setErrorMessage);
