@@ -1,8 +1,28 @@
-import { FC } from "react";
+import { Button } from "../../atoms";
+import {
+  Dispatch,
+  SetStateAction,
+  Children,
+  ReactElement,
+  ReactNode,
+  PropsWithChildren,
+  ChangeEvent,
+  useState,
+  isValidElement,
+} from "react";
 import styled from "@emotion/styled";
 
-export interface ChallengeFormProps {
+export interface ChallengeFormProps<T extends Record<string, unknown>> {
   header?: string;
+  submitText?: string;
+  onSubmit?: (data: T) => void;
+  errors?: ErrorResponse<T>;
+}
+
+interface ErrorResponse<T extends Record<string, unknown>> {
+  field?: ChallengeFormProps<T>["onSubmit"] extends (...args: any) => any
+    ? keyof Parameters<ChallengeFormProps<T>["onSubmit"]>[0]
+    : never;
 }
 
 const FlexForm = styled.form`
@@ -21,11 +41,57 @@ const StyledH2 = styled.h2`
 `;
 StyledH2.displayName = "h2";
 
-const ChallengeForm: FC<ChallengeFormProps> = (props) => (
-  <FlexForm>
-    {props.header ? <StyledH2>{props.header}</StyledH2> : null}
-    {props.children}
-  </FlexForm>
-);
+const addEventHandlers = <T,>(
+  nodes: ReactNode,
+  data: T,
+  setData: Dispatch<SetStateAction<T>>
+) => {
+  return Children.map(nodes, (node) => {
+    if (!isValidElement(node)) {
+      return node;
+    }
+    const element: ReactElement = node;
+    if (element.props.name) {
+      return (
+        <element.type
+          {...element.props}
+          onChange={(event: ChangeEvent<HTMLInputElement>) => {
+            setData({ ...data, [element.props.name]: event.target.value });
+          }}
+        />
+      );
+    }
+    return <element.type {...element.props} />;
+  });
+};
+
+function assertFC<P>(
+  _component: React.FC<P>
+  // eslint-disable-next-line @typescript-eslint/no-empty-function
+): asserts _component is React.FC<P> {}
+
+function ChallengeForm<T extends Record<string, unknown>>(
+  props: PropsWithChildren<ChallengeFormProps<T>>
+): ReactElement | null {
+  const [data, setData] = useState<T | undefined>();
+  return (
+    <FlexForm>
+      {props.header ? <StyledH2>{props.header}</StyledH2> : null}
+      {addEventHandlers(props.children, data, setData)}
+      <Button
+        onClick={(event) => {
+          if (data) {
+            props.onSubmit?.(data);
+            event.preventDefault();
+          }
+        }}
+      >
+        {props.submitText ?? "Submit"}
+      </Button>
+    </FlexForm>
+  );
+}
+
+assertFC(ChallengeForm);
 
 export default ChallengeForm;
