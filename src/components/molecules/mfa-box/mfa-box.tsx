@@ -1,6 +1,7 @@
 import { FC, useState } from "react";
 import { Button, Input } from "../../atoms";
 import { ChallengeForm } from "../../containers";
+import styled from "@emotion/styled";
 
 interface MfaData {
   code: string;
@@ -16,12 +17,18 @@ export interface MfaBoxProps {
   errors?: ErrorResponse;
 }
 
+const StyledP = styled.p`
+  font-family: "Acumin Pro";
+`;
+
 const MfaBox: FC<MfaBoxProps> = (props) => {
   const [data, setData] = useState<MfaData>({ code: "" });
 
   return (
-    <ChallengeForm header="Login">
-      <p>Please enter the code sent to your phone</p>
+    <ChallengeForm header="Two Factor Authentication">
+      <StyledP>
+        A code has been sent to your phone. Please enter it in the box below.
+      </StyledP>
       <Input
         label="Code"
         name="code"
@@ -35,7 +42,7 @@ const MfaBox: FC<MfaBoxProps> = (props) => {
         }}
         primary
       >
-        Login
+        Submit
       </Button>
     </ChallengeForm>
   );
