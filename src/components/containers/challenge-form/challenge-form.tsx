@@ -80,6 +80,7 @@ function ChallengeForm<T>(
       {props.header ? <StyledH2>{props.header}</StyledH2> : null}
       {addEventHandlers(props.children, data, setData)}
       <Button
+        primary
         onClick={(event) => {
           if (data) {
             props.onSubmit?.(data);
