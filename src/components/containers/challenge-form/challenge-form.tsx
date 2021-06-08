@@ -17,7 +17,7 @@ export interface ChallengeFormProps<T> {
   header?: string;
   submitText?: string;
   onSubmit?: (data: T) => void;
-  errors?: ErrorResponse<T>;
+  errors?: ErrorResponse<T>[];
 }
 
 interface ErrorResponse<T> {

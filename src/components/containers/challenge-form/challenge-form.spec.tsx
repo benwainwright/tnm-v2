@@ -1,6 +1,5 @@
 import { shallow } from "enzyme";
 import { Button } from "../../atoms";
-import { mock } from "jest-mock-extended";
 import ChallengeForm from "./challenge-form";
 import { act } from "react-dom/test-utils";
 
@@ -45,8 +44,7 @@ describe("the challenge form", () => {
 
     const wrapper = shallow(
       <ChallengeForm submitText="login" onSubmit={mockOnSubmit}>
-        <input name="foo" />a text node
-        <p>A paragraph node</p>
+        <input name="foo" />
         <input name="bar" />
       </ChallengeForm>
     );
