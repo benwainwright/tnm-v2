@@ -45,7 +45,8 @@ describe("the challenge form", () => {
 
     const wrapper = shallow(
       <ChallengeForm submitText="login" onSubmit={mockOnSubmit}>
-        <input name="foo" />
+        <input name="foo" />a text node
+        <p>A paragraph node</p>
         <input name="bar" />
       </ChallengeForm>
     );
