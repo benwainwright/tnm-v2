@@ -12,14 +12,15 @@ import {
 } from "react";
 import styled from "@emotion/styled";
 
-export interface ChallengeFormProps<T extends Record<string, unknown>> {
+export interface ChallengeFormProps<T> {
+  value?: T;
   header?: string;
   submitText?: string;
   onSubmit?: (data: T) => void;
   errors?: ErrorResponse<T>;
 }
 
-interface ErrorResponse<T extends Record<string, unknown>> {
+interface ErrorResponse<T> {
   field?: ChallengeFormProps<T>["onSubmit"] extends (...args: any) => any
     ? keyof Parameters<ChallengeFormProps<T>["onSubmit"]>[0]
     : never;
@@ -70,7 +71,7 @@ function assertFC<P>(
   // eslint-disable-next-line @typescript-eslint/no-empty-function
 ): asserts _component is React.FC<P> {}
 
-function ChallengeForm<T extends Record<string, unknown>>(
+function ChallengeForm<T>(
   props: PropsWithChildren<ChallengeFormProps<T>>
 ): ReactElement | null {
   const [data, setData] = useState<T | undefined>();

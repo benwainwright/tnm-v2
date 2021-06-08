@@ -1,5 +1,5 @@
-import { FC, useState } from "react";
-import { Button, Input } from "../../atoms";
+import { FC } from "react";
+import { Input } from "../../atoms";
 import { ChallengeForm } from "../../containers";
 import styled from "@emotion/styled";
 
@@ -21,31 +21,13 @@ const StyledP = styled.p`
   font-family: "Acumin Pro";
 `;
 
-const MfaBox: FC<MfaBoxProps> = (props) => {
-  const [data, setData] = useState<MfaData>({ code: "" });
-
-  return (
-    <ChallengeForm header="Two Factor Authentication">
-      <StyledP>
-        A code has been sent to your phone. Please enter it in the box below.
-      </StyledP>
-      <Input
-        label="Code"
-        name="code"
-        value={data.code}
-        onChange={(event) => setData({ code: event.target.value })}
-      />
-      <Button
-        onClick={(event) => {
-          props.onDoMfa?.(data);
-          event.preventDefault();
-        }}
-        primary
-      >
-        Submit
-      </Button>
-    </ChallengeForm>
-  );
-};
+const MfaBox: FC<MfaBoxProps> = (props) => (
+  <ChallengeForm header="Two Factor Authentication" onSubmit={props.onDoMfa}>
+    <StyledP>
+      A code has been sent to your phone. Please enter it in the box below.
+    </StyledP>
+    <Input label="Code" name="code" />
+  </ChallengeForm>
+);
 
 export default MfaBox;

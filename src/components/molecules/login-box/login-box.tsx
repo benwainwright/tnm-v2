@@ -25,38 +25,12 @@ const StyledLink = styled.a`
   text-decoration: 0;
 `;
 
-const LoginBox: FC<LoginBoxProps> = (props) => {
-  const [data, setData] = useState<LoginData>({ email: "", password: "" });
-
-  return (
-    <ChallengeForm header="Login">
-      <Input
-        label="Email"
-        placeholder="a@b.com"
-        name="email"
-        type="email"
-        value={data.email}
-        onChange={(event) => setData({ ...data, email: event.target.value })}
-      />
-      <Input
-        label="Password"
-        name="password"
-        type="password"
-        value={data.password}
-        onChange={(event) => setData({ ...data, password: event.target.value })}
-      />
-      <StyledLink href="#">Forgot your password?</StyledLink>
-      <Button
-        onClick={(event) => {
-          props.onLogin?.(data);
-          event.preventDefault();
-        }}
-        primary
-      >
-        Login
-      </Button>
-    </ChallengeForm>
-  );
-};
+const LoginBox: FC<LoginBoxProps> = (props) => (
+  <ChallengeForm header="Login" submitText="Login" onSubmit={props.onLogin}>
+    <Input label="Email" placeholder="a@b.com" name="email" type="email" />
+    <Input label="Password" name="password" type="password" />
+    <StyledLink href="#">Forgot your password?</StyledLink>
+  </ChallengeForm>
+);
 
 export default LoginBox;
