@@ -4,7 +4,7 @@ import { navigate } from "gatsby";
 export const CHALLENGE_USERNAME_COOKIE_STRING = "TNMV2_CHALLENGE_USERNAME";
 export const SESSION_COOKIE_STRING = "TNMV2_SESSION";
 
-export const handleChallenge = (user: string, challengeName: string) => {
+export const handleSrpResponse = (user: string, challengeName: string) => {
   const cookies = new Cookies();
 
   if (

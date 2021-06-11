@@ -3,7 +3,7 @@ import { Dispatch, SetStateAction } from "react";
 import { ErrorResponse } from "../types/error-response";
 import { LoginData } from "../types/LoginData";
 import { login } from "../aws/authenticate";
-import { handleChallenge } from "./handle-challenge";
+import { handleSrpResponse } from "./handle-srp-response";
 import { ApiError } from "../types/api-error";
 
 interface ErrorMap {
@@ -25,7 +25,7 @@ export const handleLogin = async (
     const loginResponse = await login(user, password);
 
     if (loginResponse.challengeName) {
-      handleChallenge(loginResponse.username, loginResponse.challengeName);
+      handleSrpResponse(loginResponse.username, loginResponse.challengeName);
     }
   } catch (error) {
     if (isApiError(error)) {

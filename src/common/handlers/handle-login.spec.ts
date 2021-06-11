@@ -2,11 +2,11 @@ import { handleLogin } from "./handle-login";
 import { login } from "../aws/authenticate";
 import { mocked } from "ts-jest/utils";
 import { ApiError } from "../types/api-error";
-import { handleChallenge } from "./handle-challenge";
+import { handleSrpResponse } from "./handle-srp-response";
 
 jest.mock("gatsby");
 jest.mock("../aws/authenticate");
-jest.mock("./handle-challenge");
+jest.mock("./handle-srp-response");
 jest.mock("universal-cookie");
 
 describe("the login handler", () => {
@@ -69,7 +69,7 @@ describe("the login handler", () => {
 
     await handleLogin("foo-user", "bar-password", setUser, setErrorMessage);
 
-    expect(mocked(handleChallenge)).toBeCalledWith("foo-user", "A-Challenge");
+    expect(mocked(handleSrpResponse)).toBeCalledWith("foo-user", "A-Challenge");
   });
 
   it.todo("redirects to the account page if the response is successful");

@@ -4,16 +4,16 @@ import { AWSError, Response, CognitoIdentityServiceProvider } from "aws-sdk";
 import {
   CHALLENGE_USERNAME_COOKIE_STRING,
   SESSION_COOKIE_STRING,
-} from "./handle-challenge";
+  handleSrpResponse,
+} from "./handle-srp-response";
 import { mocked } from "ts-jest/utils";
 import { when } from "jest-when";
 import { mock as mockExtended } from "jest-mock-extended";
-import { handleChallenge } from "./handle-challenge";
 import Cookies from "universal-cookie";
 
 jest.mock("gatsby");
 jest.mock("../aws/authenticate");
-jest.mock("./handle-challenge");
+jest.mock("./handle-srp-response");
 jest.mock("universal-cookie");
 
 describe("the login handler", () => {
@@ -74,7 +74,7 @@ describe("the login handler", () => {
 
     await handleChangePassword("bar-password", setUser, setErrorMessage);
 
-    expect(mocked(handleChallenge)).toBeCalledWith("foo-user", "A-Challenge");
+    expect(mocked(handleSrpResponse)).toBeCalledWith("foo-user", "A-Challenge");
   });
 
   it.todo("redirects to the account page if the response is successful");

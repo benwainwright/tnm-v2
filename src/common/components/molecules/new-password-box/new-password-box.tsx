@@ -2,19 +2,12 @@ import { FC } from "react";
 import { Input } from "../../atoms";
 import { ChallengeForm } from "../../containers";
 import styled from "@emotion/styled";
-
-interface NewPasswordData {
-  password: string;
-}
-
-export interface ErrorResponse {
-  field?: keyof NewPasswordData;
-  message: string;
-}
+import { NewPasswordData } from "../../../types/new-password-data";
+import { ErrorResponse } from "../../../types/error-response";
 
 export interface NewPasswordBoxProps {
   onNewPassword?: (data: NewPasswordData) => void;
-  errors?: ErrorResponse;
+  errors?: ErrorResponse<NewPasswordData>[];
 }
 
 const StyledP = styled.p`
@@ -22,7 +15,11 @@ const StyledP = styled.p`
 `;
 
 const NewPasswordBox: FC<NewPasswordBoxProps> = (props) => (
-  <ChallengeForm header="Enter a new password" onSubmit={props.onNewPassword}>
+  <ChallengeForm
+    header="Enter a new password"
+    onSubmit={props.onNewPassword}
+    errors={props.errors}
+  >
     <StyledP>
       You need to change your password. Enter a new one in the box below:
     </StyledP>

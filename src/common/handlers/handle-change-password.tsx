@@ -3,9 +3,8 @@ import { User } from "../user-context";
 
 import {
   CHALLENGE_USERNAME_COOKIE_STRING,
-  SESSION_COOKIE_STRING,
-  handleChallenge,
-} from "./handle-challenge";
+  handleSrpResponse,
+} from "./handle-srp-response";
 import { ErrorResponse } from "../components/molecules/new-password-box";
 import { newPasswordChallengeResponse } from "../aws/authenticate";
 import Cookies from "universal-cookie";
@@ -21,6 +20,6 @@ export const handleChangePassword = async (
 
   const response = await newPasswordChallengeResponse(user, password);
   if (response?.ChallengeName) {
-    handleChallenge(user, response?.ChallengeName);
+    handleSrpResponse(user, response?.ChallengeName);
   }
 };
