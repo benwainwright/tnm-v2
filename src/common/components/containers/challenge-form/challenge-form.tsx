@@ -1,5 +1,5 @@
-import { Button } from "../../atoms";
-import { ErrorResponse } from "../../../types/error-response";
+import { Button } from "@common/components/atoms";
+import { ErrorResponse } from "@common/types/error-response";
 import {
   Dispatch,
   SetStateAction,

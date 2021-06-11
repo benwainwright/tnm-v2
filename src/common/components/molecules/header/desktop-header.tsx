@@ -2,7 +2,7 @@ import { FC } from "react";
 
 import styled from "@emotion/styled";
 import TnmHeader from "../../../../images/TNM-Header.svg";
-import { Button } from "../../atoms";
+import { Button } from "@common/components/atoms";
 
 const HeaderUnorderedList = styled("ul")`
   display: flex;

@@ -3,9 +3,9 @@ import { FC } from "react";
 import styled from "@emotion/styled";
 import MobileHeader from "./mobile-header";
 import DesktopHeader from "./desktop-header";
-import { useBreakpoints } from "../../../hooks";
-import { breakpoints } from "../../../breakpoints";
-import { MENUBAR_HEIGHT } from "../../../config";
+import { useBreakpoints } from "@common/hooks";
+import { breakpoints } from "@common/breakpoints";
+import { MENUBAR_HEIGHT } from "@common/config";
 
 const SiteNavbar = styled("nav")`
   display: flex;
