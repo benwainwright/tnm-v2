@@ -18,7 +18,7 @@ describe("handle challenge", () => {
 
     mocked(Cookies, true).mockImplementation(() => mockCookies);
 
-    handleChallenge("foo-user", "NEW_PASSWORD_REQUIRED", "bar-session");
+    handleChallenge("foo-user", "NEW_PASSWORD_REQUIRED");
 
     expect(mockCookies.set).toBeCalledWith(
       CHALLENGE_USERNAME_COOKIE_STRING,
@@ -31,7 +31,7 @@ describe("handle challenge", () => {
 
     mocked(Cookies, true).mockImplementation(() => mockCookies);
 
-    handleChallenge("foo-user", "SMS_MFA", "bar-session");
+    handleChallenge("foo-user", "SMS_MFA");
 
     expect(mockCookies.set).toBeCalledWith(
       CHALLENGE_USERNAME_COOKIE_STRING,
@@ -40,13 +40,13 @@ describe("handle challenge", () => {
   });
 
   it("redirects to the new password page if the response is a new password challenge", async () => {
-    handleChallenge("foo-user", "NEW_PASSWORD_REQUIRED", "foo-session");
+    handleChallenge("foo-user", "NEW_PASSWORD_REQUIRED");
 
     expect(mocked(navigate, true)).toHaveBeenCalledWith(`/change-password`);
   });
 
   it("redirects to the MFA password page if the response is a MFA challenge", async () => {
-    handleChallenge("foo-user", "MFA_SMS", "foo-session");
+    handleChallenge("foo-user", "MFA_SMS");
 
     expect(mocked(navigate, true)).toHaveBeenCalledWith(`/mfa-login`);
   });
