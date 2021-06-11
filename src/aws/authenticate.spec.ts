@@ -2,29 +2,11 @@ import { Auth } from "aws-amplify";
 import { when } from "jest-when";
 import { mocked } from "ts-jest/utils";
 import { getPoolConfig } from "./getPoolConfig";
-import { CognitoIdentityServiceProvider } from "aws-sdk";
 import * as authenticate from "./authenticate";
 
 jest.mock("aws-amplify");
 jest.mock("aws-sdk");
 jest.mock("./getPoolConfig");
-
-const mockParamsFunction = jest.fn();
-
-jest.mock("aws-sdk", () => {
-  return {
-    CognitoIdentityServiceProvider: class {
-      respondToAuthChallenge(mockParams) {
-        mockParamsFunction(mockParams);
-        return this;
-      }
-
-      promise() {
-        return Promise.resolve();
-      }
-    },
-  };
-});
 
 describe("The authenticate module", () => {
   describe("login()", () => {
@@ -64,7 +46,7 @@ describe("The authenticate module", () => {
   });
 
   describe("newPasswordChallengeResponse", () => {
-    it("calls the respondToAuthChallenge method with the correct params", async () => {
+    it("returns the promise from completeNewPassword", async () => {
       mocked(getPoolConfig).mockReturnValue({
         UserPoolId: "pool-id",
         ClientId: "client-id",
@@ -72,27 +54,17 @@ describe("The authenticate module", () => {
         AuthUrl: "auth-url",
       });
 
-      const sessionValue = "the-session";
       const usernameValue = "the-username";
       const passwordValue = "the-password";
 
-      await authenticate.newPasswordChallengeResponse(
+      mocked(Auth.completeNewPassword).mockResolvedValue("completeResponse");
+
+      const result = await authenticate.newPasswordChallengeResponse(
         usernameValue,
-        passwordValue,
-        sessionValue
+        passwordValue
       );
 
-      expect(mockParamsFunction).toHaveBeenCalledWith(
-        expect.objectContaining({
-          ClientId: "client-id",
-          ChallengeName: "NEW_PASSWORD_REQUIRED",
-          Session: sessionValue,
-          ChallengeResponses: {
-            USERNAME: usernameValue,
-            NEW_PASSWORD: passwordValue,
-          },
-        })
-      );
+      expect(result).toEqual("completeResponse");
     });
   });
 

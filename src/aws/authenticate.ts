@@ -3,6 +3,8 @@ import { getPoolConfig } from "./getPoolConfig";
 import backendOutputs from "../backend-outputs.json";
 import { CognitoIdentityServiceProvider } from "aws-sdk";
 
+const REGION = "eu-west-2";
+
 const getConfigurer = () => {
   let configureDone = false;
   return () => {
@@ -10,7 +12,7 @@ const getConfigurer = () => {
     if (!configureDone) {
       Auth.configure({
         Auth: {
-          region: "eu-west-2",
+          region: REGION,
           userPoolId: outputs.UserPoolId,
           userPoolWebClientId: outputs.ClientId,
         },
@@ -44,22 +46,8 @@ export const currentUser = async () => {
 
 export const newPasswordChallengeResponse = async (
   username: string,
-  password: string,
-  session: string
+  password: string
 ) => {
-  const cognito = new CognitoIdentityServiceProvider();
-  const config = configureAuth();
-  if (config) {
-    return cognito
-      .respondToAuthChallenge({
-        ClientId: config.ClientId,
-        ChallengeName: "NEW_PASSWORD_REQUIRED",
-        Session: session,
-        ChallengeResponses: {
-          USERNAME: username,
-          NEW_PASSWORD: password,
-        },
-      })
-      .promise();
-  }
+  configureAuth();
+  return Auth.completeNewPassword(username, password);
 };

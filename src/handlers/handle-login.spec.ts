@@ -62,17 +62,14 @@ describe("the login handler", () => {
     const setUser = jest.fn();
     const setErrorMessage = jest.fn();
     mocked(login, true).mockResolvedValue({
+      username: "foo-user",
       challengeName: "A-Challenge",
-      session: "The-Session",
+      Session: "The-Session",
     });
 
     await handleLogin("foo-user", "bar-password", setUser, setErrorMessage);
 
-    expect(mocked(handleChallenge)).toBeCalledWith(
-      "foo-user",
-      "A-Challenge",
-      "The-Session"
-    );
+    expect(mocked(handleChallenge)).toBeCalledWith("foo-user", "A-Challenge");
   });
 
   it.todo("redirects to the account page if the response is successful");

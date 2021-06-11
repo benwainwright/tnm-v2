@@ -4,16 +4,8 @@ import { navigate } from "gatsby";
 export const CHALLENGE_USERNAME_COOKIE_STRING = "TNMV2_CHALLENGE_USERNAME";
 export const SESSION_COOKIE_STRING = "TNMV2_SESSION";
 
-export const handleChallenge = (
-  user: string,
-  challengeName: string,
-  session?: string
-) => {
+export const handleChallenge = (user: string, challengeName: string) => {
   const cookies = new Cookies();
-
-  if (session) {
-    cookies.set(SESSION_COOKIE_STRING, session);
-  }
 
   if (
     challengeName === "NEW_PASSWORD_REQUIRED" ||

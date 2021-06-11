@@ -1,11 +1,19 @@
-import { FC } from "react";
+import { FC, useState, useContext } from "react";
 import Layout from "../components/layout";
 import { NewPasswordBox } from "../components/molecules";
+import { handleChangePassword } from "../handlers/handle-change-password";
+import { UserContext } from "../user-context";
 
 const ChangePassword: FC = () => {
+  const [errorMessage, setErrorMessage] = useState<ErrorResponse | undefined>();
+  const user = useContext(UserContext);
   return (
     <Layout>
-      <NewPasswordBox />
+      <NewPasswordBox
+        onNewPassword={(data) =>
+          handleChangePassword(data.password, user.setUser, setErrorMessage)
+        }
+      />
     </Layout>
   );
 };

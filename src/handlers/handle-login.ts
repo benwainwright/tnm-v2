@@ -23,7 +23,7 @@ export const handleLogin = async (
     const loginResponse = await login(user, password);
 
     if (loginResponse.challengeName) {
-      handleChallenge(user, loginResponse.challengeName, loginResponse.session);
+      handleChallenge(loginResponse.username, loginResponse.challengeName);
     }
   } catch (error) {
     if (isApiError(error)) {

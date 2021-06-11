@@ -18,10 +18,9 @@ export const handleChangePassword = async (
   const cookies = new Cookies();
 
   const user = cookies.get(CHALLENGE_USERNAME_COOKIE_STRING);
-  const session = cookies.get(SESSION_COOKIE_STRING);
 
-  const response = await newPasswordChallengeResponse(user, password, session);
+  const response = await newPasswordChallengeResponse(user, password);
   if (response?.ChallengeName) {
-    handleChallenge(user, response?.ChallengeName, session);
+    handleChallenge(user, response?.ChallengeName);
   }
 };

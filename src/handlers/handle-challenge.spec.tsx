@@ -13,19 +13,6 @@ jest.mock("gatsby");
 jest.mock("universal-cookie");
 
 describe("handle challenge", () => {
-  it("sets TNMV2_SESSION cookie if session is supplied", async () => {
-    const mockCookies = mockExtended<Cookies>();
-
-    mocked(Cookies, true).mockImplementation(() => mockCookies);
-
-    handleChallenge("foo-user", "the-challenge", "bar-session");
-
-    expect(mockCookies.set).toBeCalledWith(
-      SESSION_COOKIE_STRING,
-      "bar-session"
-    );
-  });
-
   it("sets TNMV2_CHALLENGE_USERNAME cookie if new password challenge is supplied and a user is supplied", async () => {
     const mockCookies = mockExtended<Cookies>();
 

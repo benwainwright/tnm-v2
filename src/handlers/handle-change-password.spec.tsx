@@ -40,8 +40,7 @@ describe("the login handler", () => {
 
     expect(newPasswordChallengeResponse).toBeCalledWith(
       "foo-user",
-      "foo-password",
-      "foo-session"
+      "foo-password"
     );
   });
 
@@ -75,11 +74,7 @@ describe("the login handler", () => {
 
     await handleChangePassword("bar-password", setUser, setErrorMessage);
 
-    expect(mocked(handleChallenge)).toBeCalledWith(
-      "foo-user",
-      "A-Challenge",
-      "foo-session"
-    );
+    expect(mocked(handleChallenge)).toBeCalledWith("foo-user", "A-Challenge");
   });
 
   it.todo("redirects to the account page if the response is successful");
