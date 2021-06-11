@@ -1,7 +1,8 @@
-import { shallow } from "enzyme";
-import { Button } from "../../atoms";
+import { shallow, mount } from "enzyme";
+import { Button, Input } from "../../atoms";
 import ChallengeForm from "./challenge-form";
 import { act } from "react-dom/test-utils";
+import { mock } from "jest-mock-extended";
 
 describe("the challenge form", () => {
   it("renders its children", () => {
@@ -74,7 +75,6 @@ describe("the challenge form", () => {
 
   it("calls preventDefault when the login button is clicked", () => {
     const mockOnSubmit = jest.fn();
-
     const wrapper = shallow(
       <ChallengeForm submitText="login" onSubmit={mockOnSubmit}>
         <input name="foo" />
@@ -99,5 +99,35 @@ describe("the challenge form", () => {
     wrapper.find(Button).simulate("click", { preventDefault });
 
     expect(preventDefault).toHaveBeenCalled();
+  });
+
+  it("passes error messages for the correct fields into the correct input boxes", () => {
+    type FormData = {
+      foo: string;
+      bar: string;
+    };
+
+    const mockOnSubmit = mock<(data: FormData) => void>();
+
+    const errorMessages = [
+      { field: "bar" as const, message: "An error message for bar" },
+    ];
+
+    const wrapper = shallow(
+      <ChallengeForm
+        submitText="login"
+        onSubmit={mockOnSubmit}
+        errors={errorMessages}
+      >
+        <Input name="foo" />
+        <Input name="bar" />
+      </ChallengeForm>
+    );
+
+    const fooInput = wrapper.findWhere((input) => input.prop("name") === "foo");
+    const barInput = wrapper.findWhere((input) => input.prop("name") === "bar");
+
+    expect(fooInput.prop("errorMessage")).toBeUndefined();
+    expect(barInput.prop("errorMessage")).toEqual("An error message for bar");
   });
 });

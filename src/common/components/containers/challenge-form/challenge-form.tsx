@@ -1,4 +1,5 @@
 import { Button } from "../../atoms";
+import { ErrorResponse } from "../../../types/error-response";
 import {
   Dispatch,
   SetStateAction,
@@ -20,12 +21,6 @@ export interface ChallengeFormProps<T> {
   errors?: ErrorResponse<T>[];
 }
 
-interface ErrorResponse<T> {
-  field?: ChallengeFormProps<T>["onSubmit"] extends (...args: any) => any
-    ? keyof Parameters<ChallengeFormProps<T>["onSubmit"]>[0]
-    : never;
-}
-
 const FlexForm = styled.form`
   display: flex;
   flex-direction: column;
@@ -41,6 +36,28 @@ const StyledH2 = styled.h2`
   margin: 0 0 1rem 0;
 `;
 StyledH2.displayName = "h2";
+
+const addErrorMessages = <T,>(
+  nodes: ReactNode,
+  errorMessages?: ErrorResponse<T>[]
+) =>
+  Children.map(nodes, (node) => {
+    if (!isValidElement(node)) {
+      return node;
+    }
+
+    const element: ReactElement = node;
+
+    const matchingMessage = errorMessages?.find(
+      (message) => element.props.name === message.field
+    );
+
+    return matchingMessage ? (
+      <element.type {...element.props} errorMessage={matchingMessage.message} />
+    ) : (
+      element
+    );
+  });
 
 const addEventHandlers = <T,>(
   nodes: ReactNode,
@@ -75,10 +92,12 @@ function ChallengeForm<T>(
   props: PropsWithChildren<ChallengeFormProps<T>>
 ): ReactElement | null {
   const [data, setData] = useState<T | undefined>();
+  const eventHandlersAdded = addEventHandlers(props.children, data, setData);
+  const errorMessagesAdded = addErrorMessages(eventHandlersAdded, props.errors);
   return (
     <FlexForm>
       {props.header ? <StyledH2>{props.header}</StyledH2> : null}
-      {addEventHandlers(props.children, data, setData)}
+      {errorMessagesAdded}
       <Button
         primary
         onClick={(event) => {
