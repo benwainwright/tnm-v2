@@ -20,6 +20,7 @@ const ErrorLabel = styled.label`
   font-family: "Acumin Pro";
   color: red;
   padding-bottom: 0.5rem;
+  font-style: italic;
 `;
 
 ErrorLabel.displayName = "label";
@@ -27,6 +28,7 @@ ErrorLabel.displayName = "label";
 const InputLabel = styled.label`
   font-family: "Acumin Pro";
   color: ${LABEL_TEXT};
+  flex-grow: 999;
   padding-bottom: 0.5rem;
 `;
 InputLabel.displayName = "label";
