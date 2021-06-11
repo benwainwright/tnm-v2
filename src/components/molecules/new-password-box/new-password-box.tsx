@@ -12,7 +12,7 @@ export interface ErrorResponse {
   message: string;
 }
 
-export interface NewPasswordProps {
+export interface NewPasswordBoxProps {
   onNewPassword?: (data: NewPasswordData) => void;
   errors?: ErrorResponse;
 }
@@ -21,7 +21,7 @@ const StyledP = styled.p`
   font-family: "Acumin Pro";
 `;
 
-const NewPasswordBox: FC<NewPasswordProps> = (props) => (
+const NewPasswordBox: FC<NewPasswordBoxProps> = (props) => (
   <ChallengeForm header="Enter a new password" onSubmit={props.onNewPassword}>
     <StyledP>
       You need to change your password. Enter a new one in the box below:

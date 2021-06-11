@@ -7,7 +7,7 @@ export default {
   component: ChallengeForm,
 } as Meta;
 
-const Template: Story<ChallengeFormProps> = (args) => (
+const Template: Story<ChallengeFormProps<{}>> = (args) => (
   <ChallengeForm {...args}>
     <p>Some content</p>
   </ChallengeForm>
