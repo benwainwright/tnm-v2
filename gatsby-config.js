@@ -7,6 +7,14 @@ module.exports = {
   },
   plugins: [
     {
+      resolve: "gatsby-plugin-alias-imports",
+      options: {
+        alias: {
+          "@common": path.resolve(__dirname, "src", "common"),
+        },
+      },
+    },
+    {
       resolve: "gatsby-plugin-page-creator",
       options: {
         path: path.resolve(__dirname, "src", "common", "pages"),

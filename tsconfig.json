@@ -1,5 +1,10 @@
 {
   "compilerOptions": {
+    "baseUrl": "./src",
+    "paths": {
+      "@common/*": ["common/*"],
+      "@/*": ["*"]
+    },
     "target": "es5",
     "noEmit": true,
     "module": "commonjs",

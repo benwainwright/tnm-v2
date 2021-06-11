@@ -2,7 +2,7 @@ import { FC, ChangeEvent } from "react";
 
 import styled from "@emotion/styled";
 
-import { LABEL_TEXT, BUTTON_BLACK } from "../../../config";
+import { LABEL_TEXT, BUTTON_BLACK } from "@common/config";
 
 const InputContainer = styled.div`
   font-family: "Acumin Pro";
