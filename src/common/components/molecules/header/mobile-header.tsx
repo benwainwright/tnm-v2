@@ -1,9 +1,9 @@
 import { FC, Fragment } from "react";
 
-import MenuIcon from "../../../images/icons/menu.inline.svg";
-import TnmNLogo from "../../../images/icons/tnm-n-logo.inline.svg";
+import MenuIcon from "../../../../images/icons/menu.inline.svg";
+import TnmNLogo from "../../../../images/icons/tnm-n-logo.inline.svg";
 import styled from "@emotion/styled";
-import { Button } from "../../../components/atoms";
+import { Button } from "../../atoms";
 
 const StyledMenuIcon = styled(MenuIcon)`
   width: 40px;

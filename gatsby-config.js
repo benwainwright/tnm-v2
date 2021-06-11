@@ -1,3 +1,4 @@
+const path = require("path");
 module.exports = {
   siteMetadata: {
     title: `TNM Admin V2`,
@@ -5,6 +6,12 @@ module.exports = {
     author: `@gatsbyjs`,
   },
   plugins: [
+    {
+      resolve: "gatsby-plugin-page-creator",
+      options: {
+        path: path.resolve(__dirname, "src", "common", "pages"),
+      },
+    },
     {
       resolve: `gatsby-plugin-emotion`,
       options: {

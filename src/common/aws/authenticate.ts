@@ -1,7 +1,6 @@
 import { Auth } from "aws-amplify";
 import { getPoolConfig } from "./getPoolConfig";
-import backendOutputs from "../backend-outputs.json";
-import { CognitoIdentityServiceProvider } from "aws-sdk";
+import backendOutputs from "../../backend-outputs.json";
 
 const REGION = "eu-west-2";
 

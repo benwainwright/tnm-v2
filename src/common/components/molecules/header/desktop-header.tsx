@@ -1,8 +1,8 @@
 import { FC } from "react";
 
 import styled from "@emotion/styled";
-import TnmHeader from "../../../images/TNM-Header.svg";
-import { Button } from "../../../components/atoms";
+import TnmHeader from "../../../../images/TNM-Header.svg";
+import { Button } from "../../atoms";
 
 const HeaderUnorderedList = styled("ul")`
   display: flex;
