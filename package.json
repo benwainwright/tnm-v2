@@ -91,7 +91,7 @@
     "test:watch": "jest --config ./config/jest.config.ts --watch",
     "test": "jest --config ./config/jest.config.ts",
     "test:coverage": "jest --config ./config/jest.config.ts --coverage",
-    "storybook": "start-storybook --port 6006 --static-dir ./src/fonts",
+    "storybook": "start-storybook --port 6006 --static-dir ./src/common/fonts",
     "storybook:build": "build-storybook --static-dir ./src/fonts --output-dir ./public/storybook",
     "lint": "eslint .",
     "build-storybook": "build-storybook"
