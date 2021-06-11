@@ -39,6 +39,7 @@
     "eslint-plugin-only-error": "^1.0.2",
     "eslint-plugin-react": "^7.24.0",
     "eslint-plugin-react-hooks": "^4.2.0",
+    "fp-ts": "^2.10.5",
     "gatsby": "^3.4.1",
     "gatsby-plugin-emotion": "^6.6.0",
     "gatsby-plugin-gatsby-cloud": "^2.4.1",

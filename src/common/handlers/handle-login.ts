@@ -1,13 +1,13 @@
 import { User } from "../user-context";
 import { Dispatch, SetStateAction } from "react";
-import { ErrorResponse } from "../components/molecules/login-box";
+import { ErrorResponse } from "../types/error-response";
+import { LoginData } from "../types/LoginData";
 import { login } from "../aws/authenticate";
 import { handleChallenge } from "./handle-challenge";
 import { ApiError } from "../types/api-error";
-import Cookies from "universal-cookie";
 
 interface ErrorMap {
-  [code: string]: ErrorResponse;
+  [code: string]: ErrorResponse<LoginData>;
 }
 
 const isApiError = (error: Error): error is ApiError =>
@@ -17,7 +17,9 @@ export const handleLogin = async (
   user: string,
   password: string,
   setUser: Dispatch<SetStateAction<User | undefined>> | undefined,
-  setErrorMessage: Dispatch<SetStateAction<ErrorResponse | undefined>>
+  setErrorMessage: Dispatch<
+    SetStateAction<ErrorResponse<LoginData> | undefined>
+  >
 ): Promise<void> => {
   try {
     const loginResponse = await login(user, password);
@@ -38,8 +40,10 @@ export const handleLogin = async (
         },
       };
 
-      if (errorMap.hasOwnProperty(error.code)) {
-        setErrorMessage(errorMap[error.code]);
+      const code = error.code;
+
+      if (errorMap.hasOwnProperty(code)) {
+        setErrorMessage(errorMap[code]);
       }
       return;
     }
