@@ -1,13 +1,12 @@
 import { handleLogin } from "./handle-login";
 import { login } from "../aws/authenticate";
 import { mocked } from "ts-jest/utils";
-import { mock as mockExtended } from "jest-mock-extended";
 import { ApiError } from "../types/api-error";
-import { navigate } from "gatsby";
-import Cookies from "universal-cookie";
+import { handleChallenge } from "./handle-challenge";
 
 jest.mock("gatsby");
 jest.mock("../aws/authenticate");
+jest.mock("./handle-challenge");
 jest.mock("universal-cookie");
 
 describe("the login handler", () => {
@@ -59,106 +58,21 @@ describe("the login handler", () => {
     });
   });
 
-  it("sets TNMV2_SESSION cookie if new password challenge is required", async () => {
+  it("calls handle challenge when a challenge is supplied", async () => {
     const setUser = jest.fn();
     const setErrorMessage = jest.fn();
-
     mocked(login, true).mockResolvedValue({
-      challengeName: "NEW_PASSWORD_REQUIRED",
-      Session: "foo-session",
+      challengeName: "A-Challenge",
+      session: "The-Session",
     });
 
-    const mockCookies = mockExtended<Cookies>();
+    await handleLogin("foo-user", "bar-password", setUser, setErrorMessage);
 
-    mocked(Cookies, true).mockImplementation(() => mockCookies);
-
-    await handleLogin("foo-user", "bar", setUser, setErrorMessage);
-
-    expect(mockCookies.set).toBeCalledWith("TNMV2_SESSION", "foo-session");
-  });
-
-  it("sets TNMV2_SESSION cookie if SMS_MFA challenge is required", async () => {
-    const setUser = jest.fn();
-    const setErrorMessage = jest.fn();
-
-    mocked(login, true).mockResolvedValue({
-      challengeName: "SMS_MFA",
-      Session: "foo-session",
-    });
-
-    const mockCookies = mockExtended<Cookies>();
-
-    mocked(Cookies, true).mockImplementation(() => mockCookies);
-
-    await handleLogin("foo-user", "bar", setUser, setErrorMessage);
-
-    expect(mockCookies.set).toBeCalledWith("TNMV2_SESSION", "foo-session");
-  });
-
-  it("sets TNMV2_CHALLENGE_USERNAME cookie if new password challenge is required", async () => {
-    const setUser = jest.fn();
-    const setErrorMessage = jest.fn();
-
-    mocked(login, true).mockResolvedValue({
-      challengeName: "NEW_PASSWORD_REQUIRED",
-    });
-
-    const mockCookies = mockExtended<Cookies>();
-
-    mocked(Cookies, true).mockImplementation(() => mockCookies);
-
-    await handleLogin("foo-user", "bar", setUser, setErrorMessage);
-
-    expect(mockCookies.set).toBeCalledWith(
-      "TNMV2_CHALLENGE_USERNAME",
-      "foo-user"
+    expect(mocked(handleChallenge)).toBeCalledWith(
+      "foo-user",
+      "A-Challenge",
+      "The-Session"
     );
-  });
-
-  it("sets TNMV2_CHALLENGE_USERNAME cookie if MFA challenge is required", async () => {
-    const setUser = jest.fn();
-    const setErrorMessage = jest.fn();
-
-    mocked(login, true).mockResolvedValue({
-      challengeName: "SMS_MFA",
-    });
-
-    const mockCookies = mockExtended<Cookies>();
-
-    mocked(Cookies, true).mockImplementation(() => mockCookies);
-
-    await handleLogin("foo-user", "bar", setUser, setErrorMessage);
-
-    expect(mockCookies.set).toBeCalledWith(
-      "TNMV2_CHALLENGE_USERNAME",
-      "foo-user"
-    );
-  });
-
-  it("redirects to the new password page if the response is a new password challenge", async () => {
-    const setUser = jest.fn();
-    const setErrorMessage = jest.fn();
-
-    mocked(login, true).mockResolvedValue({
-      challengeName: "NEW_PASSWORD_REQUIRED",
-    });
-
-    await handleLogin("foo", "bar", setUser, setErrorMessage);
-
-    expect(mocked(navigate, true)).toHaveBeenCalledWith(`/change-password`);
-  });
-
-  it("redirects to the MFA password page if the response is a MFA challenge", async () => {
-    const setUser = jest.fn();
-    const setErrorMessage = jest.fn();
-
-    mocked(login, true).mockResolvedValue({
-      challengeName: "SMS_MFA",
-    });
-
-    await handleLogin("foo", "bar", setUser, setErrorMessage);
-
-    expect(mocked(navigate, true)).toHaveBeenCalledWith(`/mfa-login`);
   });
 
   it.todo("redirects to the account page if the response is successful");
