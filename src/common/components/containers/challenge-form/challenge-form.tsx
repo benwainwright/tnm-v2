@@ -18,7 +18,7 @@ export interface ChallengeFormProps<T> {
   header?: string;
   submitText?: string;
   onSubmit?: (data: T) => void;
-  errors?: ErrorResponse<T>[];
+  errors?: ErrorResponse[];
 }
 
 const FlexForm = styled.form`
@@ -37,10 +37,7 @@ const StyledH2 = styled.h2`
 `;
 StyledH2.displayName = "h2";
 
-const addErrorMessages = <T,>(
-  nodes: ReactNode,
-  errorMessages?: ErrorResponse<T>[]
-) =>
+const addErrorMessages = (nodes: ReactNode, errorMessages?: ErrorResponse[]) =>
   Children.map(nodes, (node) => {
     if (!isValidElement(node)) {
       return node;

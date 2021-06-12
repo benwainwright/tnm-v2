@@ -1,7 +1,7 @@
 import { FC, useState, useContext } from "react";
 import Layout from "../components/layout";
 import { NewPasswordBox } from "../components/molecules";
-import { ErrorResponse } from "../components/molecules/new-password-box";
+import { ErrorResponse } from "@common/types/error-response";
 import { handleChangePassword } from "../handlers/handle-change-password";
 import { UserContext } from "../user-context";
 

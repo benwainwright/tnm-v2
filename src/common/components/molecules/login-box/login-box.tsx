@@ -1,14 +1,14 @@
 import { FC } from "react";
 import { Input } from "../../atoms";
 import styled from "@emotion/styled";
-import { BUTTON_BLACK } from "../../../config";
-import { ChallengeForm } from "../../containers";
-import { ErrorResponse } from "../../../types/error-response";
-import { LoginData } from "../../../types/LoginData";
+import { BUTTON_BLACK } from "@common/config";
+import { ChallengeForm } from "@common/components/containers";
+import { ErrorResponse } from "@common/types/error-response";
+import { LoginData } from "@common/types/LoginData";
 
 export interface LoginBoxProps {
   onLogin?: (data: LoginData) => void;
-  errors?: ErrorResponse<LoginData>[];
+  errors?: ErrorResponse[];
 }
 
 const StyledLink = styled.a`

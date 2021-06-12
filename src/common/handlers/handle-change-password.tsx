@@ -5,7 +5,7 @@ import {
   CHALLENGE_USERNAME_COOKIE_STRING,
   handleSrpResponse,
 } from "./handle-srp-response";
-import { ErrorResponse } from "../components/molecules/new-password-box";
+import { ErrorResponse } from "@common/types/error-response";
 import { newPasswordChallengeResponse } from "../aws/authenticate";
 import Cookies from "universal-cookie";
 

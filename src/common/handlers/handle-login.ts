@@ -7,7 +7,7 @@ import { handleSrpResponse } from "./handle-srp-response";
 import { ApiError } from "../types/api-error";
 
 interface ErrorMap {
-  [code: string]: ErrorResponse<LoginData>;
+  [code: string]: ErrorResponse;
 }
 
 const isApiError = (error: Error): error is ApiError =>
@@ -17,9 +17,7 @@ export const handleLogin = async (
   user: string,
   password: string,
   setUser: Dispatch<SetStateAction<User | undefined>> | undefined,
-  setErrorMessage: Dispatch<
-    SetStateAction<ErrorResponse<LoginData> | undefined>
-  >
+  setErrorMessage: Dispatch<SetStateAction<ErrorResponse | undefined>>
 ): Promise<void> => {
   try {
     const loginResponse = await login(user, password);

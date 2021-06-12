@@ -1,4 +1,4 @@
-export interface ErrorResponse<T> {
+export interface ErrorResponse {
   message: string;
-  field: keyof T;
+  field: string;
 }

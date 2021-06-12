@@ -2,8 +2,7 @@
   "compilerOptions": {
     "baseUrl": "./src",
     "paths": {
-      "@tnm2/common/*": ["common/*"],
-      "@tnm2/*": ["*"]
+      "@common/*": ["common/*"]
     },
     "target": "es5",
     "noEmit": true,

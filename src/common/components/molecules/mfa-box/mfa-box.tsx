@@ -2,19 +2,15 @@ import { FC } from "react";
 import { Input } from "../../atoms";
 import { ChallengeForm } from "../../containers";
 import styled from "@emotion/styled";
+import { ErrorResponse } from "@common/types/error-response";
 
 interface MfaData {
   code: string;
 }
 
-export interface ErrorResponse {
-  field?: keyof MfaData;
-  message: string;
-}
-
 export interface MfaBoxProps {
   onDoMfa?: (data: MfaData) => void;
-  errors?: ErrorResponse;
+  errors?: ErrorResponse[];
 }
 
 const StyledP = styled.p`
