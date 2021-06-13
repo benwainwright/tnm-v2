@@ -28,6 +28,13 @@ jobs:
       - name: Run tests
         run: CI=true yarn test:coverage
 
+      - uses: codecov/codecov-action@v1
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
+          directory: coverage
+          flags: unittests
+          verbose: true
+
   lint:
     name: Lint
     runs-on: ubuntu-latest
