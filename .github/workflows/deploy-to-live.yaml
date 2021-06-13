@@ -22,18 +22,12 @@ jobs:
           path: "**/.yarn"
           key: ${{ runner.os }}-modules-${{ hashFiles('**/yarn.lock') }}
 
-      - name: "Install autoconf"
-        run: "sudo apt-get install autoconf"
-
       - name: Yarn install
-        uses: borales/actions-yarn@v2.3.0
-        with:
-          cmd: install
+        uses: actions/setup-node@v1
+        run: yarn install
 
-      - name: Test
-        uses: borales/actions-yarn@v2.3.0
-        with:
-          cmd: test:ci
+      - name: Run tests
+        run: yarn test:ci
 
   lint:
     name: Lint
@@ -50,15 +44,8 @@ jobs:
           path: "**/.yarn"
           key: ${{ runner.os }}-modules-${{ hashFiles('**/yarn.lock') }}
 
-      - name: "Install autoconf"
-        run: "sudo apt-get install autoconf"
-
       - name: Yarn install
-        uses: borales/actions-yarn@v2.3.0
-        with:
-          cmd: install
+        run: yarn install
 
       - name: Lint
-        uses: borales/actions-yarn@v2.3.0
-        with:
-          cmd: lint
+        run: yarn lint
