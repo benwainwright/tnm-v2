@@ -5,7 +5,15 @@ module.exports = {
   env: {
     "cypress/globals": true,
   },
-  plugins: ["only-error", "cypress", "security", "fp", "sonarjs", "@emotion"],
+  plugins: [
+    "only-error",
+    "cypress",
+    "security",
+    "fp",
+    "sonarjs",
+    "@emotion",
+    "json-format",
+  ],
   overrides: [
     {
       files: ["**.spec.ts", "**.spec.tsx"],
@@ -40,6 +48,11 @@ module.exports = {
     `plugin:security/recommended`,
     `plugin:fp/recommended`,
   ],
+  settings: {
+    "json/sort-package-json": "standard",
+    "json/ignore-files": ["**/package-lock.json"],
+    "json/json-with-comments-files": ["**/tsconfig.json"],
+  },
   rules: {
     "@emotion/syntax-preference": ["error", "string"],
     "@emotion/jsx-import": "error",
