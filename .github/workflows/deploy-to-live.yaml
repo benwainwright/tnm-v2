@@ -23,7 +23,6 @@ jobs:
           key: ${{ runner.os }}-modules-${{ hashFiles('**/yarn.lock') }}
 
       - name: Yarn install
-        uses: actions/setup-node@v1
         run: yarn install
 
       - name: Run tests
