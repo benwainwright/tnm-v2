@@ -26,7 +26,7 @@ jobs:
         run: yarn install
 
       - name: Run tests
-        run: yarn test:ci
+        run: CI=true yarn test:coverage
 
   lint:
     name: Lint
