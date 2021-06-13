@@ -93,7 +93,7 @@ function ChallengeForm<T>(
   const errorMessagesAdded = addErrorMessages(eventHandlersAdded, props.errors);
   return (
     <FlexForm>
-      {props.header ? <StyledH2>{props.header}</StyledH2> : null}
+      {props.header ? <StyledH2>{props.header}</StyledH2> : undefined}
       {errorMessagesAdded}
       <Button
         primary

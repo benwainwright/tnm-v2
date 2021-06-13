@@ -40,7 +40,7 @@ export const currentUser = async () => {
   configureAuth();
   try {
     return await Auth.currentAuthenticatedUser();
-  } catch (error) {
+  } catch {
     return undefined;
   }
 };

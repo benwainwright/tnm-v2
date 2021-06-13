@@ -59,7 +59,7 @@ const Input: FC<InputProps> = (props) => (
       <InputLabel htmlFor={props.name}>{props.label}</InputLabel>
       {props.errorMessage ? (
         <ErrorLabel htmlFor={props.name}>{props.errorMessage}</ErrorLabel>
-      ) : null}
+      ) : undefined}
     </LabelRow>
     <InputField
       id={props.name}

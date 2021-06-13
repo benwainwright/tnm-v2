@@ -1,12 +1,12 @@
-import { renderHook, act } from "@testing-library/react-hooks"
-import { useBreakpoints, Breakpoints } from "./useBreakpoints"
+import { renderHook, act } from "@testing-library/react-hooks";
+import { useBreakpoints, Breakpoints } from "./useBreakpoints";
 
 const setWindowWidth = (value: number) =>
   Object.defineProperty(window, "innerWidth", {
     writable: true,
     configurable: true,
     value,
-  })
+  });
 
 describe("useBreakpoints", () => {
   it("defaults to the largest breakpoint if misconfigured", () => {
@@ -21,11 +21,11 @@ describe("useBreakpoints", () => {
         start: 300,
         end: 500,
       },
-    }
-    setWindowWidth(200)
+    };
+    setWindowWidth(200);
 
-    const { result: result1 } = renderHook(() => useBreakpoints(breakpoints1))
-    expect(result1.current).toEqual("large")
+    const { result: result1 } = renderHook(() => useBreakpoints(breakpoints1));
+    expect(result1.current).toEqual("large");
 
     const breakpoints2: Breakpoints = {
       large: {
@@ -38,12 +38,12 @@ describe("useBreakpoints", () => {
       small: {
         end: 100,
       },
-    }
-    setWindowWidth(200)
+    };
+    setWindowWidth(200);
 
-    const { result: result2 } = renderHook(() => useBreakpoints(breakpoints2))
-    expect(result2.current).toEqual("large")
-  })
+    const { result: result2 } = renderHook(() => useBreakpoints(breakpoints2));
+    expect(result2.current).toEqual("large");
+  });
 
   describe("before any events are fired", () => {
     it("sets the breakpoint correctly for a breakpoint that has a start and an end", () => {
@@ -58,13 +58,13 @@ describe("useBreakpoints", () => {
         large: {
           start: 501,
         },
-      }
+      };
 
-      setWindowWidth(250)
+      setWindowWidth(250);
 
-      const { result } = renderHook(() => useBreakpoints(breakpoints))
-      expect(result.current).toEqual("medium")
-    })
+      const { result } = renderHook(() => useBreakpoints(breakpoints));
+      expect(result.current).toEqual("medium");
+    });
 
     it("sets the breakpoint correctly for a breakpoint that has no start", () => {
       const breakpoints: Breakpoints = {
@@ -78,13 +78,13 @@ describe("useBreakpoints", () => {
         large: {
           start: 501,
         },
-      }
+      };
 
-      setWindowWidth(23)
+      setWindowWidth(23);
 
-      const { result } = renderHook(() => useBreakpoints(breakpoints))
-      expect(result.current).toEqual("small")
-    })
+      const { result } = renderHook(() => useBreakpoints(breakpoints));
+      expect(result.current).toEqual("small");
+    });
 
     it("sets the breakpoint correctly for a breakpoint that has no end", () => {
       const breakpoints: Breakpoints = {
@@ -98,14 +98,14 @@ describe("useBreakpoints", () => {
         large: {
           start: 501,
         },
-      }
+      };
 
-      setWindowWidth(2352)
+      setWindowWidth(2352);
 
-      const { result } = renderHook(() => useBreakpoints(breakpoints))
-      expect(result.current).toEqual("large")
-    })
-  })
+      const { result } = renderHook(() => useBreakpoints(breakpoints));
+      expect(result.current).toEqual("large");
+    });
+  });
 
   describe("after a resize event is fired", () => {
     it("sets the breakpoint correctly for a breakpoint that has a start and an end", () => {
@@ -120,19 +120,19 @@ describe("useBreakpoints", () => {
         large: {
           start: 501,
         },
-      }
+      };
 
-      setWindowWidth(124)
+      setWindowWidth(124);
 
-      const { result } = renderHook(() => useBreakpoints(breakpoints))
+      const { result } = renderHook(() => useBreakpoints(breakpoints));
 
       act(() => {
-        setWindowWidth(240)
-        window.dispatchEvent(new Event("resize"))
-      })
+        setWindowWidth(240);
+        window.dispatchEvent(new Event("resize"));
+      });
 
-      expect(result.current).toEqual("medium")
-    })
+      expect(result.current).toEqual("medium");
+    });
 
     it("sets the breakpoint correctly for a breakpoint that has no start", () => {
       const breakpoints: Breakpoints = {
@@ -146,19 +146,19 @@ describe("useBreakpoints", () => {
         large: {
           start: 501,
         },
-      }
+      };
 
-      setWindowWidth(502)
+      setWindowWidth(502);
 
-      const { result } = renderHook(() => useBreakpoints(breakpoints))
+      const { result } = renderHook(() => useBreakpoints(breakpoints));
 
       act(() => {
-        setWindowWidth(100)
-        window.dispatchEvent(new Event("resize"))
-      })
+        setWindowWidth(100);
+        window.dispatchEvent(new Event("resize"));
+      });
 
-      expect(result.current).toEqual("small")
-    })
+      expect(result.current).toEqual("small");
+    });
 
     it("sets the breakpoint correctly for a breakpoint that has no end", () => {
       const breakpoints: Breakpoints = {
@@ -172,17 +172,17 @@ describe("useBreakpoints", () => {
         large: {
           start: 501,
         },
-      }
+      };
 
-      setWindowWidth(204)
+      setWindowWidth(204);
 
       act(() => {
-        setWindowWidth(123123)
-        window.dispatchEvent(new Event("resize"))
-      })
+        setWindowWidth(123_123);
+        window.dispatchEvent(new Event("resize"));
+      });
 
-      const { result } = renderHook(() => useBreakpoints(breakpoints))
-      expect(result.current).toEqual("large")
-    })
-  })
-})
+      const { result } = renderHook(() => useBreakpoints(breakpoints));
+      expect(result.current).toEqual("large");
+    });
+  });
+});

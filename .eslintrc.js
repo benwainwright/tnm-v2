@@ -5,11 +5,13 @@ module.exports = {
   env: {
     "cypress/globals": true,
   },
-  plugins: ["only-error", "cypress", "security", "fp"],
+  plugins: ["only-error", "cypress", "security", "fp", "sonarjs"],
   overrides: [
     {
       files: ["**.spec.ts", "**.spec.tsx"],
       rules: {
+        "sonarjs/no-identical-functions": "off",
+        "sonarjs/no-duplicate-string": "off",
         "fp/no-mutating-methods": "off",
         "fp/no-unused-expression": "off",
         "fp/no-delete": "off",
@@ -25,14 +27,29 @@ module.exports = {
     },
     {
       files: ["*.js"],
+      rules: {
+        "unicorn/prefer-module": "off",
+      },
     },
   ],
   extends: [
     `react-app`,
+    "plugin:unicorn/recommended",
+    `plugin:sonarjs/recommended`,
     `plugin:security/recommended`,
     `plugin:fp/recommended`,
   ],
   rules: {
+    "unicorn/prefer-node-protocol": "off",
+    "unicorn/no-array-callback-reference": "off",
+    "unicorn/no-useless-undefined": "off",
+    "unicorn/no-reduce": "off",
+    "unicorn/no-array-reduce": "off",
+    "unicorn/no-fn-reference-in-iterator": "off",
+    "unicorn/prevent-abbreviations": "off",
+    "unicorn/prefer-spread": "off",
+    "unicorn/filename-case": "off",
+    "unicorn/better-regex": "off",
     "fp/no-nil": "off",
     "fp/no-unused-expression": "off",
     "fp/no-mutation": "off",
