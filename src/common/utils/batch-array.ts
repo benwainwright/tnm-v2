@@ -8,4 +8,4 @@ export const batchArray = <T>(input: T[], batchSize: number): T[][] =>
             [...(accumulator[accumulator.length - 1] ?? []), item],
           ],
     [[]]
-  );
+  )

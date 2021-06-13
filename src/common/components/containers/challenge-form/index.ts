@@ -1,3 +1,3 @@
-import ChallengeForm from "./challenge-form";
+import ChallengeForm from "./challenge-form"
 
-export { ChallengeForm };
+export { ChallengeForm }

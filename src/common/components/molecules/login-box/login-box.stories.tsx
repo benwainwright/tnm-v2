@@ -8,6 +8,6 @@ export default {
   argTypes: { onLogin: { action: "clicked" } },
 } as Meta
 
-const Template: Story<LoginBoxProps> = args => <LoginBox {...args} />
+const Template: Story<LoginBoxProps> = (args) => <LoginBox {...args} />
 
 export const LoginStory = Template.bind({})

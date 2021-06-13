@@ -1,19 +1,19 @@
-import { Story, Meta } from "@storybook/react";
+import { Story, Meta } from "@storybook/react"
 
-import Input, { InputProps } from "./input";
+import Input, { InputProps } from "./input"
 
 export default {
   title: "atoms/Input",
   component: Input,
-} as Meta;
+} as Meta
 
-const Template: Story<InputProps> = (args) => <Input {...args} />;
+const Template: Story<InputProps> = (args) => <Input {...args} />
 
-export const InputStory = Template.bind({});
+export const InputStory = Template.bind({})
 
 InputStory.args = {
   label: "Some Field",
   value: "",
   errorMessage: "",
   placeholder: "Enter something",
-};
+}

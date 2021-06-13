@@ -1,29 +1,29 @@
-import { FC, useState, useEffect } from "react";
-import { Footer, Header } from "./molecules";
-import Hero from "./hero";
-import "./layout.css";
-import { UserContext, User } from "@common/user-context";
-import { currentUser } from "@common/aws/authenticate";
-import { useAxe } from "@common/hooks";
+import { FC, useState, useEffect } from "react"
+import { Footer, Header } from "./molecules"
+import Hero from "./hero"
+import "./layout.css"
+import { UserContext, User } from "@common/user-context"
+import { currentUser } from "@common/aws/authenticate"
+import { useAxe } from "@common/hooks"
 
-import styled from "@emotion/styled";
+import styled from "@emotion/styled"
 
 const MainContainer = styled("main")`
   display: flex;
   align-items: center;
   flex-direction: column;
   padding-bottom: 4rem;
-`;
+`
 
 const Layout: FC = (props) => {
-  const [user, setUser] = useState<User | undefined>(undefined);
-  useAxe();
+  const [user, setUser] = useState<User | undefined>(undefined)
+  useAxe()
 
   useEffect(() => {
-    (async () => {
-      setUser(await currentUser());
-    })();
-  }, []);
+    ;(async () => {
+      setUser(await currentUser())
+    })()
+  }, [])
 
   return (
     <>
@@ -34,7 +34,7 @@ const Layout: FC = (props) => {
         <Footer />
       </UserContext.Provider>
     </>
-  );
-};
+  )
+}
 
-export default Layout;
+export default Layout

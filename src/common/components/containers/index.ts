@@ -1,2 +1,2 @@
-import { ChallengeForm } from "./challenge-form";
-export { ChallengeForm };
+import { ChallengeForm } from "./challenge-form"
+export { ChallengeForm }

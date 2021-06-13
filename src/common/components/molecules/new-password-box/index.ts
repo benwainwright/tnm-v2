@@ -1,2 +1,2 @@
-import NewPasswordBox from "./new-password-box";
-export { NewPasswordBox };
+import NewPasswordBox from "./new-password-box"
+export { NewPasswordBox }

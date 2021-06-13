@@ -1,5 +1,5 @@
-import { Button } from "@common/components/atoms";
-import { ErrorResponse } from "@common/types/error-response";
+import { Button } from "@common/components/atoms"
+import { ErrorResponse } from "@common/types/error-response"
 import {
   Dispatch,
   SetStateAction,
@@ -10,15 +10,15 @@ import {
   ChangeEvent,
   useState,
   isValidElement,
-} from "react";
-import styled from "@emotion/styled";
+} from "react"
+import styled from "@emotion/styled"
 
 export interface ChallengeFormProps<T> {
-  value?: T;
-  header?: string;
-  submitText?: string;
-  onSubmit?: (data: T) => void;
-  errors?: ErrorResponse[];
+  value?: T
+  header?: string
+  submitText?: string
+  onSubmit?: (data: T) => void
+  errors?: ErrorResponse[]
 }
 
 const FlexForm = styled.form`
@@ -29,32 +29,32 @@ const FlexForm = styled.form`
   border: 1px solid black;
   padding: 1.5rem 5rem 3rem 5rem;
   margin-top: -1px;
-`;
+`
 
 const StyledH2 = styled.h2`
   font-family: "Acumin Pro", Arial, sans-serif;
   margin: 0 0 1rem 0;
-`;
-StyledH2.displayName = "h2";
+`
+StyledH2.displayName = "h2"
 
 const addErrorMessages = (nodes: ReactNode, errorMessages?: ErrorResponse[]) =>
   Children.map(nodes, (node) => {
     if (!isValidElement(node)) {
-      return node;
+      return node
     }
 
-    const element: ReactElement = node;
+    const element: ReactElement = node
 
     const matchingMessage = errorMessages?.find(
       (message) => element.props.name === message.field
-    );
+    )
 
     return matchingMessage ? (
       <element.type {...element.props} errorMessage={matchingMessage.message} />
     ) : (
       element
-    );
-  });
+    )
+  })
 
 const addEventHandlers = <T,>(
   nodes: ReactNode,
@@ -63,22 +63,22 @@ const addEventHandlers = <T,>(
 ) => {
   return Children.map(nodes, (node) => {
     if (!isValidElement(node)) {
-      return node;
+      return node
     }
-    const element: ReactElement = node;
+    const element: ReactElement = node
     if (element.props.name) {
       return (
         <element.type
           {...element.props}
           onChange={(event: ChangeEvent<HTMLInputElement>) => {
-            setData({ ...data, [element.props.name]: event.target.value });
+            setData({ ...data, [element.props.name]: event.target.value })
           }}
         />
-      );
+      )
     }
-    return <element.type {...element.props} />;
-  });
-};
+    return <element.type {...element.props} />
+  })
+}
 
 function assertFC<P>(
   _component: React.FC<P>
@@ -88,9 +88,9 @@ function assertFC<P>(
 function ChallengeForm<T>(
   props: PropsWithChildren<ChallengeFormProps<T>>
 ): ReactElement | null {
-  const [data, setData] = useState<T | undefined>();
-  const eventHandlersAdded = addEventHandlers(props.children, data, setData);
-  const errorMessagesAdded = addErrorMessages(eventHandlersAdded, props.errors);
+  const [data, setData] = useState<T | undefined>()
+  const eventHandlersAdded = addEventHandlers(props.children, data, setData)
+  const errorMessagesAdded = addErrorMessages(eventHandlersAdded, props.errors)
   return (
     <FlexForm>
       {props.header ? <StyledH2>{props.header}</StyledH2> : undefined}
@@ -99,17 +99,17 @@ function ChallengeForm<T>(
         primary
         onClick={(event) => {
           if (data) {
-            props.onSubmit?.(data);
-            event.preventDefault();
+            props.onSubmit?.(data)
+            event.preventDefault()
           }
         }}
       >
         {props.submitText ?? "Submit"}
       </Button>
     </FlexForm>
-  );
+  )
 }
 
-assertFC(ChallengeForm);
+assertFC(ChallengeForm)
 
-export default ChallengeForm;
+export default ChallengeForm

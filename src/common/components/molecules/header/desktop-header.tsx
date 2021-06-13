@@ -1,8 +1,8 @@
-import { FC } from "react";
+import { FC } from "react"
 
-import styled from "@emotion/styled";
-import TnmHeader from "../../../../images/TNM-Header.svg";
-import { Button } from "@common/components/atoms";
+import styled from "@emotion/styled"
+import TnmHeader from "../../../../images/TNM-Header.svg"
+import { Button } from "@common/components/atoms"
 
 const HeaderUnorderedList = styled("ul")`
   display: flex;
@@ -12,7 +12,7 @@ const HeaderUnorderedList = styled("ul")`
   margin: 0;
   height: 100%;
   align-items: center;
-`;
+`
 
 const TheNutritionistLogo = styled("a")`
   background: url(${TnmHeader});
@@ -22,13 +22,13 @@ const TheNutritionistLogo = styled("a")`
   text-indent: 100%;
   white-space: nowrap;
   overflow: hidden;
-`;
+`
 
 const HeaderListItem = styled("li")`
   list-style: none;
   margin: 0;
   white-space: nowrap;
-`;
+`
 
 const DesktopHeader: FC = () => (
   <HeaderUnorderedList>
@@ -42,6 +42,6 @@ const DesktopHeader: FC = () => (
       <Button primary>Get Started</Button>
     </HeaderListItem>
   </HeaderUnorderedList>
-);
+)
 
-export default DesktopHeader;
+export default DesktopHeader

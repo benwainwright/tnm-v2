@@ -1,14 +1,14 @@
-import { Auth } from "aws-amplify";
-import { getPoolConfig } from "./getPoolConfig";
-import backendOutputs from "../../backend-outputs.json";
+import { Auth } from "aws-amplify"
+import { getPoolConfig } from "./getPoolConfig"
+import backendOutputs from "../../backend-outputs.json"
 
-const REGION = "eu-west-2";
+const REGION = "eu-west-2"
 
 const getConfigurer = () => {
   // eslint-disable-next-line fp/no-let
-  let configureDone = false;
+  let configureDone = false
   return () => {
-    const outputs = getPoolConfig(backendOutputs);
+    const outputs = getPoolConfig(backendOutputs)
     if (!configureDone) {
       Auth.configure({
         Auth: {
@@ -16,39 +16,39 @@ const getConfigurer = () => {
           userPoolId: outputs.UserPoolId,
           userPoolWebClientId: outputs.ClientId,
         },
-      });
+      })
       // eslint-disable-next-line fp/no-mutation
-      configureDone = true;
+      configureDone = true
     }
-    return outputs;
-  };
-};
+    return outputs
+  }
+}
 
-const configureAuth = getConfigurer();
+const configureAuth = getConfigurer()
 
 export const login = async (username: string, password: string) => {
-  configureAuth();
-  return Auth.signIn(username, password);
-};
+  configureAuth()
+  return Auth.signIn(username, password)
+}
 
 export const signOut = async () => {
-  configureAuth();
-  return Auth.signOut();
-};
+  configureAuth()
+  return Auth.signOut()
+}
 
 export const currentUser = async () => {
-  configureAuth();
+  configureAuth()
   try {
-    return await Auth.currentAuthenticatedUser();
+    return await Auth.currentAuthenticatedUser()
   } catch {
-    return undefined;
+    return undefined
   }
-};
+}
 
 export const newPasswordChallengeResponse = async (
   user: any,
   password: string
 ) => {
-  configureAuth();
-  return Auth.completeNewPassword(user, password);
-};
+  configureAuth()
+  return Auth.completeNewPassword(user, password)
+}

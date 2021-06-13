@@ -69,4 +69,4 @@ module.exports = {
     "template",
     "storybook-static",
   ],
-};
+}

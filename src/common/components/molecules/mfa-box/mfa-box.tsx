@@ -1,18 +1,18 @@
-import { FC } from "react";
-import { Input } from "../../atoms";
-import { ChallengeForm } from "../../containers";
-import styled from "@emotion/styled";
-import { ErrorResponse } from "@common/types/error-response";
-import { MfaFormData } from "@common/types/srp-data";
+import { FC } from "react"
+import { Input } from "../../atoms"
+import { ChallengeForm } from "../../containers"
+import styled from "@emotion/styled"
+import { ErrorResponse } from "@common/types/error-response"
+import { MfaFormData } from "@common/types/srp-data"
 
 export interface MfaBoxProps {
-  onSubmit: (data: MfaFormData) => void;
-  errors?: ErrorResponse[];
+  onSubmit: (data: MfaFormData) => void
+  errors?: ErrorResponse[]
 }
 
 const StyledP = styled.p`
   font-family: "Acumin Pro", Arial, sans-serif;
-`;
+`
 
 const MfaBox: FC<MfaBoxProps> = (props) => (
   <ChallengeForm header="Two Factor Authentication" onSubmit={props.onSubmit}>
@@ -21,6 +21,6 @@ const MfaBox: FC<MfaBoxProps> = (props) => (
     </StyledP>
     <Input label="Code" name="code" />
   </ChallengeForm>
-);
+)
 
-export default MfaBox;
+export default MfaBox

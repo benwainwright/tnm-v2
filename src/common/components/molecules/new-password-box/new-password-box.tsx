@@ -1,18 +1,18 @@
-import { FC } from "react";
-import { Input } from "../../atoms";
-import { ChallengeForm } from "../../containers";
-import styled from "@emotion/styled";
-import { ChangePasswordFormData } from "@common/types/srp-data";
-import { ErrorResponse } from "@common/types/error-response";
+import { FC } from "react"
+import { Input } from "../../atoms"
+import { ChallengeForm } from "../../containers"
+import styled from "@emotion/styled"
+import { ChangePasswordFormData } from "@common/types/srp-data"
+import { ErrorResponse } from "@common/types/error-response"
 
 export interface NewPasswordBoxProps {
-  onSubmit: (data: ChangePasswordFormData) => void;
-  errors?: ErrorResponse[];
+  onSubmit: (data: ChangePasswordFormData) => void
+  errors?: ErrorResponse[]
 }
 
 const StyledP = styled.p`
   font-family: "Acumin Pro", Arial, sans-serif;
-`;
+`
 
 const NewPasswordBox: FC<NewPasswordBoxProps> = (props) => (
   <ChallengeForm
@@ -25,6 +25,6 @@ const NewPasswordBox: FC<NewPasswordBoxProps> = (props) => (
     </StyledP>
     <Input label="Password" name="password" />
   </ChallengeForm>
-);
+)
 
-export default NewPasswordBox;
+export default NewPasswordBox

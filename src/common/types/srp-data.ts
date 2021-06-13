@@ -1,14 +1,14 @@
 export interface LoginFormData {
-  email: string;
-  password: string;
+  email: string
+  password: string
 }
 
 export interface MfaFormData {
-  code: string;
+  code: string
 }
 
 export interface ChangePasswordFormData {
-  password: string;
+  password: string
 }
 
-export type SrpData = LoginFormData | MfaFormData | ChangePasswordFormData;
+export type SrpData = LoginFormData | MfaFormData | ChangePasswordFormData

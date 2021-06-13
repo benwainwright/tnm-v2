@@ -100,7 +100,7 @@
   "scripts": {
     "build": "gatsby build && yarn storybook:build",
     "develop": "gatsby develop",
-    "format": "prettier --ignore-path config/prettierignore --config config/prettier.config.js --write \"**/*.{js,jsx,ts,tsx,json,md}\"",
+    "format": "prettier --write \"**/*.{js,jsx,ts,tsx,json,md}\"",
     "deploy:frontend": "cdk deploy test-TnmV2AppStack",
     "deploy:frontend:prod": "cdk deploy prod-TnmV2AppStack",
     "deploy:backend": "cdk deploy test-TnmV2BackendStack --outputs-file src/backend-outputs.json",

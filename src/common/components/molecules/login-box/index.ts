@@ -1,2 +1,2 @@
-import LoginBox from "./login-box";
-export { LoginBox };
+import LoginBox from "./login-box"
+export { LoginBox }

@@ -1,2 +1,2 @@
-import { batchArray } from "./batch-array";
-export { batchArray };
+import { batchArray } from "./batch-array"
+export { batchArray }
