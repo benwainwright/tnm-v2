@@ -1,4 +1,4 @@
-import { shallow, mount } from "enzyme";
+import { shallow } from "enzyme";
 import { Button, Input } from "@common/components/atoms";
 import ChallengeForm from "./challenge-form";
 import { act } from "react-dom/test-utils";

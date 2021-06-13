@@ -5,7 +5,8 @@ import NewPasswordBox from "./new-password-box";
 
 describe("The new password box", () => {
   it("renders an input for password", () => {
-    const wrapper = shallow(<NewPasswordBox />);
+    const onSubmit = jest.fn();
+    const wrapper = shallow(<NewPasswordBox onSubmit={onSubmit} />);
 
     expect(
       wrapper

@@ -6,9 +6,7 @@ import {
   ChangePasswordFormData,
 } from "@common/types/srp-data";
 import { LoginState } from "../pages/login";
-import { CognitoUser } from "amazon-cognito-identity-js";
 import { login, newPasswordChallengeResponse } from "../aws/authenticate";
-import { ApiError } from "../types/api-error";
 
 const isLoginData = (
   formData: SrpData,

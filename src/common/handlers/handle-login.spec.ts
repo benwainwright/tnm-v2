@@ -2,8 +2,6 @@ import { handleLogin } from "./handle-login";
 import { login, newPasswordChallengeResponse } from "../aws/authenticate";
 import { LoginState } from "../pages/login";
 import { mocked } from "ts-jest/utils";
-import { ApiError } from "../types/api-error";
-import { handleSrpResponse } from "./handle-srp-response";
 
 jest.mock("gatsby");
 jest.mock("../aws/authenticate");
@@ -23,13 +21,15 @@ describe("the login handler", () => {
     const setLoginState = jest.fn();
     const setErrorMessage = jest.fn();
     const setResponse = jest.fn();
+    const loginResponse = jest.fn();
 
     await handleLogin(
       { email: "foo@bar.com", password: "foo" },
       LoginState.DoLogin,
       setLoginState,
       setResponse,
-      setErrorMessage
+      setErrorMessage,
+      loginResponse
     );
 
     expect(setLoginState).toBeCalledWith(LoginState.MfaChallenge);
