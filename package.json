@@ -97,6 +97,7 @@
     "storybook": "start-storybook --port 6006 --static-dir ./src/common/fonts",
     "storybook:build": "build-storybook --static-dir ./src/fonts --output-dir ./public/storybook",
     "lint": "eslint .",
+    "types": "tsc",
     "build-storybook": "build-storybook"
   },
   "repository": {
