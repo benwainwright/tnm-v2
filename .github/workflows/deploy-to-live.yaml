@@ -22,8 +22,8 @@ jobs:
           path: "**/.yarn"
           key: ${{ runner.os }}-modules-${{ hashFiles('**/yarn.lock') }}
 
-      - name: "Install build-essential"
-        run: "sudo apt-get update && sudo apt-get install build-essential"
+      - name: "Install autoconf"
+        run: "sudo apt-get install autoconf"
 
       - name: Yarn install
         uses: borales/actions-yarn@v2.3.0
@@ -49,6 +49,9 @@ jobs:
         with:
           path: "**/.yarn"
           key: ${{ runner.os }}-modules-${{ hashFiles('**/yarn.lock') }}
+
+      - name: "Install autoconf"
+        run: "sudo apt-get install autoconf"
 
       - name: Yarn install
         uses: borales/actions-yarn@v2.3.0
