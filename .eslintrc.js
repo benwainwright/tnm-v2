@@ -2,7 +2,10 @@ module.exports = {
   globals: {
     __PATH_PREFIX__: true,
   },
-  plugins: ["only-error"],
+  env: {
+    "cypress/globals": true,
+  },
+  plugins: ["only-error", "cypress"],
   extends: `react-app`,
   rules: {
     "no-console": "error",
@@ -15,4 +18,4 @@ module.exports = {
     "template",
     "storybook-static",
   ],
-}
+};
