@@ -124,7 +124,7 @@ jobs:
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           AWS_DEFAULT_REGION: eu-west-2
   e2e-tests:
-    name: Run E2E tests
+    name: Run E2E Tests
     needs: [deploy-to-test]
     runs-on: ubuntu-latest
     container:
