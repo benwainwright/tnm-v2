@@ -26,6 +26,12 @@ new ApplicationStack(app, {
   env,
 })
 
+new BackendStack(app, {
+  environmentName: "prod",
+  callbackUrl: "https://d2bnp0b9ah9f76.cloudfront.net/",
+  env,
+})
+
 new ApplicationCiStack(app, {
   env,
 })
