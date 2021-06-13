@@ -30,7 +30,3 @@ new BackendStack(app, {
   callbackUrl: "https://d2bnp0b9ah9f76.cloudfront.net/",
   env,
 })
-
-new ApplicationCiStack(app, {
-  env,
-})
