@@ -97,6 +97,7 @@
     "test:watch": "jest --config ./config/jest.config.ts --watch",
     "test": "jest --config ./config/jest.config.ts",
     "test:coverage": "jest --config ./config/jest.config.ts --coverage",
+    "test:cypress": "yarn cypress run",
     "storybook": "start-storybook --port 6006 --static-dir ./src/common/fonts",
     "storybook:build": "build-storybook --static-dir ./src/common/fonts --output-dir ./public/storybook",
     "lint": "eslint .",
