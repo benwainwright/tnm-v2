@@ -5,7 +5,7 @@ export const batchArray = <T>(input: T[], batchSize: number): T[][] =>
         ? [...accumulator, [item]]
         : [
             ...accumulator.slice(0, -1),
-            [...(accumulator[accumulator.length - 1] ?? []), item],
+            [...accumulator[accumulator.length - 1], item],
           ],
     [[]]
   )
