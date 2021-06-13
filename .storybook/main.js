@@ -6,15 +6,23 @@ module.exports = {
     "@storybook/addon-a11y",
   ],
 
-  babel: async options => ({
+  babel: async (options) => ({
     ...options,
     plugins: [
       ...options.plugins,
       ["@babel/plugin-proposal-private-property-in-object", { loose: true }],
+      [
+        "module-resolver",
+        {
+          alias: {
+            "@common": "./src/common",
+          },
+        },
+      ],
     ],
   }),
 
   core: {
     builder: "webpack5",
   },
-}
+};
