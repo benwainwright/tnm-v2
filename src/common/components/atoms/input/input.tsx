@@ -5,7 +5,7 @@ import styled from "@emotion/styled";
 import { LABEL_TEXT, BUTTON_BLACK } from "../../../config";
 
 const InputContainer = styled.div`
-  font-family: "Acumin Pro";
+  font-family: "Acumin Pro", Arial, sans-serif;
   display: flex;
   flex-direction: column;
 `;
@@ -17,7 +17,7 @@ const LabelRow = styled.div`
 `;
 
 const ErrorLabel = styled.label`
-  font-family: "Acumin Pro";
+  font-family: "Acumin Pro", Arial, sans-serif;
   color: red;
   padding-bottom: 0.5rem;
   font-style: italic;
@@ -26,7 +26,7 @@ const ErrorLabel = styled.label`
 ErrorLabel.displayName = "label";
 
 const InputLabel = styled.label`
-  font-family: "Acumin Pro";
+  font-family: "Acumin Pro", Arial, sans-serif;
   color: ${LABEL_TEXT};
   flex-grow: 999;
   padding-bottom: 0.5rem;
@@ -34,7 +34,7 @@ const InputLabel = styled.label`
 InputLabel.displayName = "label";
 
 const InputField = styled.input`
-  font-family: "Acumin Pro";
+  font-family: "Acumin Pro", Arial, sans-serif;
   margin: 0;
   border-radius: 0;
   border: 1px solid ${BUTTON_BLACK};

@@ -11,7 +11,7 @@ export interface NewPasswordBoxProps {
 }
 
 const StyledP = styled.p`
-  font-family: "Acumin Pro";
+  font-family: "Acumin Pro", Arial, sans-serif;
 `;
 
 const NewPasswordBox: FC<NewPasswordBoxProps> = (props) => (

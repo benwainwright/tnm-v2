@@ -73,6 +73,8 @@
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
     "react-helmet": "^6.1.0",
+    "stylelint": "^13.13.1",
+    "stylelint-config-standard": "^22.0.0",
     "ts-jest": "^27.0.2",
     "ts-node": "^10.0.0",
     "typescript": "^4.3.2",
@@ -110,6 +112,7 @@
     "storybook": "start-storybook --port 6006 --static-dir ./src/common/fonts",
     "storybook:build": "build-storybook --static-dir ./src/common/fonts --output-dir ./public/storybook",
     "lint": "eslint .",
+    "lint:styles": "stylelint './src/**/*.tsx' './src/**/*.ts'",
     "types": "tsc && tsc --project ./cypress/tsconfig.json",
     "build-storybook": "build-storybook"
   },

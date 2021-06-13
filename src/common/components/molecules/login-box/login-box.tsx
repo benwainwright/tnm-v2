@@ -12,7 +12,7 @@ export interface LoginBoxProps {
 }
 
 const StyledLink = styled.a`
-  font-family: "Acumin Pro";
+  font-family: "Acumin Pro", Arial, sans-serif;
   color: ${BUTTON_BLACK};
   text-decoration: 0;
 `;

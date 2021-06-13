@@ -11,7 +11,7 @@ export interface MfaBoxProps {
 }
 
 const StyledP = styled.p`
-  font-family: "Acumin Pro";
+  font-family: "Acumin Pro", Arial, sans-serif;
 `;
 
 const MfaBox: FC<MfaBoxProps> = (props) => (

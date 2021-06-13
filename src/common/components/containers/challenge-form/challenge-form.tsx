@@ -32,7 +32,7 @@ const FlexForm = styled.form`
 `;
 
 const StyledH2 = styled.h2`
-  font-family: "Acumin Pro";
+  font-family: "Acumin Pro", Arial, sans-serif;
   margin: 0 0 1rem 0;
 `;
 StyledH2.displayName = "h2";

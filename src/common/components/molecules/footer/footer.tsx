@@ -5,7 +5,7 @@ import SeasonalPattern from "../../../../images/Seasonal-pattern-spring-tnm.png"
 
 const StyledFooter = styled.footer`
   width: 100%;
-  font-family: "Acumin Pro";
+  font-family: "Acumin Pro", Arial, sans-serif;
   box-sizing: border-box;
   position: relative;
 `;
@@ -51,8 +51,6 @@ const FooterLi = styled.li`
   padding: 0;
 `;
 
-const FooterColumn = styled.div``;
-
 const UnStyledUl = styled.ul`
   list-style: none;
   padding: 0;
@@ -63,9 +61,9 @@ const Footer: FC = () => (
     <FooterStrip aria-hidden></FooterStrip>
     <FooterContent>
       <FooterColumns>
-        <FooterColumn>
+        <div>
           <FooterHeaders>Sign up to emails</FooterHeaders>
-        </FooterColumn>
+        </div>
 
         <FooterColumn>
           <FooterHeaders>Order</FooterHeaders>

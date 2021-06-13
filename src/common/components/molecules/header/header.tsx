@@ -10,7 +10,7 @@ import { MENUBAR_HEIGHT } from "@common/config";
 const SiteNavbar = styled("nav")`
   display: flex;
   flex-direction: row;
-  font-family: "Acumin Pro";
+  font-family: "Acumin Pro", Arial, sans-serif;
   font-weight: 700;
   height: ${MENUBAR_HEIGHT};
   padding: 0 30px;
