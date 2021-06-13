@@ -23,7 +23,7 @@ jobs:
           key: ${{ runner.os }}-modules-${{ hashFiles('**/yarn.lock') }}
 
       - name: "Install build-essential"
-        run: "apt update && apt install build-essential"
+        run: "sudo apt-get update && sudo apt-get install build-essential"
 
       - name: Yarn install
         uses: borales/actions-yarn@v2.3.0
