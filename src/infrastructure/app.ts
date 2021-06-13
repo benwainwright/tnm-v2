@@ -1,6 +1,5 @@
 import * as cdk from "aws-cdk-lib"
 import { ApplicationStack } from "./application-stack"
-import { ApplicationCiStack } from "./pipeline-stack"
 import { BackendStack } from "./backend-stack"
 
 const app = new cdk.App()
