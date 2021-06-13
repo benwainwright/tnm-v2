@@ -1,10 +1,16 @@
+import { Dispatch, SetStateAction } from "react";
 import Cookies from "universal-cookie";
 import { navigate } from "gatsby";
+import { LoginState } from "../pages/login";
 
 export const CHALLENGE_USERNAME_COOKIE_STRING = "TNMV2_CHALLENGE_USERNAME";
 export const SESSION_COOKIE_STRING = "TNMV2_SESSION";
 
-export const handleSrpResponse = (user: string, challengeName: string) => {
+export const handleSrpResponse = (
+  user: string,
+  challengeName: string,
+  setLoginState: Dispatch<SetStateAction<LoginState>>
+) => {
   const cookies = new Cookies();
 
   if (

@@ -1,51 +1,58 @@
-import { User } from "../user-context";
 import { Dispatch, SetStateAction } from "react";
 import { ErrorResponse } from "../types/error-response";
-import { LoginData } from "../types/LoginData";
-import { login } from "../aws/authenticate";
-import { handleSrpResponse } from "./handle-srp-response";
+import {
+  SrpData,
+  LoginFormData,
+  ChangePasswordFormData,
+} from "@common/types/srp-data";
+import { LoginState } from "../pages/login";
+import { CognitoUser } from "amazon-cognito-identity-js";
+import { login, newPasswordChallengeResponse } from "../aws/authenticate";
 import { ApiError } from "../types/api-error";
 
-interface ErrorMap {
-  [code: string]: ErrorResponse;
-}
+const isLoginData = (
+  formData: SrpData,
+  loginState: LoginState
+): formData is LoginFormData =>
+  formData.hasOwnProperty("email") && loginState === LoginState.DoLogin;
 
-const isApiError = (error: Error): error is ApiError =>
-  (error as ApiError).code !== undefined;
+const isChangePasswordData = (
+  formData: SrpData,
+  loginState: LoginState
+): formData is ChangePasswordFormData =>
+  formData.hasOwnProperty("password") &&
+  loginState === LoginState.ChangePasswordChallenge;
 
 export const handleLogin = async (
-  user: string,
-  password: string,
-  setUser: Dispatch<SetStateAction<User | undefined>> | undefined,
-  setErrorMessage: Dispatch<SetStateAction<ErrorResponse | undefined>>
+  srpFormData: SrpData,
+  loginState: LoginState,
+  setLoginState: Dispatch<SetStateAction<LoginState>>,
+  setResponse: Dispatch<SetStateAction<any>>,
+  setErrorMessage: Dispatch<SetStateAction<ErrorResponse | undefined>>,
+  loginResponse: any
 ): Promise<void> => {
-  try {
-    const loginResponse = await login(user, password);
+  if (isLoginData(srpFormData, loginState)) {
+    const response = await login(srpFormData.email, srpFormData.password);
 
-    if (loginResponse.challengeName) {
-      handleSrpResponse(loginResponse.username, loginResponse.challengeName);
-    }
-  } catch (error) {
-    if (isApiError(error)) {
-      const errorMap: ErrorMap = {
-        UserNotFoundException: {
-          field: "email",
-          message: "User does not exist",
-        },
-        NotAuthorizedException: {
-          field: "password",
-          message: "Incorrect password",
-        },
-      };
+    setResponse(response);
 
-      const code = error.code;
-
-      if (errorMap.hasOwnProperty(code)) {
-        setErrorMessage(errorMap[code]);
-      }
-      return;
+    if (response.challengeName === "SMS_MFA") {
+      setLoginState(LoginState.MfaChallenge);
     }
 
-    throw error;
+    if (response.challengeName === "NEW_PASSWORD_REQUIRED") {
+      setLoginState(LoginState.ChangePasswordChallenge);
+    }
+  }
+
+  if (isChangePasswordData(srpFormData, loginState)) {
+    const response = await newPasswordChallengeResponse(
+      loginResponse,
+      srpFormData.password
+    );
+
+    if (response.challengeName === "SMS_MFA") {
+      setLoginState(LoginState.MfaChallenge);
+    }
   }
 };

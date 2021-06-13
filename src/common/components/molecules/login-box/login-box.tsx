@@ -4,10 +4,10 @@ import styled from "@emotion/styled";
 import { BUTTON_BLACK } from "@common/config";
 import { ChallengeForm } from "@common/components/containers";
 import { ErrorResponse } from "@common/types/error-response";
-import { LoginData } from "@common/types/LoginData";
+import { LoginFormData } from "@common/types/srp-data";
 
 export interface LoginBoxProps {
-  onLogin?: (data: LoginData) => void;
+  onSubmit?: (data: LoginFormData) => void;
   errors?: ErrorResponse[];
 }
 
@@ -21,7 +21,7 @@ const LoginBox: FC<LoginBoxProps> = (props) => (
   <ChallengeForm
     header="Login"
     submitText="Login"
-    onSubmit={props.onLogin}
+    onSubmit={props.onSubmit}
     errors={props.errors}
   >
     <Input label="Email" placeholder="a@b.com" name="email" type="email" />

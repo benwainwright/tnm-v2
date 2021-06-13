@@ -1,7 +1,7 @@
 import { FC, MouseEvent } from "react";
 
 import styled from "@emotion/styled";
-import { BUTTON_BLACK } from "@common/config";
+import { BUTTON_BLACK } from "../../../config";
 
 export interface ButtonProps {
   onClick?: (event: MouseEvent<HTMLButtonElement>) => void;

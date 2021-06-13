@@ -13,6 +13,9 @@ const config: Config.InitialOptions = {
     "!<rootDir>/src/infrastructure/**",
     "!<rootDir>/src/**/*.stories.{ts,tsx}",
   ],
+  moduleNameMapper: {
+    "^@common(.*)$": "<rootDir>/src/common$1",
+  },
   coverageThreshold: {
     global: {
       statements: 90,

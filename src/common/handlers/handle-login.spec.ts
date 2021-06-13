@@ -1,5 +1,6 @@
 import { handleLogin } from "./handle-login";
-import { login } from "../aws/authenticate";
+import { login, newPasswordChallengeResponse } from "../aws/authenticate";
+import { LoginState } from "../pages/login";
 import { mocked } from "ts-jest/utils";
 import { ApiError } from "../types/api-error";
 import { handleSrpResponse } from "./handle-srp-response";
@@ -14,63 +15,93 @@ describe("the login handler", () => {
     jest.restoreAllMocks();
   });
 
-  it("sets an appropriate error message if the user does not exist", async () => {
-    const setUser = jest.fn();
-    const setErrorMessage = jest.fn();
+  it("sets the state to MfaChallenge if an MfaChallenge is returned from the login", async () => {
+    mocked(login).mockResolvedValue({
+      challengeName: "SMS_MFA",
+    });
 
-    const error: ApiError = {
-      code: "UserNotFoundException",
-      name: "UserNotFoundException",
-      message: "User does not exist.",
+    const setLoginState = jest.fn();
+    const setErrorMessage = jest.fn();
+    const setResponse = jest.fn();
+
+    await handleLogin(
+      { email: "foo@bar.com", password: "foo" },
+      LoginState.DoLogin,
+      setLoginState,
+      setResponse,
+      setErrorMessage
+    );
+
+    expect(setLoginState).toBeCalledWith(LoginState.MfaChallenge);
+  });
+
+  it("calls the setResponse callback when a response is receieved", async () => {
+    const mockResponse = {
+      challengeName: "NEW_PASSWORD_REQUIRED",
     };
 
-    error.code = "UserNotFoundException";
+    mocked(login).mockResolvedValue(mockResponse);
 
-    mocked(login, true).mockRejectedValue(error);
-
-    await handleLogin("foo", "bar", setUser, setErrorMessage);
-
-    expect(setErrorMessage).toBeCalledWith({
-      field: "email",
-      message: "User does not exist",
-    });
-  });
-
-  it("sets an appropriate error message if the password is wrong", async () => {
-    const setUser = jest.fn();
+    const setLoginState = jest.fn();
     const setErrorMessage = jest.fn();
+    const setResponse = jest.fn();
 
-    const error: ApiError = {
-      code: "NotAuthorizedException",
-      name: "NotAuthorizedException",
-      message: "Incorrect username or password",
-    };
+    await handleLogin(
+      { email: "foo@bar.com", password: "foo" },
+      LoginState.DoLogin,
+      setLoginState,
+      setResponse,
+      setErrorMessage,
+      undefined
+    );
 
-    error.code = "UserNotFoundException";
-
-    mocked(login, true).mockRejectedValue(error);
-
-    await handleLogin("foo", "bar", setUser, setErrorMessage);
-
-    expect(setErrorMessage).toBeCalledWith({
-      field: "email",
-      message: "User does not exist",
-    });
+    expect(setResponse).toBeCalledWith(mockResponse);
   });
 
-  it("calls handle challenge when a challenge is supplied", async () => {
-    const setUser = jest.fn();
+  it("sets the state to changePasswordChallenge if a changePasswordChallenge is returned from login", async () => {
+    mocked(login).mockResolvedValue({
+      challengeName: "NEW_PASSWORD_REQUIRED",
+    });
+
+    const setLoginState = jest.fn();
     const setErrorMessage = jest.fn();
-    mocked(login, true).mockResolvedValue({
-      username: "foo-user",
-      challengeName: "A-Challenge",
-      Session: "The-Session",
-    });
+    const setResponse = jest.fn();
 
-    await handleLogin("foo-user", "bar-password", setUser, setErrorMessage);
+    await handleLogin(
+      { email: "foo@bar.com", password: "foo" },
+      LoginState.DoLogin,
+      setLoginState,
+      setErrorMessage,
+      setResponse,
+      undefined
+    );
 
-    expect(mocked(handleSrpResponse)).toBeCalledWith("foo-user", "A-Challenge");
+    expect(setLoginState).toBeCalledWith(LoginState.ChangePasswordChallenge);
   });
 
-  it.todo("redirects to the account page if the response is successful");
+  it("Calls newPasswordChallengeResponse if the state is PasswordChallenge", async () => {
+    const setLoginState = jest.fn();
+    const setErrorMessage = jest.fn();
+    const setResponse = jest.fn();
+
+    const user = jest.fn();
+
+    mocked(newPasswordChallengeResponse).mockResolvedValue({
+      challengeName: "NEW_PASSWORD_REQUIRED",
+    });
+
+    await handleLogin(
+      { password: "foo-password" },
+      LoginState.ChangePasswordChallenge,
+      setLoginState,
+      setErrorMessage,
+      setResponse,
+      user
+    );
+
+    expect(mocked(newPasswordChallengeResponse)).toBeCalledWith(
+      user,
+      "foo-password"
+    );
+  });
 });

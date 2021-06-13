@@ -44,9 +44,9 @@ export const currentUser = async () => {
 };
 
 export const newPasswordChallengeResponse = async (
-  username: string,
+  user: any,
   password: string
 ) => {
   configureAuth();
-  return Auth.completeNewPassword(username, password);
+  return Auth.completeNewPassword(user, password);
 };
