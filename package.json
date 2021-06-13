@@ -1,11 +1,12 @@
 {
-  "name": "gatsby-starter-default",
+  "name": "tnm-v2",
   "private": true,
-  "description": "A simple starter to get up and developing quickly with Gatsby",
+  "description": "An ordering system for a meal prep business",
   "version": "0.1.0",
-  "author": "Kyle Mathews <mathews.kyle@gmail.com>",
+  "author": "Ben Wainwright <bwainwright28@gmail.com>",
   "dependencies": {
     "@axe-core/react": "^4.2.1",
+    "@emotion/eslint-plugin": "^11.2.0",
     "@emotion/jest": "^11.3.0",
     "@emotion/react": "^11.4.0",
     "@emotion/styled": "^11.3.0",
@@ -88,6 +89,9 @@
   },
   "keywords": [
     "gatsby"
+  ],
+  "browserslist": [
+    "defaults"
   ],
   "license": "0BSD",
   "scripts": {

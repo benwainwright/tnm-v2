@@ -5,7 +5,7 @@ module.exports = {
   env: {
     "cypress/globals": true,
   },
-  plugins: ["only-error", "cypress", "security", "fp", "sonarjs"],
+  plugins: ["only-error", "cypress", "security", "fp", "sonarjs", "@emotion"],
   overrides: [
     {
       files: ["**.spec.ts", "**.spec.tsx"],
@@ -40,6 +40,11 @@ module.exports = {
     `plugin:fp/recommended`,
   ],
   rules: {
+    "@emotion/syntax-preference": ["error", "string"],
+    "@emotion/jsx-import": "error",
+    "@emotion/no-vanilla": "error",
+    "@emotion/import-from-emotion": "error",
+    "@emotion/styled-import": "error",
     "unicorn/prefer-node-protocol": "off",
     "unicorn/no-array-callback-reference": "off",
     "unicorn/no-useless-undefined": "off",
