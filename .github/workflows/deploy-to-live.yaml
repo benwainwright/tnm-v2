@@ -100,7 +100,7 @@ jobs:
 
   deploy-to-test:
     name: Deploy to Test
-    needs: [types, lint, unit-test]
+    needs: [types, lint, lint-styles, unit-test]
 
     runs-on: ubuntu-latest
     steps:
