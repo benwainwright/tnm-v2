@@ -33,6 +33,7 @@ module.exports = {
     },
   ],
   extends: [
+    "plugin:react-redux/recommended",
     `react-app`,
     "plugin:unicorn/recommended",
     `plugin:sonarjs/recommended`,

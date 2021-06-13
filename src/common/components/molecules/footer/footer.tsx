@@ -65,7 +65,7 @@ const Footer: FC = () => (
           <FooterHeaders>Sign up to emails</FooterHeaders>
         </div>
 
-        <FooterColumn>
+        <div>
           <FooterHeaders>Order</FooterHeaders>
           <UnStyledUl>
             <FooterLi>
@@ -85,9 +85,9 @@ const Footer: FC = () => (
               <FooterLink href="/the-plans/#Mass">Mass</FooterLink>
             </FooterLi>
           </UnStyledUl>
-        </FooterColumn>
+        </div>
 
-        <FooterColumn>
+        <div>
           <FooterHeaders>About</FooterHeaders>
           <UnStyledUl>
             <FooterLi>
@@ -100,9 +100,9 @@ const Footer: FC = () => (
               <FooterLink href="/the-plans">Meal Plans</FooterLink>
             </FooterLi>
           </UnStyledUl>
-        </FooterColumn>
+        </div>
 
-        <FooterColumn>
+        <div>
           <FooterHeaders>Contact</FooterHeaders>
           <UnStyledUl>
             <FooterLi>
@@ -112,7 +112,7 @@ const Footer: FC = () => (
               <FooterLink href="/get-started">Get Started</FooterLink>
             </FooterLi>
           </UnStyledUl>
-        </FooterColumn>
+        </div>
       </FooterColumns>
     </FooterContent>
   </StyledFooter>
