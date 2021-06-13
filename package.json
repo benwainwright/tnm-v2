@@ -113,7 +113,7 @@
     "storybook": "start-storybook --port 6006 --static-dir ./src/common/fonts",
     "storybook:build": "build-storybook --static-dir ./src/common/fonts --output-dir ./public/storybook",
     "lint": "eslint .",
-    "lint:styles": "stylelint './src/**/*.tsx' './src/**/*.ts'",
+    "lint:styles": "stylelint  './src/**/*.css' './src/**/*.tsx' './src/**/*.ts'",
     "types": "tsc && tsc --project ./cypress/tsconfig.json",
     "build-storybook": "build-storybook"
   },
