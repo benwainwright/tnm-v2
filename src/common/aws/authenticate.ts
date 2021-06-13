@@ -5,6 +5,7 @@ import backendOutputs from "../../backend-outputs.json";
 const REGION = "eu-west-2";
 
 const getConfigurer = () => {
+  // eslint-disable-next-line fp/no-let
   let configureDone = false;
   return () => {
     const outputs = getPoolConfig(backendOutputs);
@@ -16,6 +17,7 @@ const getConfigurer = () => {
           userPoolWebClientId: outputs.ClientId,
         },
       });
+      // eslint-disable-next-line fp/no-mutation
       configureDone = true;
     }
     return outputs;
