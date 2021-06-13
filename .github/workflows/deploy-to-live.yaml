@@ -22,6 +22,9 @@ jobs:
           path: "**/.yarn"
           key: ${{ runner.os }}-modules-${{ hashFiles('**/yarn.lock') }}
 
+      - name: "Install nsm/lippng"
+        run: "automake libtool dpkg pkgconfig nasm libpng"
+
       - name: Yarn install
         uses: borales/actions-yarn@v2.3.0
         with:
