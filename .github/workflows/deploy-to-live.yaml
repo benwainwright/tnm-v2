@@ -1,4 +1,4 @@
-name: Production deploy pipeline
+name: Mainline Deployment Pipeline
 on:
   push:
     branches:
@@ -76,3 +76,46 @@ jobs:
 
       - name: TypeScript compile
         run: yarn types
+
+  deploy-to-test:
+    name: Deploy to Test
+    needs: [types, lint, unit-test]
+
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v1
+      - name: Configure node 12
+        uses: actions/setup-node@v1
+        with:
+          node-version: "12"
+      - uses: actions/cache@v2
+        with:
+          path: "**/.yarn"
+          key: ${{ runner.os }}-modules-${{ hashFiles('**/yarn.lock') }}
+
+      - name: Yarn install
+        run: yarn install
+
+      - name: Turnstyle
+        uses: softprops/turnstyle@v1
+        with:
+          poll-interval-seconds: 30
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Deploy Backend
+        run: yarn deploy:backend --require-approval never
+        env:
+          DEPLOYMENT_ENVIRONMENT: test
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          AWS_DEFAULT_REGION: us-east-1
+
+      - name: Deploy Frontend
+        run: yarn deploy:frontend --require-approval never
+        env:
+          DEPLOYMENT_ENVIRONMENT: test
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          AWS_DEFAULT_REGION: us-east-1
