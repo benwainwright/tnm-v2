@@ -124,41 +124,40 @@ jobs:
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           AWS_DEFAULT_REGION: eu-west-2
   e2e-tests:
-
     name: Run E2E tests
     needs: [deploy-to-test]
     runs-on: ubuntu-latest
     container:
       image: cypress/base
-    - name: Checkout repository
-      uses: actions/checkout@v1
-    - name: Install Cypress deps
-      run: apt-get install -y libgtk2.0-0 libgtk-3-0 libgbm-dev libnotify-dev libgconf-2-4 libnss3 libxss1 libasound2 libxtst6 xauth xvfb
-    - name: Configure node 12
-      uses: actions/setup-node@v1
-      with:
-        node-version: "12"
-    - uses: actions/cache@v2
-      with:
-        path: "**/.yarn"
-        key: ${{ runner.os }}-modules-${{ hashFiles('**/yarn.lock') }}
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v1
+      - name: Install Cypress deps
+        run: apt-get install -y libgtk2.0-0 libgtk-3-0 libgbm-dev libnotify-dev libgconf-2-4 libnss3 libxss1 libasound2 libxtst6 xauth xvfb
+      - name: Configure node 12
+        uses: actions/setup-node@v1
+        with:
+          node-version: "12"
+      - uses: actions/cache@v2
+        with:
+          path: "**/.yarn"
+          key: ${{ runner.os }}-modules-${{ hashFiles('**/yarn.lock') }}
 
+      - name: Yarn install
+        run: yarn install
 
-    - name: Yarn install
-      run: yarn install
+      - name: Turnstyle
+        uses: softprops/turnstyle@v1
+        with:
+          poll-interval-seconds: 30
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-    - name: Turnstyle
-      uses: softprops/turnstyle@v1
-      with:
-        poll-interval-seconds: 30
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Run tests
+        run: yarn test:cypress
+        env:
+          CYPRESS_BASE_URL: https://d2bnp0b9ah9f76.cloudfront.net
 
-    - name: Run tests
-      run: yarn test:cypress
-      env:
-        CYPRESS_BASE_URL: https://d2bnp0b9ah9f76.cloudfront.net
-
-    - uses: actions/upload-artifact@v2
-      with:
-        path: cypress/videos/**/*
+      - uses: actions/upload-artifact@v2
+        with:
+          path: cypress/videos/**/*
