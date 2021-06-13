@@ -53,25 +53,23 @@ export interface InputProps {
   onChange?: (event: ChangeEvent<HTMLInputElement>) => void;
 }
 
-const Input: FC<InputProps> = (props) => {
-  return (
-    <InputContainer>
-      <LabelRow>
-        <InputLabel htmlFor={props.name}>{props.label}</InputLabel>
-        {props.errorMessage ? (
-          <ErrorLabel htmlFor={props.name}>{props.errorMessage}</ErrorLabel>
-        ) : null}
-      </LabelRow>
-      <InputField
-        id={props.name}
-        name={props.name}
-        value={props.value}
-        type={props.type}
-        onChange={props.onChange}
-        placeholder={props.placeholder}
-      />
-    </InputContainer>
-  );
-};
+const Input: FC<InputProps> = (props) => (
+  <InputContainer>
+    <LabelRow>
+      <InputLabel htmlFor={props.name}>{props.label}</InputLabel>
+      {props.errorMessage ? (
+        <ErrorLabel htmlFor={props.name}>{props.errorMessage}</ErrorLabel>
+      ) : null}
+    </LabelRow>
+    <InputField
+      id={props.name}
+      name={props.name}
+      value={props.value}
+      type={props.type}
+      onChange={props.onChange}
+      placeholder={props.placeholder}
+    />
+  </InputContainer>
+);
 
 export default Input;
