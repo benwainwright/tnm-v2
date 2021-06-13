@@ -5,7 +5,6 @@ import { mocked } from "ts-jest/utils";
 
 jest.mock("gatsby");
 jest.mock("../aws/authenticate");
-jest.mock("./handle-srp-response");
 jest.mock("universal-cookie");
 
 describe("the login handler", () => {
