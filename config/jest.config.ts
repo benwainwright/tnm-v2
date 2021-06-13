@@ -24,7 +24,12 @@ const config: Config.InitialOptions = {
       functions: 80,
     },
   },
-  testPathIgnorePatterns: [`node_modules`, `\\.cache`, `<rootDir>.*/public`],
+  testPathIgnorePatterns: [
+    `node_modules`,
+    `\\.cache`,
+    `<rootDir>.*/public`,
+    `cypress`,
+  ],
   transformIgnorePatterns: [`node_modules/(?!(gatsby)/)`],
   setupFiles: [`<rootDir>/config/loadershim.js`],
 }
