@@ -8,7 +8,7 @@ on:
 
 jobs:
   unit-test:
-    name: Unit test
+    name: Unit tests
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -36,7 +36,7 @@ jobs:
           verbose: true
 
   lint:
-    name: Lint
+    name: Linting
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -55,3 +55,24 @@ jobs:
 
       - name: Lint
         run: yarn lint
+
+  types:
+    name: Typecheck
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Configure node 12
+        uses: actions/setup-node@v1
+        with:
+          node-version: "12"
+
+      - uses: actions/cache@v2
+        with:
+          path: "**/.yarn"
+          key: ${{ runner.os }}-modules-${{ hashFiles('**/yarn.lock') }}
+
+      - name: Yarn install
+        run: yarn install
+
+      - name: TypeScript compile
+        run: yarn types
