@@ -5,6 +5,7 @@ export interface IconButtonProps {
   icon: any
   onClick?: (event: MouseEvent<HTMLButtonElement>) => void
   disabled?: boolean
+  ariaLabel: string
 }
 
 const StyledButton = styled("button")`
@@ -19,7 +20,11 @@ const StyledButton = styled("button")`
 StyledButton.displayName = "button"
 
 const IconButton: FC<IconButtonProps> = (props) => (
-  <StyledButton onClick={props.onClick} disabled={props.disabled}>
+  <StyledButton
+    onClick={props.onClick}
+    disabled={props.disabled}
+    aria-label={props.ariaLabel}
+  >
     <props.icon />
   </StyledButton>
 )
