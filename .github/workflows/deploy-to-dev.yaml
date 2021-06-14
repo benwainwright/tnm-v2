@@ -1,0 +1,185 @@
+name: Development Deployment Pipeline
+on:
+  push:
+    branches:
+      - develop
+    paths-ignore:
+      - "**.md"
+
+jobs:
+  unit-test:
+    name: Unit tests
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Configure node 12
+        uses: actions/setup-node@v1
+        with:
+          node-version: "12"
+
+      - uses: actions/cache@v2
+        with:
+          path: "**/.yarn"
+          key: ${{ runner.os }}-modules-${{ hashFiles('**/yarn.lock') }}
+
+      - name: Yarn install
+        run: yarn install
+
+      - name: Run tests
+        run: CI=true yarn test:coverage
+
+      - uses: codecov/codecov-action@v1
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
+          directory: coverage
+          flags: unittests
+          verbose: true
+
+  lint:
+    name: Linting
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Configure node 12
+        uses: actions/setup-node@v1
+        with:
+          node-version: "12"
+
+      - uses: actions/cache@v2
+        with:
+          path: "**/.yarn"
+          key: ${{ runner.os }}-modules-${{ hashFiles('**/yarn.lock') }}
+
+      - name: Yarn install
+        run: yarn install
+
+      - name: Lint
+        run: yarn lint
+
+  lint-styles:
+    name: Check styles
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Configure node 12
+        uses: actions/setup-node@v1
+        with:
+          node-version: "12"
+
+      - uses: actions/cache@v2
+        with:
+          path: "**/.yarn"
+          key: ${{ runner.os }}-modules-${{ hashFiles('**/yarn.lock') }}
+
+      - name: Yarn install
+        run: yarn install
+
+      - name: Lint
+        run: yarn lint:styles
+
+  types:
+    name: Typecheck
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Configure node 12
+        uses: actions/setup-node@v1
+        with:
+          node-version: "12"
+
+      - uses: actions/cache@v2
+        with:
+          path: "**/.yarn"
+          key: ${{ runner.os }}-modules-${{ hashFiles('**/yarn.lock') }}
+
+      - name: Yarn install
+        run: yarn install
+
+      - name: TypeScript compile
+        run: yarn types
+
+  deploy-to-dev:
+    name: Deploy to Dev
+    needs: [types, lint, lint-styles, unit-test]
+
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v1
+      - name: Configure node 12
+        uses: actions/setup-node@v1
+        with:
+          node-version: "12"
+      - uses: actions/cache@v2
+        with:
+          path: "**/.yarn"
+          key: ${{ runner.os }}-modules-${{ hashFiles('**/yarn.lock') }}
+
+      - name: Yarn install
+        run: yarn install
+
+      - name: Turnstyle
+        uses: softprops/turnstyle@v1
+        with:
+          poll-interval-seconds: 30
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Create public folder
+        run: mkdir public
+
+      - name: Deploy Backend
+        run: yarn deploy:backend:dev --require-approval never
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          AWS_DEFAULT_REGION: eu-west-2
+
+      - name: Build frontend
+        run: yarn build
+
+      - name: Deploy Frontend
+        run: yarn deploy:frontend:dev --require-approval never
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          AWS_DEFAULT_REGION: eu-west-2
+
+  e2e-tests:
+    name: Run E2E Tests
+    needs: [deploy-to-test]
+    runs-on: ubuntu-latest
+    container:
+      image: cypress/base
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v1
+      - name: Install Cypress deps
+        run: apt-get install -y libgtk2.0-0 libgtk-3-0 libgbm-dev libnotify-dev libgconf-2-4 libnss3 libxss1 libasound2 libxtst6 xauth xvfb
+      - name: Configure node 12
+        uses: actions/setup-node@v1
+        with:
+          node-version: "12"
+      - uses: actions/cache@v2
+        with:
+          path: "**/.yarn"
+          key: ${{ runner.os }}-modules-${{ hashFiles('**/yarn.lock') }}
+
+      - name: Yarn install
+        run: yarn install
+
+      - name: Turnstyle
+        uses: softprops/turnstyle@v1
+        with:
+          poll-interval-seconds: 30
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Run tests
+        run: yarn test:cypress
+        env:
+          CYPRESS_BASE_URL: https://d2bnp0b9ah9f76.cloudfront.net
+
+      - uses: actions/upload-artifact@v2
+        with:
+          path: cypress/videos/**/*
