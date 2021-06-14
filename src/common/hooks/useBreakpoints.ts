@@ -12,12 +12,14 @@ export interface Breakpoints {
 const isBrowser = typeof window !== "undefined"
 
 const findBreakpoint = (breakpoints: Breakpoints) => {
-  const largestStart = Object.entries(breakpoints).reduce((accum, current) =>
-    (current[1].start ?? 0) > (accum[1].start ?? 0) ? current : accum
+  const smallestEnd = Object.entries(breakpoints).reduce((accum, current) =>
+    (current[1].end ?? 9_999_999) < (accum[1].end ?? 9_999_999)
+      ? current
+      : accum
   )
 
   if (!isBrowser) {
-    return largestStart[0]
+    return smallestEnd[0]
   }
 
   const betweenBreakpoint = Object.entries(breakpoints).find(([, values]) => {
@@ -28,7 +30,7 @@ const findBreakpoint = (breakpoints: Breakpoints) => {
   })
 
   if (!betweenBreakpoint) {
-    return largestStart[0]
+    return smallestEnd[0]
   }
 
   return betweenBreakpoint[0]
