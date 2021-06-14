@@ -46,38 +46,73 @@ describe("Quantity stepper", () => {
   })
 
   it("disables the plus button if the max value is reached", () => {
-    const wrapper = shallow(<QuantityStepper value={6} max={6} />)
+    const onChange = jest.fn()
+    const wrapper = shallow(
+      <QuantityStepper value={6} max={6} onChange={onChange} />
+    )
+
     const increaseButton = wrapper
       .find(IconButton)
       .findWhere((button) => button.prop("ariaLabel") === "Increase")
 
-    expect(increaseButton.prop("disabled")).toEqual(true)
+    act(() => {
+      increaseButton.simulate("click")
+    })
+
+    expect(onChange).not.toHaveBeenCalled()
+    expect(increaseButton.prop("disabled")).toBeTrue()
   })
 
   it("enables the plus button if the max value is not reached", () => {
-    const wrapper = shallow(<QuantityStepper value={5} max={6} />)
+    const onChange = jest.fn()
+    const wrapper = shallow(
+      <QuantityStepper value={5} max={6} onChange={onChange} />
+    )
     const increaseButton = wrapper
       .find(IconButton)
       .findWhere((button) => button.prop("ariaLabel") === "Increase")
 
-    expect(increaseButton.prop("disabled")).toEqual(false)
+    act(() => {
+      increaseButton.simulate("click")
+    })
+
+    expect(onChange).toHaveBeenCalled()
+    expect(increaseButton.prop("disabled")).not.toBeTrue()
   })
 
   it("disables the minus button if the min value is reached", () => {
-    const wrapper = shallow(<QuantityStepper value={3} min={3} />)
-    const increaseButton = wrapper
+    const onChange = jest.fn()
+    const wrapper = shallow(
+      <QuantityStepper value={3} min={3} onChange={onChange} />
+    )
+
+    const decreaseButton = wrapper
       .find(IconButton)
       .findWhere((button) => button.prop("ariaLabel") === "Decrease")
 
-    expect(increaseButton.prop("disabled")).toEqual(true)
+    act(() => {
+      decreaseButton.simulate("click")
+    })
+
+    expect(onChange).not.toHaveBeenCalled()
+    expect(decreaseButton.prop("disabled")).toBeTrue()
   })
 
   it("enables the plus button if the min value is not reached", () => {
-    const wrapper = shallow(<QuantityStepper value={4} min={3} />)
-    const increaseButton = wrapper
+    const onChange = jest.fn()
+    const wrapper = shallow(
+      <QuantityStepper value={2} min={3} onChange={onChange} />
+    )
+
+    const decreaseButton = wrapper
       .find(IconButton)
       .findWhere((button) => button.prop("ariaLabel") === "Decrease")
 
-    expect(increaseButton.prop("disabled")).toEqual(false)
+    act(() => {
+      decreaseButton.simulate("click")
+    })
+
+    expect(decreaseButton.prop("disabled")).not.toBeTrue()
+    expect(onChange).toHaveBeenCalled()
   })
 })

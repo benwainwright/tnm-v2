@@ -1,5 +1,5 @@
 import { Story, Meta } from "@storybook/react"
-import MenuIcon from "../../../assets/images/icons/menu.inline.svg"
+import MenuIcon from "../../../assets/images/icons/menu.svg"
 
 import IconButton, { IconButtonProps } from "./icon-button"
 
