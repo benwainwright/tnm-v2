@@ -9,7 +9,6 @@ export default {
 } as Meta
 
 const Template: Story<IconButtonProps> = (args) => {
-  console.log(MenuIcon)
   return <IconButton icon={MenuIcon} />
 }
 

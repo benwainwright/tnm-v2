@@ -1,5 +1,4 @@
 import IconButton from "./icon-button"
-import MenuIcon from "../../../../images/icons/menu.inline.svg"
 import { shallow } from "enzyme"
 
 describe("the icon button", () => {
