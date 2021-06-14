@@ -147,7 +147,7 @@ jobs:
 
   e2e-tests:
     name: Run E2E Tests
-    needs: [deploy-to-test]
+    needs: [deploy-to-dev]
     runs-on: ubuntu-latest
     container:
       image: cypress/base
