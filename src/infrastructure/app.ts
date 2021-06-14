@@ -21,12 +21,23 @@ new BackendStack(app, {
 })
 
 new ApplicationStack(app, {
+  environmentName: "dev",
+  env,
+})
+
+new BackendStack(app, {
+  environmentName: "dev",
+  callbackUrl: "https://d2bnp0b9ah9f76.cloudfront.net/",
+  env,
+})
+
+new ApplicationStack(app, {
   environmentName: "prod",
   env,
 })
 
 new BackendStack(app, {
   environmentName: "prod",
-  callbackUrl: "https://d2bnp0b9ah9f76.cloudfront.net/",
+  callbackUrl: "https://dw40nwmhtomz7.cloudfront.net",
   env,
 })
