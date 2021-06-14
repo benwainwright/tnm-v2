@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react"
+import { useLayoutEffect, useState } from "react"
 
 interface BreakpointValue {
   start?: number
@@ -38,7 +38,7 @@ const findBreakpoint = (breakpoints: Breakpoints) => {
 
 export const useBreakpoints = (breakpoints: Breakpoints): string => {
   const [breakpoint, setBreakpoint] = useState(findBreakpoint(breakpoints))
-  useEffect(() => {
+  useLayoutEffect(() => {
     const handleResize = () => setBreakpoint(findBreakpoint(breakpoints))
     window.addEventListener("resize", handleResize)
     return () => window.removeEventListener("resize", handleResize)
