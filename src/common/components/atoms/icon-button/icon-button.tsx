@@ -16,6 +16,9 @@ const StyledButton = styled("button")`
   border: 0;
   background: 0;
   cursor: pointer;
+  &:disabled {
+    opacity: 0.3;
+  }
 `
 StyledButton.displayName = "button"
 
