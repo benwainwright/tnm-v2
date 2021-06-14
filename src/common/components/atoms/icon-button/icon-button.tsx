@@ -25,7 +25,7 @@ const IconButton: FC<IconButtonProps> = (props) => (
     disabled={props.disabled}
     aria-label={props.ariaLabel}
   >
-    <props.icon />
+    <img src={props.icon} alt="" width="40px" height="40px" />
   </StyledButton>
 )
 
