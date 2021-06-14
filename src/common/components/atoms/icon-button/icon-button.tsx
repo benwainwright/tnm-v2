@@ -16,6 +16,7 @@ const StyledButton = styled("button")`
   background: 0;
   cursor: pointer;
 `
+StyledButton.displayName = "button"
 
 const IconButton: FC<IconButtonProps> = (props) => (
   <StyledButton onClick={props.onClick} disabled={props.disabled}>
