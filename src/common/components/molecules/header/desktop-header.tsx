@@ -1,7 +1,7 @@
 import { FC } from "react"
 
 import styled from "@emotion/styled"
-import TnmHeader from "../../../../images/TNM-Header.svg"
+import TnmHeader from "../../../assets/images/TNM-Header.svg"
 import { Button } from "@common/components/atoms"
 
 const HeaderUnorderedList = styled("ul")`

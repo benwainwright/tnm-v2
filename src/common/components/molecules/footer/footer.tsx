@@ -1,7 +1,7 @@
 import { FC } from "react"
 import styled from "@emotion/styled"
 
-import SeasonalPattern from "../../../../images/Seasonal-pattern-spring-tnm.png"
+import SeasonalPattern from "../../../assets/images/Seasonal-pattern-spring-tnm.png"
 
 const StyledFooter = styled.footer`
   width: 100%;
