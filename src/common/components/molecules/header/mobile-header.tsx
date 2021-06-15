@@ -1,7 +1,7 @@
 import { FC, Fragment } from "react"
 
-import MenuIcon from "../../../assets/images/icons/menu.svg"
-import TnmNLogo from "../../../assets/images/icons/tnm-n-logo.inline.svg"
+import MenuIcon from "@common/assets/images/icons/menu.inline.svg"
+import TnmNLogo from "@common/assets/images/icons/tnm-n-logo.inline.svg"
 import styled from "@emotion/styled"
 import { Button } from "../../atoms"
 

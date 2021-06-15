@@ -38,8 +38,13 @@ const findBreakpoint = (breakpoints: Breakpoints) => {
 
 export const useBreakpoints = (breakpoints: Breakpoints): string => {
   const [breakpoint, setBreakpoint] = useState(findBreakpoint(breakpoints))
+
   useLayoutEffect(() => {
-    const handleResize = () => setBreakpoint(findBreakpoint(breakpoints))
+    const handleResize = () => {
+      if (isBrowser) {
+        setBreakpoint(findBreakpoint(breakpoints))
+      }
+    }
     window.addEventListener("resize", handleResize)
     return () => window.removeEventListener("resize", handleResize)
   }, [breakpoints])
