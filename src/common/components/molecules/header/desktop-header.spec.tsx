@@ -2,6 +2,10 @@ import DesktopHeader from "./desktop-header"
 import { shallow } from "enzyme"
 
 describe("The desktop header", () => {
+  it("renders without an error", () => {
+    shallow(<DesktopHeader />)
+  })
+
   it("contains an Our Story link", () => {
     const wrapper = shallow(<DesktopHeader />)
 
