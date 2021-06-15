@@ -5,6 +5,7 @@ import {
   LoginFormData,
   ChangePasswordFormData,
 } from "@common/types/srp-data"
+import { navigate } from "gatsby"
 import { LoginState } from "../pages/login"
 import { login, newPasswordChallengeResponse } from "../aws/authenticate"
 
@@ -29,28 +30,45 @@ export const handleLogin = async (
   setErrorMessage: Dispatch<SetStateAction<ErrorResponse | undefined>>,
   loginResponse: any
 ): Promise<void> => {
-  if (isLoginData(srpFormData, loginState)) {
-    const response = await login(srpFormData.email, srpFormData.password)
+  try {
+    if (isLoginData(srpFormData, loginState)) {
+      const response = await login(srpFormData.email, srpFormData.password)
 
-    setResponse(response)
+      setResponse(response)
 
-    if (response.challengeName === "SMS_MFA") {
-      setLoginState(LoginState.MfaChallenge)
+      if (response.challengeName === "SMS_MFA") {
+        setLoginState(LoginState.MfaChallenge)
+        return
+      }
+
+      if (response.challengeName === "NEW_PASSWORD_REQUIRED") {
+        setLoginState(LoginState.ChangePasswordChallenge)
+        return
+      }
+
+      if (response.signInUserSession?.accessToken) {
+        navigate("/account/")
+        return
+      }
     }
 
-    if (response.challengeName === "NEW_PASSWORD_REQUIRED") {
-      setLoginState(LoginState.ChangePasswordChallenge)
-    }
-  }
+    if (isChangePasswordData(srpFormData, loginState)) {
+      const response = await newPasswordChallengeResponse(
+        loginResponse,
+        srpFormData.password
+      )
 
-  if (isChangePasswordData(srpFormData, loginState)) {
-    const response = await newPasswordChallengeResponse(
-      loginResponse,
-      srpFormData.password
-    )
+      if (response.challengeName === "SMS_MFA") {
+        setLoginState(LoginState.MfaChallenge)
+        return
+      }
 
-    if (response.challengeName === "SMS_MFA") {
-      setLoginState(LoginState.MfaChallenge)
+      if (response.signInUserSession?.accessToken) {
+        navigate("/account/")
+        return
+      }
     }
+  } catch (error) {
+    setErrorMessage({ message: error.message })
   }
 }

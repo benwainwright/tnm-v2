@@ -1,6 +1,7 @@
 import { handleLogin } from "./handle-login"
 import { login, newPasswordChallengeResponse } from "../aws/authenticate"
 import { LoginState } from "../pages/login"
+import { navigate } from "gatsby"
 import { mocked } from "ts-jest/utils"
 
 jest.mock("gatsby")
@@ -10,6 +11,26 @@ jest.mock("universal-cookie")
 describe("the login handler", () => {
   afterEach(() => {
     jest.restoreAllMocks()
+  })
+
+  it("Fires the setErrorMessage handler if an error is thrown", async () => {
+    mocked(login).mockRejectedValue(new Error("AN ERROR!"))
+
+    const setLoginState = jest.fn()
+    const setErrorMessage = jest.fn()
+    const setResponse = jest.fn()
+    const loginResponse = jest.fn()
+
+    await handleLogin(
+      { email: "foo@bar.com", password: "foo" },
+      LoginState.DoLogin,
+      setLoginState,
+      setResponse,
+      setErrorMessage,
+      loginResponse
+    )
+
+    expect(setErrorMessage).toBeCalledWith({ message: "AN ERROR!" })
   })
 
   it("sets the state to MfaChallenge if an MfaChallenge is returned from the login", async () => {
@@ -76,6 +97,56 @@ describe("the login handler", () => {
     )
 
     expect(setLoginState).toBeCalledWith(LoginState.ChangePasswordChallenge)
+  })
+
+  it("Redirects to account if login is successful from login", async () => {
+    const setLoginState = jest.fn()
+    const setErrorMessage = jest.fn()
+    const setResponse = jest.fn()
+
+    const user = jest.fn()
+
+    mocked(login).mockResolvedValue({
+      signInUserSession: {
+        accessToken: "foo-token",
+      },
+    })
+
+    await handleLogin(
+      { email: "foo@bar.com", password: "foo-password" },
+      LoginState.DoLogin,
+      setLoginState,
+      setErrorMessage,
+      setResponse,
+      user
+    )
+
+    expect(mocked(navigate)).toBeCalledWith("/account/")
+  })
+
+  it("Redirects to account if login is successful from newPassword", async () => {
+    const setLoginState = jest.fn()
+    const setErrorMessage = jest.fn()
+    const setResponse = jest.fn()
+
+    const user = jest.fn()
+
+    mocked(newPasswordChallengeResponse).mockResolvedValue({
+      signInUserSession: {
+        accessToken: "foo-token",
+      },
+    })
+
+    await handleLogin(
+      { password: "foo-password" },
+      LoginState.ChangePasswordChallenge,
+      setLoginState,
+      setErrorMessage,
+      setResponse,
+      user
+    )
+
+    expect(mocked(navigate)).toBeCalledWith("/account/")
   })
 
   it("Calls newPasswordChallengeResponse if the state is PasswordChallenge", async () => {
