@@ -3,13 +3,13 @@ import { shallow } from "enzyme"
 
 describe("the icon button", () => {
   it("should render a button component", () => {
-    const icon = jest.fn()
+    const icon = "icon"
     const wrapper = shallow(<IconButton ariaLabel="icon" icon={icon} />)
     expect(wrapper.find("button")).toHaveLength(1)
   })
 
   it("should pass the onclick, disabled and aria-label prop", () => {
-    const icon = jest.fn()
+    const icon = "icon"
     const onClick = jest.fn()
     const wrapper = shallow(
       <IconButton
