@@ -22,6 +22,7 @@ const SiteNavbar = styled("nav")`
 
 const Header: FC = () => {
   const currentBreakpoint = useBreakpoints(breakpoints)
+  console.log("breakpoint", currentBreakpoint)
   return (
     <SiteNavbar>
       {currentBreakpoint === "large" ? <DesktopHeader /> : <MobileHeader />}
