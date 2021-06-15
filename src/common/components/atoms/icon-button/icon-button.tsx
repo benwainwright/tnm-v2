@@ -1,6 +1,5 @@
 import type { FC, MouseEvent } from "react"
 import styled from "@emotion/styled"
-import { BUTTON_BLACK } from "@common/config"
 
 export interface IconButtonProps {
   icon: string
@@ -19,13 +18,13 @@ const StyledButton = styled("button")`
   cursor: pointer;
   border-radius: 50%;
 
-  &:hover:enabled {
-    filter: opacity(50%);
-  }
-
   &:disabled {
     cursor: default;
     opacity: 0.3;
+  }
+
+  &:hover:enabled {
+    filter: opacity(50%);
   }
 `
 StyledButton.displayName = "button"
