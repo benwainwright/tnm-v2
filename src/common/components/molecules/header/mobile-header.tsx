@@ -1,12 +1,13 @@
 import { FC, Fragment } from "react"
 
-import MenuIcon from "../../../../images/icons/menu.inline.svg"
-import TnmNLogo from "../../../../images/icons/tnm-n-logo.inline.svg"
+import MenuIcon from "@common/assets/images/icons/menu.svg"
+import TnmNLogo from "@common/assets/images/icons/tnm-n-logo.inline.svg"
 import styled from "@emotion/styled"
 import { Button } from "../../atoms"
 
-const StyledMenuIcon = styled(MenuIcon)`
+const StyledMenuIcon = styled("img")`
   width: 40px;
+  height: 40px;
 `
 const MenuButtonContainerLeft = styled("div")`
   margin: 24px 0;
@@ -27,7 +28,7 @@ const StyledTnmLogo = styled(TnmNLogo)`
 const MobileHeader: FC = () => (
   <Fragment>
     <MenuButtonContainerLeft>
-      <StyledMenuIcon />
+      <StyledMenuIcon src={MenuIcon} alt="Menu" />
     </MenuButtonContainerLeft>
     <StyledTnmLogo />
     <MenuButtonContainerRight>

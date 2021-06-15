@@ -1,4 +1,4 @@
-import { FC, MouseEvent } from "react"
+import type { FC, MouseEvent } from "react"
 
 import styled from "@emotion/styled"
 import { BUTTON_BLACK } from "../../../config"

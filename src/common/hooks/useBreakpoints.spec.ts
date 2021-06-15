@@ -9,7 +9,7 @@ const setWindowWidth = (value: number) =>
   })
 
 describe("useBreakpoints", () => {
-  it("defaults to the largest breakpoint if misconfigured", () => {
+  it("defaults to the smallest breakpoint if misconfigured", () => {
     const breakpoints1: Breakpoints = {
       small: {
         end: 100,
@@ -25,7 +25,7 @@ describe("useBreakpoints", () => {
     setWindowWidth(200)
 
     const { result: result1 } = renderHook(() => useBreakpoints(breakpoints1))
-    expect(result1.current).toEqual("large")
+    expect(result1.current).toEqual("small")
 
     const breakpoints2: Breakpoints = {
       large: {
@@ -42,7 +42,7 @@ describe("useBreakpoints", () => {
     setWindowWidth(200)
 
     const { result: result2 } = renderHook(() => useBreakpoints(breakpoints2))
-    expect(result2.current).toEqual("large")
+    expect(result2.current).toEqual("small")
   })
 
   describe("before any events are fired", () => {

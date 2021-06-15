@@ -1,8 +1,9 @@
 import { FC } from "react"
 
 import styled from "@emotion/styled"
-import TnmHeader from "../../../../images/TNM-Header.svg"
+import TnmHeader from "../../../assets/images/TNM-Header.svg"
 import { Button } from "@common/components/atoms"
+import { BUTTON_BLACK } from "@common/config"
 
 const HeaderUnorderedList = styled("ul")`
   display: flex;
@@ -30,9 +31,17 @@ const HeaderListItem = styled("li")`
   white-space: nowrap;
 `
 
+const MenuAnchor = styled("a")`
+  text-decoration: none;
+  color: ${BUTTON_BLACK};
+`
+MenuAnchor.displayName = "a"
+
 const DesktopHeader: FC = () => (
   <HeaderUnorderedList>
-    <HeaderListItem>Our Story</HeaderListItem>
+    <HeaderListItem>
+      <MenuAnchor href="/our-story/">Our Story</MenuAnchor>
+    </HeaderListItem>
     <HeaderListItem>Why Choose Us</HeaderListItem>
     <HeaderListItem>
       <TheNutritionistLogo href="/" />
