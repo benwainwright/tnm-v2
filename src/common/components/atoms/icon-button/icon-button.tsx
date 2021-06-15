@@ -2,7 +2,7 @@ import type { FC, MouseEvent } from "react"
 import styled from "@emotion/styled"
 
 export interface IconButtonProps {
-  icon: any
+  icon: string
   onClick?: (event: MouseEvent<HTMLButtonElement>) => void
   disabled?: boolean
   ariaLabel: string
