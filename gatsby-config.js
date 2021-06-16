@@ -1,9 +1,10 @@
 const path = require("path")
 module.exports = {
   siteMetadata: {
-    title: `TNM Admin V2`,
-    description: `Manage customer orders`,
-    author: `@gatsbyjs`,
+    title: `The Nutritionist Manchester`,
+    description: `Developed by Nutritionists, Prepared by Chefs
+`,
+    author: `Ryan Walker`,
   },
   plugins: [
     {

@@ -2,12 +2,14 @@ import { FC } from "react"
 import styled from "@emotion/styled"
 
 import SeasonalPattern from "../../../assets/images/Seasonal-pattern-spring-tnm.png"
+import TnmLogoWhite from "../../../assets/images/TNM-Full-white.svg"
 
 const StyledFooter = styled.footer`
   width: 100%;
   font-family: "Acumin Pro", Arial, sans-serif;
   box-sizing: border-box;
   position: relative;
+  background: #253a3d;
 `
 
 const FooterStrip = styled.div`
@@ -21,13 +23,14 @@ const FooterStrip = styled.div`
 `
 
 const FooterContent = styled.div`
+  padding: 100px 30px;
   background: #253a3d;
   color: white;
 `
 
 const FooterColumns = styled.div`
   display: flex;
-  justify-content: space-evenly;
+  justify-content: space-between;
 `
 
 const FooterHeaders = styled.h3`
@@ -56,10 +59,23 @@ const UnStyledUl = styled.ul`
   padding: 0;
 `
 
+const TnmLogoWhiteAnchor = styled.a`
+  text-indent: -9999px;
+  display: block;
+  width: 422px;
+  height: 46px;
+  display: block;
+  margin-bottom: 100px;
+  background: url(${TnmLogoWhite});
+`
+
+const FooterContentContainer = styled.div``
+
 const Footer: FC = () => (
   <StyledFooter>
     <FooterStrip aria-hidden></FooterStrip>
     <FooterContent>
+      <TnmLogoWhiteAnchor href="/">The Nutritionist MCR</TnmLogoWhiteAnchor>
       <FooterColumns>
         <div>
           <FooterHeaders>Sign up to emails</FooterHeaders>

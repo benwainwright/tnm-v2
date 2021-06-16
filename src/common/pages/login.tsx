@@ -2,6 +2,7 @@ import { FC, useState } from "react"
 import Layout from "../components/layout"
 import { ErrorResponse } from "../types/error-response"
 import { LoginBox, MfaBox, NewPasswordBox } from "../components/molecules"
+import Seo from "@common/components/seo"
 import { handleLogin } from "../handlers/handle-login"
 
 export enum LoginState {
@@ -30,6 +31,7 @@ const Login: FC = () => {
 
   return (
     <Layout>
+      <Seo title="Login" />
       <Box
         errors={errorMessage ? [errorMessage] : undefined}
         onSubmit={async (data) => {
