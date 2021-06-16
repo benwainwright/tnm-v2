@@ -61,7 +61,6 @@ const UnStyledUl = styled.ul`
 
 const TnmLogoWhiteAnchor = styled.a`
   text-indent: -9999px;
-  display: block;
   width: 422px;
   height: 46px;
   display: block;
