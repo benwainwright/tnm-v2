@@ -69,8 +69,6 @@ const TnmLogoWhiteAnchor = styled.a`
   background: url(${TnmLogoWhite});
 `
 
-const FooterContentContainer = styled.div``
-
 const Footer: FC = () => (
   <StyledFooter>
     <FooterStrip aria-hidden></FooterStrip>
