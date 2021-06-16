@@ -18,4 +18,32 @@ export const seedCognito = async () => {
       Username: TEST_USER,
     })
     .promise()
+
+  await cognito
+    .adminCreateUser({
+      UserPoolId: poolId,
+      Username: TEST_USER,
+      TemporaryPassword: "520972vi123A.",
+      MessageAction: "Suppress",
+      DesiredDeliveryMediums: ["EMAIL"],
+      UserAttributes: [
+        {
+          Name: "email_verified",
+          Value: "True",
+        },
+        {
+          Name: "phone_number_verified",
+          Value: "True",
+        },
+        {
+          Name: "email",
+          Value: "testing@user.com",
+        },
+        {
+          Name: "phone_number",
+          Value: "+447732432435",
+        },
+      ],
+    })
+    .promise()
 }
