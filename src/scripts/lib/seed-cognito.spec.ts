@@ -88,7 +88,7 @@ describe("seed cognito", () => {
         UserPoolId: "foo-id",
         Username: TEST_USER,
         TemporaryPassword: "520972vi123A.",
-        MessageAction: "Suppress",
+        MessageAction: "SUPPRESS",
         DesiredDeliveryMediums: ["EMAIL"],
         UserAttributes: [
           {

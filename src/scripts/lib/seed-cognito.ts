@@ -3,7 +3,7 @@ import { CognitoIdentityServiceProvider } from "aws-sdk"
 export const TEST_USER = "cypress-test-user"
 
 export const seedCognito = async () => {
-  const cognito = new CognitoIdentityServiceProvider()
+  const cognito = new CognitoIdentityServiceProvider({ region: "eu-west-2" })
 
   const poolId = process.env.CYPRESS_POOL_ID
 
@@ -12,19 +12,24 @@ export const seedCognito = async () => {
     throw new Error("CYPRESS_POOL_ID not configured")
   }
 
-  await cognito
-    .adminDeleteUser({
-      UserPoolId: poolId,
-      Username: TEST_USER,
-    })
-    .promise()
+  try {
+    await cognito
+      .adminDeleteUser({
+        UserPoolId: poolId,
+        Username: TEST_USER,
+      })
+      .promise()
+  } catch {
+    // eslint-disable-next-line no-console
+    console.log(`'${TEST_USER}' doesn't exist`)
+  }
 
   await cognito
     .adminCreateUser({
       UserPoolId: poolId,
       Username: TEST_USER,
       TemporaryPassword: "520972vi123A.",
-      MessageAction: "Suppress",
+      MessageAction: "SUPPRESS",
       DesiredDeliveryMediums: ["EMAIL"],
       UserAttributes: [
         {
