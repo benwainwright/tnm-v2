@@ -17,7 +17,6 @@ interface Meta {
 
 interface SeoProps {
   description?: string
-  lang?: string
   title: string
   meta?: Meta[]
 }
@@ -43,7 +42,7 @@ const Seo: FC<SeoProps> = (props) => {
   return (
     <Helmet
       htmlAttributes={{
-        lang: props.lang,
+        lang: "en",
       }}
       title={props.title}
       titleTemplate={defaultTitle ? `%s | ${defaultTitle}` : undefined}
