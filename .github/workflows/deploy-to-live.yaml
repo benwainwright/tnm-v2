@@ -178,7 +178,10 @@ jobs:
       - name: Run tests
         run: yarn test:cypress
         env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           CYPRESS_BASE_URL: https://d2bnp0b9ah9f76.cloudfront.net
+          CYPRESS_POOL_ID: eu-west-2_STGr0ooNo
 
       - uses: actions/upload-artifact@v2
         with:
