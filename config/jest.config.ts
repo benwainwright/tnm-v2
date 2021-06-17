@@ -10,6 +10,7 @@ const config: Config.InitialOptions = {
   },
   collectCoverageFrom: [
     "<rootDir>/src/**/*.{ts,tsx}",
+    "!<rootDir>/src/scripts/*.{ts,tsx}",
     "!<rootDir>/src/infrastructure/**",
     "!<rootDir>/src/**/*.stories.{ts,tsx}",
   ],
