@@ -1,5 +1,5 @@
 describe("The login page", () => {
-  beforeEach(() => {
+  before(() => {
     cy.exec("yarn ts-node src/scripts/seed-cognito.ts")
   })
 
