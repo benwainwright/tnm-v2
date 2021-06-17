@@ -1,3 +1,4 @@
 import { ChallengeForm } from "./challenge-form"
 import { Hero } from "./hero"
-export { ChallengeForm, Hero }
+import { Layout } from "./layout"
+export { ChallengeForm, Hero, Layout }

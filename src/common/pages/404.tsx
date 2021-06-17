@@ -1,9 +1,9 @@
-import * as React from "react"
+import { FC } from "react"
 
-import Layout from "../components/layout"
+import { Layout } from "@common/components/containers"
 import Seo from "../components/seo"
 
-const NotFoundPage = () => (
+const NotFoundPage: FC = () => (
   <Layout>
     <Seo title="404: Not found" />
     <h1>404: Not Found</h1>

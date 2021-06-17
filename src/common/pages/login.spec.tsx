@@ -1,5 +1,5 @@
 import Login from "./login"
-import Layout from "../components/layout"
+import { Layout } from "@common/components/containers"
 import { shallow } from "enzyme"
 import { LoginBox } from "../components/molecules"
 

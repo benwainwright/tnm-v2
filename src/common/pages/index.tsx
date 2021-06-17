@@ -1,6 +1,6 @@
 import { FC } from "react"
 
-import Layout from "@common/components/layout"
+import { Layout } from "@common/components/containers"
 import Seo from "@common/components/seo"
 
 const IndexPage: FC = () => (
