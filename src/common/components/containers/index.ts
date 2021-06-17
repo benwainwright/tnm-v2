@@ -1,2 +1,3 @@
 import { ChallengeForm } from "./challenge-form"
-export { ChallengeForm }
+import { Hero } from "./hero"
+export { ChallengeForm, Hero }

@@ -101,7 +101,7 @@ describe("the challenge form", () => {
     expect(preventDefault).toHaveBeenCalled()
   })
 
-  it.only("Displays error messages that have no fields", () => {
+  it("Displays error messages that have no fields", () => {
     type FormData = {
       foo: string
       bar: string
