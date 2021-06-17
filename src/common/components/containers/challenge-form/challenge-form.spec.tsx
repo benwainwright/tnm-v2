@@ -101,6 +101,37 @@ describe("the challenge form", () => {
     expect(preventDefault).toHaveBeenCalled()
   })
 
+  it.only("Displays error messages that have no fields", () => {
+    type FormData = {
+      foo: string
+      bar: string
+    }
+
+    const mockOnSubmit = mock<(data: FormData) => void>()
+
+    const errorMessages = [{ message: "An error" }]
+
+    const wrapper = shallow(
+      <ChallengeForm
+        header="Title"
+        submitText="login"
+        onSubmit={mockOnSubmit}
+        errors={errorMessages}
+      >
+        <Input name="foo" />
+        <Input name="bar" />
+      </ChallengeForm>
+    )
+
+    expect(wrapper.text()).toInclude("An error")
+
+    const fooInput = wrapper.findWhere((input) => input.prop("name") === "foo")
+    const barInput = wrapper.findWhere((input) => input.prop("name") === "bar")
+
+    expect(fooInput.prop("errorMessage")).toBeUndefined()
+    expect(barInput.prop("errorMessage")).toBeUndefined()
+  })
+
   it("passes error messages for the correct fields into the correct input boxes", () => {
     type FormData = {
       foo: string

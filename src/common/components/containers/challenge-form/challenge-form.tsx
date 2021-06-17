@@ -31,9 +31,23 @@ const FlexForm = styled.form`
   margin-top: -1px;
 `
 
+const FormHeader = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin: 0 0 1rem 0;
+`
+
+const FormError = styled.div`
+  color: red;
+  font-family: "Acumin Pro", Arial, sans-serif;
+  margin-left: 1rem;
+  font-size: 1.5em;
+`
+
 const StyledH2 = styled.h2`
   font-family: "Acumin Pro", Arial, sans-serif;
-  margin: 0 0 1rem 0;
+  margin: 0 0 0 0;
 `
 StyledH2.displayName = "h2"
 
@@ -91,9 +105,19 @@ function ChallengeForm<T>(
   const [data, setData] = useState<T | undefined>()
   const eventHandlersAdded = addEventHandlers(props.children, data, setData)
   const errorMessagesAdded = addErrorMessages(eventHandlersAdded, props.errors)
+  const formErrors = props.errors?.filter((error) => !error.field) ?? []
   return (
     <FlexForm>
-      {props.header ? <StyledH2>{props.header}</StyledH2> : undefined}
+      {props.header ? (
+        <FormHeader>
+          <StyledH2>{props.header}</StyledH2>
+          {formErrors.length > 0 ? (
+            <FormError>
+              {formErrors.map((error) => error.message).join(", ")}
+            </FormError>
+          ) : undefined}
+        </FormHeader>
+      ) : undefined}
       {errorMessagesAdded}
       <Button
         primary
