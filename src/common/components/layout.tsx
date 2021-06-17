@@ -1,6 +1,5 @@
 import { FC, useState, useEffect } from "react"
 import { Footer, Header } from "./molecules"
-import Hero from "./hero"
 import "./layout.css"
 import { UserContext, User } from "@common/user-context"
 import { currentUser } from "@common/aws/authenticate"
@@ -29,7 +28,6 @@ const Layout: FC = (props) => {
     <>
       <UserContext.Provider value={{ user, setUser }}>
         <Header />
-        <Hero />
         <MainContainer>{props.children}</MainContainer>
         <Footer />
       </UserContext.Provider>
