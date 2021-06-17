@@ -1,10 +1,9 @@
 import { FC, useState } from "react"
-import Layout from "../components/layout"
 import { ErrorResponse } from "../types/error-response"
 import { LoginBox, MfaBox, NewPasswordBox } from "../components/molecules"
 import AccountIcon from "@common/assets/images/icons/TNM_Icons_Final_Account.png"
 import Seo from "@common/components/seo"
-import { Hero } from "@common/components/containers"
+import { Hero, Layout } from "@common/components/containers"
 import { handleLogin } from "../handlers/handle-login"
 import styled from "@emotion/styled"
 

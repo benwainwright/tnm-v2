@@ -1,5 +1,5 @@
 import { FC } from "react"
-import Layout from "../components/layout"
+import { Layout } from "@common/components/containers"
 import Seo from "../components/seo"
 
 const Account: FC = () => (
