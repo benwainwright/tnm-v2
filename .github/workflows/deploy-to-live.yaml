@@ -183,8 +183,8 @@ jobs:
           CYPRESS_BASE_URL: https://d2bnp0b9ah9f76.cloudfront.net
           CYPRESS_POOL_ID: eu-west-2_STGr0ooNo
           CYPRESS_TEST_EMAIL: something@someone.com
-          CYPRESS_TEST_USER_INITIAL_PASSWORD: asdfcvdfa.a123
-          CYPRESS_TEST_USER_FINAL_PASSWORD: asddsfsdf.asd*
+          CYPRESS_TEST_USER_INITIAL_PASSWORD: Asdfcvdfa.a123
+          CYPRESS_TEST_USER_FINAL_PASSWORD: Asddsfsdf.asd*1
 
       - uses: actions/upload-artifact@v2
         with:
