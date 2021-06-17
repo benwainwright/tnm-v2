@@ -5,6 +5,7 @@ import { MENUBAR_HEIGHT } from "@common/config"
 const HeroBox = styled("div")`
   min-height: 330px;
   padding-top: calc(${MENUBAR_HEIGHT} + 14px);
+  width: 100%;
   height: 330px;
   border-bottom: 1px solid black;
   font-family: "Acumin Pro Semicondensed", Arial, sans-serif;
