@@ -6,10 +6,22 @@ export const seedCognito = async () => {
   const cognito = new CognitoIdentityServiceProvider({ region: "eu-west-2" })
 
   const poolId = process.env.CYPRESS_POOL_ID
+  const email = process.env.CYPRESS_TEST_EMAIL
+  const password = process.env.CYPRESS_TEST_USER_INITIAL_PASSWORD
+
+  if (!email) {
+    // eslint-disable-next-line fp/no-throw
+    throw new Error("CYPRESS_TEST_USER_NAME not configured")
+  }
 
   if (!poolId) {
     // eslint-disable-next-line fp/no-throw
     throw new Error("CYPRESS_POOL_ID not configured")
+  }
+
+  if (!password) {
+    // eslint-disable-next-line fp/no-throw
+    throw new Error("CYPRESS_TEST_USER_INITIAL_PASSWORD not configured")
   }
 
   try {
@@ -28,7 +40,7 @@ export const seedCognito = async () => {
     .adminCreateUser({
       UserPoolId: poolId,
       Username: TEST_USER,
-      TemporaryPassword: "520972vi123A.",
+      TemporaryPassword: password,
       MessageAction: "SUPPRESS",
       DesiredDeliveryMediums: ["EMAIL"],
       UserAttributes: [
@@ -42,7 +54,7 @@ export const seedCognito = async () => {
         },
         {
           Name: "email",
-          Value: "testing@user.com",
+          Value: email,
         },
         {
           Name: "phone_number",

@@ -13,10 +13,16 @@ describe("seed cognito", () => {
 
   afterEach(() => {
     AWSMock.restore()
+
+    delete process.env.CYPRESS_POOL_ID
+    delete process.env.CYPRESS_TEST_EMAIL
+    delete process.env.CYPRESS_TEST_USER_INITIAL_PASSWORD
   })
 
   it("deletes the test-user", async () => {
+    process.env.CYPRESS_TEST_EMAIL = "foo@bar.com"
     process.env.CYPRESS_POOL_ID = "foo-id"
+    process.env.CYPRESS_TEST_USER_INITIAL_PASSWORD = "password-thing"
     const mockAdminDeleteUser = jest.fn(
       (params: AdminDeleteUserRequest, callback: Function) => {
         callback()
@@ -50,12 +56,12 @@ describe("seed cognito", () => {
       },
       expect.anything()
     )
-
-    delete process.env.CYPRESS_POOL_ID
   })
 
-  it("recreates the test-user", async () => {
+  it("recreates the test-user with the correct email and password", async () => {
     process.env.CYPRESS_POOL_ID = "foo-id"
+    process.env.CYPRESS_TEST_EMAIL = "foo@bar.com"
+    process.env.CYPRESS_TEST_USER_INITIAL_PASSWORD = "password-thing"
 
     const mockAdminDeleteUser = jest.fn(
       (params: AdminDeleteUserRequest, callback: Function) => {
@@ -87,7 +93,7 @@ describe("seed cognito", () => {
       {
         UserPoolId: "foo-id",
         Username: TEST_USER,
-        TemporaryPassword: "520972vi123A.",
+        TemporaryPassword: "password-thing",
         MessageAction: "SUPPRESS",
         DesiredDeliveryMediums: ["EMAIL"],
         UserAttributes: [
@@ -101,7 +107,7 @@ describe("seed cognito", () => {
           },
           {
             Name: "email",
-            Value: "testing@user.com",
+            Value: "foo@bar.com",
           },
           {
             Name: "phone_number",
