@@ -33,18 +33,16 @@ const FlexForm = styled.form`
 
 const FormHeader = styled.div`
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   align-items: center;
-  margin: 0 0 1rem 0;
 `
 
 const FormError = styled.div`
   color: red;
+  height: 1em;
   font-family: "Acumin Pro", Arial, sans-serif;
-  margin-left: 1rem;
-  font-size: 1.5em;
+  margin-top: 1rem;
 `
-
 const StyledH2 = styled.h2`
   font-family: "Acumin Pro", Arial, sans-serif;
   margin: 0 0 0 0;
@@ -111,11 +109,9 @@ function ChallengeForm<T>(
       {props.header ? (
         <FormHeader>
           <StyledH2>{props.header}</StyledH2>
-          {formErrors.length > 0 ? (
-            <FormError>
-              {formErrors.map((error) => error.message).join(", ")}
-            </FormError>
-          ) : undefined}
+          <FormError>
+            {formErrors.map((error) => error.message).join(", ")}
+          </FormError>
         </FormHeader>
       ) : undefined}
       {errorMessagesAdded}
