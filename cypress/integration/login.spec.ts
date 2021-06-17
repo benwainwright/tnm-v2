@@ -47,5 +47,17 @@ describe("The login page", () => {
     cy.location("pathname").should("eq", "/account/")
   })
 
-  it("Login ")
+  it("Should redirect straight to account page on second login", () => {
+    cy.visit("/login/")
+    cy.get("form")
+      .get("input[name='email']")
+      .clear()
+      .type(Cypress.env("TEST_EMAIL"))
+    cy.get("form")
+      .get("input[name='password']")
+      .clear()
+      .type(Cypress.env("TEST_USER_FINAL_PASSWORD"))
+    cy.get("form").get("button").contains("Login").click()
+    cy.location("pathname").should("eq", "/account/")
+  })
 })
