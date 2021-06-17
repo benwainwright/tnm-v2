@@ -109,8 +109,14 @@ function ChallengeForm<T>(
       {props.header ? (
         <FormHeader>
           <StyledH2>{props.header}</StyledH2>
-          <FormError>
-            {formErrors.map((error) => error.message).join(", ")}
+          <FormError role="alert">
+            {formErrors
+              .map((error) =>
+                error.message.endsWith(".")
+                  ? error.message.slice(0, -1)
+                  : error.message
+              )
+              .join(", ")}
           </FormError>
         </FormHeader>
       ) : undefined}
