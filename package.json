@@ -5,6 +5,7 @@
   "version": "0.1.0",
   "author": "Ben Wainwright <bwainwright28@gmail.com>",
   "dependencies": {
+    "@aws-amplify/auth": "^4.0.3",
     "@axe-core/react": "^4.2.1",
     "@emotion/eslint-plugin": "^11.2.0",
     "@emotion/jest": "^11.3.0",
@@ -24,7 +25,6 @@
     "@typescript-eslint/parser": "^4.26.0",
     "@wojtekmaj/enzyme-adapter-react-17": "^0.6.1",
     "amazon-cognito-identity-js": "^5.0.2",
-    "aws-amplify": "^4.0.3",
     "aws-cdk": "^2.0.0-rc.6",
     "aws-cdk-lib": "^2.0.0-rc.6",
     "aws-sdk": "^2.924.0",
@@ -120,7 +120,6 @@
     "test": "jest --config ./config/jest.config.ts",
     "test:coverage": "jest --config ./config/jest.config.ts --coverage",
     "test:cypress": "CYPRESS_TEST_EMAIL=something@someone.com CYPRESS_TEST_USER_INITIAL_PASSWORD=Asdasdfasdad.a123 CYPRESS_TEST_USER_FINAL_PASSWORD=Asdasdfasdasd.asd*1 CYPRESS_POOL_ID=eu-west-2_STGr0ooNo yarn cypress run",
-
     "test:cypress:open": "CYPRESS_TEST_EMAIL=something@someone.com CYPRESS_TEST_USER_INITIAL_PASSWORD=Asdasdfasdad.a123 CYPRESS_TEST_USER_FINAL_PASSWORD=Asdasdfasdasd.asd*1 CYPRESS_POOL_ID=eu-west-2_STGr0ooNo yarn cypress open",
     "storybook": "start-storybook --port 6006 --static-dir ./src/common/assets",
     "storybook:build": "build-storybook --static-dir ./src/common/assets --output-dir ./public/storybook",

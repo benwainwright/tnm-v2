@@ -1,11 +1,11 @@
 @font-face {
   font-family: "Acumin Pro";
-  src: url("../assets/fonts/acumin-pro/Acumin\ Pro\ Bold.otf");
+  src: url("../../../assets/fonts/acumin-pro/Acumin\ Pro\ Bold.otf");
 }
 
 @font-face {
   font-family: "Acumin Pro Semicondensed";
-  src: url("../assets/fonts/acumin-pro-semi-condensed//Acumin\ Pro\ SemiCond\ Bold.otf");
+  src: url("../../../assets/fonts/acumin-pro-semi-condensed//Acumin\ Pro\ SemiCond\ Bold.otf");
 }
 
 html {

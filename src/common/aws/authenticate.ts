@@ -1,4 +1,4 @@
-import { Auth } from "aws-amplify"
+import { Auth } from "@aws-amplify/auth"
 import { getPoolConfig } from "./getPoolConfig"
 import backendOutputs from "../../backend-outputs.json"
 
