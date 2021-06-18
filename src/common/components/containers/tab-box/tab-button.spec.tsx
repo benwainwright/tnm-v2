@@ -51,4 +51,14 @@ describe("The <TabButton> component", () => {
 
     expect(onClick).toHaveBeenCalled()
   })
+
+  it("passes the active prop to aria-selected", () => {
+    const wrapper = shallow(
+      <TabButton tabListLength={1} active>
+        Some Text
+      </TabButton>
+    )
+
+    expect(wrapper.find("button").prop("aria-selected")).toBeTrue()
+  })
 })
