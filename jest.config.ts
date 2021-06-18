@@ -1,32 +1,15 @@
 import type { Config } from "@jest/types"
 
-const oldConfig = {}
-
 const commonConfig: Config.InitialOptions = {
-  rootDir: "./",
   setupFilesAfterEnv: ["<rootDir>/src/testSetup.ts"],
   transform: {
     "^.+\\.(svg|css|png)$": "jest-transform-stub",
     "^.+\\.[jt]sx?$": "<rootDir>/config/jest-preprocess.js",
   },
-  collectCoverageFrom: [
-    "<rootDir>/src/**/*.{ts,tsx}",
-    "!<rootDir>/src/scripts/*.{ts,tsx}",
-    "!<rootDir>/src/infrastructure/**",
-    "!<rootDir>/src/**/*.stories.{ts,tsx}",
-  ],
   moduleNameMapper: {
     "^@common(.*)$": "<rootDir>/src/common$1",
   },
 
-  coverageThreshold: {
-    global: {
-      statements: 90,
-      lines: 90,
-      branches: 80,
-      functions: 80,
-    },
-  },
   testPathIgnorePatterns: [
     `node_modules`,
     `\\.cache`,
@@ -35,6 +18,20 @@ const commonConfig: Config.InitialOptions = {
   ],
   transformIgnorePatterns: [`node_modules/(?!(gatsby)/)`],
   setupFiles: [`<rootDir>/config/loadershim.js`],
+  coverageThreshold: {
+    global: {
+      statements: 90,
+      lines: 90,
+      branches: 80,
+      functions: 80,
+    },
+  },
+  collectCoverageFrom: [
+    "<rootDir>/src/**/*.{ts,tsx}",
+    "!<rootDir>/src/scripts/*.{ts,tsx}",
+    "!<rootDir>/src/infrastructure/**",
+    "!<rootDir>/src/**/*.stories.{ts,tsx}",
+  ],
 }
 
 const config: Config.InitialOptions = {

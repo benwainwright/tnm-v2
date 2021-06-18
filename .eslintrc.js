@@ -16,7 +16,12 @@ module.exports = {
   ],
   overrides: [
     {
-      files: ["**.spec.ts", "**.spec.tsx"],
+      files: [
+        "**.spec.ts",
+        "**.spec.tsx",
+        "**.spec.node.ts",
+        "**.spec.node.ts",
+      ],
       rules: {
         "sonarjs/no-identical-functions": "off",
         "sonarjs/no-duplicate-string": "off",
