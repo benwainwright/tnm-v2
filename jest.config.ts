@@ -20,10 +20,10 @@ const commonConfig: Config.InitialOptions = {
   setupFiles: [`<rootDir>/config/loadershim.js`],
   coverageThreshold: {
     global: {
-      statements: 90,
+      statements: 96,
       lines: 90,
-      branches: 80,
-      functions: 80,
+      branches: 90,
+      functions: 90,
     },
   },
   collectCoverageFrom: [
