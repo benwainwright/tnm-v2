@@ -55,16 +55,14 @@ const addErrorMessages = (nodes: ReactNode, errorMessages?: ErrorResponse[]) =>
       return node
     }
 
-    const element: ReactElement = node
-
     const matchingMessage = errorMessages?.find(
-      (message) => element.props.name === message.field
+      (message) => node.props.name === message.field
     )
 
     return matchingMessage ? (
-      <element.type {...element.props} errorMessage={matchingMessage.message} />
+      <node.type {...node.props} errorMessage={matchingMessage.message} />
     ) : (
-      element
+      node
     )
   })
 
