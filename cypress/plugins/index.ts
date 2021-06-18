@@ -13,6 +13,7 @@
 // the project's config changing)
 
 const plugins = (on, config) => {
+  // eslint-disable-next-line unicorn/prefer-module
   require("@cypress/code-coverage/task")(on, config)
   return config
 }
