@@ -10,10 +10,10 @@ export default {
 
 const Template: Story = (args) => (
   <TabBox {...args}>
-    <Tab tabTitle="Tab One">
+    <Tab tabTitle="Login">
       <p>Contents of one</p>
     </Tab>
-    <Tab tabTitle="Tab Two">
+    <Tab tabTitle="Register">
       <p>Contents of two</p>
     </Tab>
   </TabBox>

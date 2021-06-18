@@ -7,6 +7,25 @@ import {
   ReactNode,
 } from "react"
 import { TabProps } from "./tab"
+import TabButton from "./tab-button"
+
+import styled from "@emotion/styled"
+
+const Flex = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  width: 500px;
+  border: 1px solid black;
+  margin-top: -1px;
+`
+
+const ButtonRow = styled.div`
+  overflow: hidden;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+`
 
 interface TabBoxProps {}
 
@@ -24,16 +43,20 @@ const TabBox: FC<TabBoxProps> = (props) => {
   const [tabIndex, setTabIndex] = useState(0)
   const tabs = getTabs(props.children)
   const buttons = tabs.map((tab, index) => (
-    <button key={index} onClick={() => setTabIndex(index)}>
+    <TabButton
+      key={index}
+      onClick={() => setTabIndex(index)}
+      active={tabIndex === index}
+    >
       {tab.props.tabTitle}
-    </button>
+    </TabButton>
   ))
   return (
-    <div>
-      <div>{buttons}</div>
+    <Flex>
+      <ButtonRow>{buttons}</ButtonRow>
       {/* eslint-disable-next-line security/detect-object-injection */}
       {tabs[tabIndex]}
-    </div>
+    </Flex>
   )
 }
 
