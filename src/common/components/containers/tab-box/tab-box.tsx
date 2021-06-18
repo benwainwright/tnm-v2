@@ -44,6 +44,7 @@ const TabBox: FC<TabBoxProps> = (props) => {
   const tabs = getTabs(props.children)
   const buttons = tabs.map((tab, index) => (
     <TabButton
+      tabListLength={tabs.length}
       key={index}
       onClick={() => setTabIndex(index)}
       active={tabIndex === index}

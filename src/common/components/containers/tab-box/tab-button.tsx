@@ -4,12 +4,13 @@ import styled from "@emotion/styled"
 interface TabButtonProps {
   onClick?: () => void
   active?: boolean
+  tabListLength: number
 }
 
 const TabButton: FC<TabButtonProps> = (props) => {
   const StyledButton = styled.button`
     font-family: "Acumin Pro", Arial, sans-serif;
-    width: calc(100% / 2);
+    width: calc(100% / ${props.tabListLength});
     border: 0;
     cursor: pointer;
     padding: 1rem 3rem;
