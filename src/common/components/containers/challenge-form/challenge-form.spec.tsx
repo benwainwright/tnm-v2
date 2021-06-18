@@ -133,6 +133,58 @@ describe("the challenge form", () => {
     expect(barInput.prop("errorMessage")).toBeUndefined()
   })
 
+  it("Displays error messages that have no fields and removes weird period on end of error", () => {
+    type FormData = {
+      foo: string
+      bar: string
+    }
+
+    const mockOnSubmit = mock<(data: FormData) => void>()
+
+    const errorMessages = [{ message: "An error." }]
+
+    const wrapper = shallow(
+      <ChallengeForm
+        header="Title"
+        submitText="login"
+        onSubmit={mockOnSubmit}
+        errors={errorMessages}
+      />
+    )
+
+    expect(wrapper.text()).not.toInclude(".")
+  })
+
+  it("passes error messages for the correct fields into the correct input boxes", () => {
+    type FormData = {
+      foo: string
+      bar: string
+    }
+
+    const mockOnSubmit = mock<(data: FormData) => void>()
+
+    const errorMessages = [
+      { field: "bar" as const, message: "An error message for bar" },
+    ]
+
+    const wrapper = shallow(
+      <ChallengeForm
+        submitText="login"
+        onSubmit={mockOnSubmit}
+        errors={errorMessages}
+      >
+        <Input name="foo" />
+        <Input name="bar" />
+      </ChallengeForm>
+    )
+
+    const fooInput = wrapper.findWhere((input) => input.prop("name") === "foo")
+    const barInput = wrapper.findWhere((input) => input.prop("name") === "bar")
+
+    expect(fooInput.prop("errorMessage")).toBeUndefined()
+    expect(barInput.prop("errorMessage")).toEqual("An error message for bar")
+  })
+
   it("passes error messages for the correct fields into the correct input boxes", () => {
     type FormData = {
       foo: string
