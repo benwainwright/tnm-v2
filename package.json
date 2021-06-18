@@ -107,7 +107,7 @@
   "license": "0BSD",
   "scripts": {
     "checks": "yarn test:coverage && yarn lint && yarn lint:styles && yarn types",
-    "build": "gatsby build && yarn storybook:build",
+    "build": "NODE_ENV=production gatsby build && yarn storybook:build",
     "develop": "NODE_ENV=development gatsby develop",
     "format": "prettier --write \"**/*.{js,jsx,ts,tsx,json,md}\"",
     "deploy:frontend": "cdk deploy test-TnmV2AppStack",
