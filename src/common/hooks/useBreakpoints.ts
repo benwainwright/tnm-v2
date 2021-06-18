@@ -45,8 +45,14 @@ export const useBreakpoints = (breakpoints: Breakpoints): string => {
         setBreakpoint(findBreakpoint(breakpoints))
       }
     }
-    window.addEventListener("resize", handleResize)
-    return () => window.removeEventListener("resize", handleResize)
+    if (isBrowser) {
+      window.addEventListener("resize", handleResize)
+    }
+    return () => {
+      if (isBrowser) {
+        window.removeEventListener("resize", handleResize)
+      }
+    }
   }, [breakpoints])
   return breakpoint
 }
