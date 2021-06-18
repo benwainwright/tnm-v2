@@ -10,7 +10,7 @@ const TabContents = styled.div`
 `
 
 const Tab: FC<TabProps> = (props) => {
-  return <TabContents>{props.children}</TabContents>
+  return <TabContents role="tabpanel">{props.children}</TabContents>
 }
 
 export default Tab

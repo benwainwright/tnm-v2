@@ -54,7 +54,7 @@ const TabBox: FC<TabBoxProps> = (props) => {
   ))
   return (
     <Flex>
-      <ButtonRow>{buttons}</ButtonRow>
+      <ButtonRow role="tablist">{buttons}</ButtonRow>
       {/* eslint-disable-next-line security/detect-object-injection */}
       {tabs[tabIndex]}
     </Flex>

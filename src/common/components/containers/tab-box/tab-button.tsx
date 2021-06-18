@@ -25,7 +25,15 @@ const TabButton: FC<TabButtonProps> = (props) => {
   `
   StyledButton.displayName = "button"
 
-  return <StyledButton onClick={props.onClick}>{props.children}</StyledButton>
+  return (
+    <StyledButton
+      role="tab"
+      onClick={props.onClick}
+      aria-selected={props.active}
+    >
+      {props.children}
+    </StyledButton>
+  )
 }
 
 export default TabButton
