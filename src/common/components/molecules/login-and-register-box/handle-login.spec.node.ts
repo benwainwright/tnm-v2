@@ -1,11 +1,11 @@
 import { handleLogin } from "./handle-login"
-import { login, newPasswordChallengeResponse } from "../aws/authenticate"
-import { LoginState } from "../pages/login"
+import { login, newPasswordChallengeResponse } from "@common/aws/authenticate"
+import { LoginState } from "./login-and-register-box"
 import { navigate } from "gatsby"
 import { mocked } from "ts-jest/utils"
 
 jest.mock("gatsby")
-jest.mock("../aws/authenticate")
+jest.mock("@common/aws/authenticate")
 jest.mock("universal-cookie")
 
 describe("the login handler", () => {

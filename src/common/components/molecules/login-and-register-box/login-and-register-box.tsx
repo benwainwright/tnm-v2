@@ -1,37 +1,53 @@
-import { FC } from "react"
-import { Input } from "../../atoms"
-import styled from "@emotion/styled"
-import { BUTTON_BLACK } from "@common/config"
-import { ChallengeForm, TabBox, Tab } from "@common/components/containers"
+import { FC, useState } from "react"
+import { TabBox, Tab } from "@common/components/containers"
 import { ErrorResponse } from "@common/types/error-response"
-import { LoginFormData } from "@common/types/srp-data"
+import LoginForm from "./login-form"
+import NewPasswordForm from "./new-password-form"
+import MfaForm from "./mfa-form"
+import { handleLogin } from "./handle-login"
 
-export interface LoginAndRegisterBoxProps {
-  onSubmit?: (data: LoginFormData) => void
-  errors?: ErrorResponse[]
+export enum LoginState {
+  DoLogin = "DoLogin",
+  ChangePasswordChallenge = "ChangePasswordChallenge",
+  MfaChallenge = "MfaChallenge",
 }
 
-const StyledLink = styled.a`
-  font-family: "Acumin Pro", Arial, sans-serif;
-  color: ${BUTTON_BLACK};
-  text-decoration: 0;
-`
+const getLoginBox = (state: LoginState) => {
+  switch (state) {
+    case LoginState.DoLogin:
+      return LoginForm
+    case LoginState.ChangePasswordChallenge:
+      return NewPasswordForm
+    case LoginState.MfaChallenge:
+      return MfaForm
+  }
+}
 
-const LoginAndRegisterBox: FC<LoginAndRegisterBoxProps> = (props) => (
-  <TabBox>
-    <Tab tabTitle="Login">
-      <ChallengeForm
-        submitText="Login"
-        onSubmit={props.onSubmit}
-        errors={props.errors}
-      >
-        <Input label="Email" placeholder="a@b.com" name="email" type="email" />
-        <Input label="Password" name="password" type="password" />
-        <StyledLink href="#">Forgot your password?</StyledLink>
-      </ChallengeForm>
-    </Tab>
-    <Tab tabTitle="Register"></Tab>
-  </TabBox>
-)
+const LoginAndRegisterBox: FC = () => {
+  const [loginState, setLoginState] = useState<LoginState>(LoginState.DoLogin)
+  const [errorMessage, setErrorMessage] = useState<ErrorResponse | undefined>()
+  const [response, setResponse] = useState<any>()
+  const ChosenLoginForm = getLoginBox(loginState)
+  return (
+    <TabBox>
+      <Tab tabTitle="Login">
+        <ChosenLoginForm
+          errors={errorMessage ? [errorMessage] : undefined}
+          onSubmit={async (data) => {
+            await handleLogin(
+              data,
+              loginState,
+              setLoginState,
+              setResponse,
+              setErrorMessage,
+              response
+            )
+          }}
+        />
+      </Tab>
+      <Tab tabTitle="Register"></Tab>
+    </TabBox>
+  )
+}
 
 export default LoginAndRegisterBox

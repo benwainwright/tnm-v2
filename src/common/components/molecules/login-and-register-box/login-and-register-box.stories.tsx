@@ -1,8 +1,6 @@
 import { Story, Meta } from "@storybook/react"
 
-import LoginAndRegisterBox, {
-  LoginAndRegisterBoxProps,
-} from "./login-and-register-box"
+import LoginAndRegisterBox from "./login-and-register-box"
 
 export default {
   title: "molecules/LoginBox",
@@ -10,9 +8,7 @@ export default {
   argTypes: { onLogin: { action: "clicked", errors: { control: "array" } } },
 } as Meta
 
-const Template: Story<LoginAndRegisterBoxProps> = (args) => (
-  <LoginAndRegisterBox {...args} />
-)
+const Template: Story = (args) => <LoginAndRegisterBox {...args} />
 
 export const LoginStory = Template.bind({})
 
