@@ -1,6 +1,10 @@
 import { FC, useState } from "react"
 import { ErrorResponse } from "@common/types/error-response"
-import { LoginBox, MfaBox, NewPasswordBox } from "@common/components/molecules"
+import {
+  LoginAndRegisterBox,
+  NewPasswordBox,
+  MfaBox,
+} from "@common/components/molecules"
 import AccountIcon from "@common/assets/images/icons/TNM_Icons_Final_Account.png"
 import Seo from "@common/components/seo"
 import { Hero, Layout } from "@common/components/containers"
@@ -16,7 +20,7 @@ export enum LoginState {
 const getLoginBox = (state: LoginState) => {
   switch (state) {
     case LoginState.DoLogin:
-      return LoginBox
+      return LoginAndRegisterBox
     case LoginState.ChangePasswordChallenge:
       return NewPasswordBox
     case LoginState.MfaChallenge:

@@ -11,15 +11,6 @@ describe("the challenge form", () => {
     expect(wrapper.text()).toInclude("Hello!")
   })
 
-  it("renders the header", () => {
-    const wrapper = shallow(
-      <ChallengeForm header="my-header">Hello!</ChallengeForm>
-    )
-
-    expect(wrapper.find("h2")).toHaveLength(1)
-    expect(wrapper.text()).toInclude("my-header")
-  })
-
   it("renders a submit button with default text", () => {
     const wrapper = shallow(<ChallengeForm>Hello!</ChallengeForm>)
 
@@ -114,7 +105,6 @@ describe("the challenge form", () => {
 
     const wrapper = shallow(
       <ChallengeForm
-        header="Title"
         submitText="login"
         onSubmit={mockOnSubmit}
         errors={errorMessages}
@@ -145,7 +135,6 @@ describe("the challenge form", () => {
 
     const wrapper = shallow(
       <ChallengeForm
-        header="Title"
         submitText="login"
         onSubmit={mockOnSubmit}
         errors={errorMessages}

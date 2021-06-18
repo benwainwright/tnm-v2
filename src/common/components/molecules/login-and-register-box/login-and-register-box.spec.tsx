@@ -1,11 +1,11 @@
 import { shallow } from "enzyme"
 import { Input } from "../../atoms"
 
-import LoginBox from "./login-box"
+import LoginAndRegisterBox from "./login-and-register-box"
 
 describe("The login box", () => {
   it("renders an input for email and password", () => {
-    const wrapper = shallow(<LoginBox />)
+    const wrapper = shallow(<LoginAndRegisterBox />)
 
     expect(
       wrapper.find(Input).findWhere((input) => input.prop("name") === "email")

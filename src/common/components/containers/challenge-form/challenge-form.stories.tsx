@@ -23,12 +23,9 @@ const Template: Story<ChallengeFormProps<{}>> = (args) => (
 
 export const ChallengeFormStory = Template.bind({})
 
-ChallengeFormStory.args = {
-  header: "A Challenge",
-}
+ChallengeFormStory.args = {}
 
 export const ChallengeFormStoryWithErrors = Template.bind({})
 ChallengeFormStoryWithErrors.args = {
-  header: "A Challenge",
   errors: [{ message: "An error!" }],
 }

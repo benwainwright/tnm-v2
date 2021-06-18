@@ -15,7 +15,6 @@ import styled from "@emotion/styled"
 
 export interface ChallengeFormProps<T> {
   value?: T
-  header?: string
   submitText?: string
   onSubmit?: (data: T) => void
   errors?: ErrorResponse[]
@@ -25,10 +24,6 @@ const FlexForm = styled.form`
   display: flex;
   flex-direction: column;
   gap: 1.5rem;
-  width: 500px;
-  border: 1px solid black;
-  padding: 1.5rem 5rem 3rem 5rem;
-  margin-top: -1px;
 `
 
 const FormHeader = styled.div`
@@ -104,20 +99,17 @@ function ChallengeForm<T>(
   const formErrors = props.errors?.filter((error) => !error.field) ?? []
   return (
     <FlexForm>
-      {props.header ? (
-        <FormHeader>
-          <StyledH2>{props.header}</StyledH2>
-          <FormError role="alert">
-            {formErrors
-              .map((error) =>
-                error.message.endsWith(".")
-                  ? error.message.slice(0, -1)
-                  : error.message
-              )
-              .join(", ")}
-          </FormError>
-        </FormHeader>
-      ) : undefined}
+      <FormHeader>
+        <FormError role="alert">
+          {formErrors
+            .map((error) =>
+              error.message.endsWith(".")
+                ? error.message.slice(0, -1)
+                : error.message
+            )
+            .join(", ")}
+        </FormError>
+      </FormHeader>
       {errorMessagesAdded}
       <Button
         primary
