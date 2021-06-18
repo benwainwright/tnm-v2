@@ -1,8 +1,9 @@
 import type { Config } from "@jest/types"
 
-const config: Config.InitialOptions = {
-  testEnvironment: "jsdom",
-  rootDir: "../",
+const oldConfig = {}
+
+const commonConfig: Config.InitialOptions = {
+  rootDir: "./",
   setupFilesAfterEnv: ["<rootDir>/src/testSetup.ts"],
   transform: {
     "^.+\\.(svg|css|png)$": "jest-transform-stub",
@@ -17,6 +18,7 @@ const config: Config.InitialOptions = {
   moduleNameMapper: {
     "^@common(.*)$": "<rootDir>/src/common$1",
   },
+
   coverageThreshold: {
     global: {
       statements: 90,
@@ -33,6 +35,27 @@ const config: Config.InitialOptions = {
   ],
   transformIgnorePatterns: [`node_modules/(?!(gatsby)/)`],
   setupFiles: [`<rootDir>/config/loadershim.js`],
+}
+
+const config: Config.InitialOptions = {
+  projects: [
+    {
+      displayName: "jsdom",
+      testEnvironment: "jsdom",
+      testPathIgnorePatterns: [
+        ...(commonConfig.testPathIgnorePatterns ?? []),
+        "<rootDir>/**/*.spec.node.{ts,tsx}",
+      ],
+      testMatch: ["<rootDir>/**/*.spec.{ts,tsx}"],
+      ...commonConfig,
+    },
+    {
+      displayName: "node",
+      testEnvironment: "node",
+      testMatch: ["<rootDir>/**/*.spec.node.ts"],
+      ...commonConfig,
+    },
+  ],
 }
 
 export default config
