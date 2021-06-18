@@ -14,14 +14,16 @@ const TabButton: FC<TabButtonProps> = (props) => {
     cursor: pointer;
     padding: 1rem 3rem;
     font-size: 2rem;
-
     background: ${props.active ? `white` : `#E3E3E3`};
     border-bottom: ${props.active ? `0` : `1px solid black`};
+
     &:not(:first-of-type) {
       border-left: 1px solid black;
     }
+    /* stylelint-disable */
   `
   StyledButton.displayName = "button"
+
   return <StyledButton onClick={props.onClick}>{props.children}</StyledButton>
 }
 
