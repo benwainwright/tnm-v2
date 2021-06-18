@@ -1,2 +1,3 @@
 import TabBox from "./tab-box"
-export { TabBox }
+import Tab from "./tab
+export { TabBox, Tab }
