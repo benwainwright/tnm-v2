@@ -1,10 +1,10 @@
-import { Auth } from "aws-amplify"
+import { Auth } from "@aws-amplify/auth"
 import { when } from "jest-when"
 import { mocked } from "ts-jest/utils"
 import { getPoolConfig } from "./getPoolConfig"
 import * as authenticate from "./authenticate"
 
-jest.mock("aws-amplify")
+jest.mock("@aws-amplify/auth")
 jest.mock("aws-sdk")
 jest.mock("./getPoolConfig")
 
