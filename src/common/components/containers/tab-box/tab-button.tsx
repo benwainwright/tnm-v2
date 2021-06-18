@@ -11,6 +11,7 @@ const TabButton: FC<TabButtonProps> = (props) => {
   const StyledButton = styled.button`
     font-family: "Acumin Pro", Arial, sans-serif;
     width: calc(100% / ${props.tabListLength});
+    margin: 0;
     border: 0;
     cursor: pointer;
     padding: 1rem 3rem;
