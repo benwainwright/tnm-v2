@@ -7,6 +7,7 @@
   "dependencies": {
     "@aws-amplify/auth": "^4.0.3",
     "@axe-core/react": "^4.2.1",
+    "@cypress/code-coverage": "^3.9.6",
     "@emotion/eslint-plugin": "^11.2.0",
     "@emotion/jest": "^11.3.0",
     "@emotion/react": "^11.4.0",
@@ -106,7 +107,7 @@
   "scripts": {
     "checks": "yarn test:coverage && yarn lint && yarn lint:styles && yarn types",
     "build": "gatsby build && yarn storybook:build",
-    "develop": "gatsby develop",
+    "develop": "NODE_ENV=development gatsby develop",
     "format": "prettier --write \"**/*.{js,jsx,ts,tsx,json,md}\"",
     "deploy:frontend": "cdk deploy test-TnmV2AppStack",
     "deploy:frontend:prod": "cdk deploy prod-TnmV2AppStack",

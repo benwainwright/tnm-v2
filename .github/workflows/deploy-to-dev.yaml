@@ -141,6 +141,7 @@ jobs:
       - name: Deploy Frontend
         run: yarn deploy:frontend:dev --require-approval never
         env:
+          NODE_ENV: development
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           AWS_DEFAULT_REGION: eu-west-2
