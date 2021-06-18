@@ -1,6 +1,7 @@
 import { shallow } from "enzyme"
 import { act } from "react-dom/test-utils"
 import TabBox from "./tab-box"
+import TabButton from "./tab-button"
 import Tab from "./tab"
 
 describe("The <TabBox> component", () => {
@@ -43,13 +44,13 @@ describe("The <TabBox> component", () => {
 
     expect(
       wrapper
-        .find("button")
+        .find(TabButton)
         .findWhere((button) => button.prop("children") === "oneTitle")
     ).toHaveLength(1)
 
     expect(
       wrapper
-        .find("button")
+        .find(TabButton)
         .findWhere((button) => button.prop("children") === "twoTitle")
     ).toHaveLength(1)
   })
@@ -64,7 +65,7 @@ describe("The <TabBox> component", () => {
 
     act(() => {
       wrapper
-        .find("button")
+        .find(TabButton)
         .findWhere((button) => button.prop("children") === "twoTitle")
         .simulate("click")
     })
@@ -84,7 +85,7 @@ describe("The <TabBox> component", () => {
 
     act(() => {
       wrapper
-        .find("button")
+        .find(TabButton)
         .findWhere((button) => button.prop("children") === "twoTitle")
         .simulate("click")
     })
@@ -92,5 +93,44 @@ describe("The <TabBox> component", () => {
     expect(
       wrapper.findWhere((node) => node.prop("tabTitle") === "oneTitle")
     ).toHaveLength(0)
+  })
+
+  it("The first tab button is 'active' by default", () => {
+    const wrapper = shallow(
+      <TabBox>
+        <Tab tabTitle="oneTitle">One</Tab>
+        <Tab tabTitle="twoTitle">Two</Tab>
+      </TabBox>
+    )
+
+    expect(
+      wrapper
+        .find(TabButton)
+        .at(0)
+        .findWhere((button) => button.prop("active"))
+    ).toHaveLength(1)
+  })
+
+  it("The second tab button is 'active' when clicked", () => {
+    const wrapper = shallow(
+      <TabBox>
+        <Tab tabTitle="oneTitle">One</Tab>
+        <Tab tabTitle="twoTitle">Two</Tab>
+      </TabBox>
+    )
+
+    act(() => {
+      wrapper
+        .find(TabButton)
+        .findWhere((button) => button.prop("children") === "twoTitle")
+        .simulate("click")
+    })
+
+    expect(
+      wrapper
+        .find(TabButton)
+        .at(1)
+        .findWhere((button) => button.prop("active"))
+    ).toHaveLength(1)
   })
 })
