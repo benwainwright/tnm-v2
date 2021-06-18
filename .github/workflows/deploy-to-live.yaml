@@ -187,6 +187,13 @@ jobs:
           CYPRESS_TEST_USER_INITIAL_PASSWORD: Asdfcvdfa.a123
           CYPRESS_TEST_USER_FINAL_PASSWORD: Asddsfsdf.asd*1
 
+      - uses: codecov/codecov-action@v1
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
+          directory: coverage
+          flags: endtoend
+          verbose: true
+
       - uses: actions/upload-artifact@v2
         with:
           path: cypress/videos/**/*
