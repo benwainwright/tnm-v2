@@ -1,7 +1,7 @@
 import Login from "./login"
 import { Layout } from "@common/components/containers"
 import { shallow } from "enzyme"
-import { LoginBox } from "../components/molecules"
+import { LoginAndRegisterBox } from "../components/molecules"
 
 describe("The login page", () => {
   it("renders everything within the main layout", () => {
@@ -13,6 +13,6 @@ describe("The login page", () => {
   it("renders a login box", () => {
     const wrapper = shallow(<Login />)
 
-    expect(wrapper.find(LoginBox)).toHaveLength(1)
+    expect(wrapper.find(LoginAndRegisterBox)).toHaveLength(1)
   })
 })

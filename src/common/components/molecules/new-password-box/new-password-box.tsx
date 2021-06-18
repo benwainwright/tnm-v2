@@ -15,11 +15,7 @@ const StyledP = styled.p`
 `
 
 const NewPasswordBox: FC<NewPasswordBoxProps> = (props) => (
-  <ChallengeForm
-    header="Enter a new password"
-    onSubmit={props.onSubmit}
-    errors={props.errors}
-  >
+  <ChallengeForm onSubmit={props.onSubmit} errors={props.errors}>
     <StyledP>
       You need to change your password. Enter a new one in the box below:
     </StyledP>

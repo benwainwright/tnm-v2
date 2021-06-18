@@ -12,9 +12,6 @@ import TabButton from "./tab-button"
 import styled from "@emotion/styled"
 
 const Flex = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: 1.5rem;
   width: 500px;
   border: 1px solid black;
   margin-top: -1px;

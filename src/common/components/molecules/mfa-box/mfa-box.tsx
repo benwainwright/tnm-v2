@@ -15,7 +15,7 @@ const StyledP = styled.p`
 `
 
 const MfaBox: FC<MfaBoxProps> = (props) => (
-  <ChallengeForm header="Two Factor Authentication" onSubmit={props.onSubmit}>
+  <ChallengeForm onSubmit={props.onSubmit}>
     <StyledP>
       A code has been sent to your phone. Please enter it in the box below.
     </StyledP>
