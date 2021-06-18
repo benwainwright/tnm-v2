@@ -1,32 +1,9 @@
-import { FC, useState } from "react"
-import { ErrorResponse } from "@common/types/error-response"
-import {
-  LoginAndRegisterBox,
-  NewPasswordBox,
-  MfaBox,
-} from "@common/components/molecules"
+import { FC } from "react"
+import { LoginAndRegisterBox } from "@common/components/molecules"
 import AccountIcon from "@common/assets/images/icons/TNM_Icons_Final_Account.png"
 import Seo from "@common/components/seo"
 import { Hero, Layout } from "@common/components/containers"
-import { handleLogin } from "@common/handlers/handle-login"
 import styled from "@emotion/styled"
-
-export enum LoginState {
-  DoLogin = "DoLogin",
-  ChangePasswordChallenge = "ChangePasswordChallenge",
-  MfaChallenge = "MfaChallenge",
-}
-
-const getLoginBox = (state: LoginState) => {
-  switch (state) {
-    case LoginState.DoLogin:
-      return LoginAndRegisterBox
-    case LoginState.ChangePasswordChallenge:
-      return NewPasswordBox
-    case LoginState.MfaChallenge:
-      return MfaBox
-  }
-}
 
 const YourAccountHeaderBox = styled("div")`
   text-align: center;
@@ -45,12 +22,6 @@ const YourAccountHeader = styled("h1")`
 `
 
 const Login: FC = () => {
-  const [loginState, setLoginState] = useState<LoginState>(LoginState.DoLogin)
-  const [errorMessage, setErrorMessage] = useState<ErrorResponse | undefined>()
-  const [response, setResponse] = useState<any>()
-
-  const Box = getLoginBox(loginState)
-
   return (
     <Layout>
       <Seo title="Login" />
@@ -60,19 +31,7 @@ const Login: FC = () => {
           <YourAccountHeader>Your Account</YourAccountHeader>
         </YourAccountHeaderBox>
       </Hero>
-      <Box
-        errors={errorMessage ? [errorMessage] : undefined}
-        onSubmit={async (data) => {
-          await handleLogin(
-            data,
-            loginState,
-            setLoginState,
-            setResponse,
-            setErrorMessage,
-            response
-          )
-        }}
-      />
+      <LoginAndRegisterBox />
     </Layout>
   )
 }

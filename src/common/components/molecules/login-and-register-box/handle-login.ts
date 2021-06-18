@@ -1,13 +1,13 @@
 import { Dispatch, SetStateAction } from "react"
-import { ErrorResponse } from "../types/error-response"
+import { ErrorResponse } from "@common/types/error-response"
 import {
   SrpData,
   LoginFormData,
   ChangePasswordFormData,
 } from "@common/types/srp-data"
 import { navigate } from "gatsby"
-import { LoginState } from "../pages/login"
-import { login, newPasswordChallengeResponse } from "../aws/authenticate"
+import { LoginState } from "./login-and-register-box"
+import { login, newPasswordChallengeResponse } from "@common/aws/authenticate"
 
 const isLoginData = (
   formData: SrpData,
