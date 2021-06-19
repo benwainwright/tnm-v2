@@ -14,7 +14,7 @@ export interface QuantityStepperProps {
 const StyledDiv = styled("div")`
   display: flex;
   flex-direction: row;
-  width: 300px;
+  width: 100%;
   justify-content: center;
   align-items: center;
   border: 1px solid black;
