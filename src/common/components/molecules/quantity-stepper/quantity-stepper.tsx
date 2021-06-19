@@ -51,7 +51,14 @@ const QuantityStepper: FC<QuantityStepperProps> = (props) => {
         ariaLabel="Decrease"
         disabled={minusDisabled}
       />
-      <CountLabel>{props.value ?? 0}</CountLabel>
+      <CountLabel
+        role="spinbutton"
+        aria-valuenow={props.value ?? 0}
+        aria-valuemin={props.min}
+        aria-valuemax={props.max}
+      >
+        {props.value ?? 0}
+      </CountLabel>
       <IconButton
         onClick={() => {
           if (!plusDisabled) {
