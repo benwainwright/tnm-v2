@@ -35,6 +35,23 @@ export class BackendStack extends cdk.Stack {
         email: true,
         phone: true,
       },
+      customAttributes: {
+        surname: new cognito.StringAttribute({ mutable: true }),
+        salutation: new cognito.StringAttribute({ mutable: true }),
+        address: new cognito.StringAttribute({ mutable: true }),
+        telephone: new cognito.StringAttribute({ mutable: true }),
+        startDate: new cognito.DateTimeAttribute({ mutable: true }),
+        paymentDayOfMonth: new cognito.NumberAttribute({ mutable: true }),
+        notes: new cognito.StringAttribute({ mutable: true }),
+        email: new cognito.StringAttribute({ mutable: true }),
+        pauseStart: new cognito.DateTimeAttribute({ mutable: true }),
+        pauseEnd: new cognito.DateTimeAttribute({ mutable: true }),
+        daysPerWeek: new cognito.NumberAttribute({ mutable: true }),
+        legacyPrice: new cognito.NumberAttribute({ mutable: true }),
+        breakfast: new cognito.BooleanAttribute({ mutable: true }),
+        plan: new cognito.StringAttribute({ mutable: true }),
+        exclusions: new cognito.StringAttribute({ mutable: true }),
+      },
     })
 
     new cdk.CfnOutput(this, "UserPoolId", {
