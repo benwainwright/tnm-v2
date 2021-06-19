@@ -24,6 +24,8 @@ jobs:
           key: ${{ runner.os }}-modules-${{ hashFiles('**/yarn.lock') }}
           restore-keys: |
             ${{ runner.os }}-modules-${{ hashFiles('**/yarn.lock') }}
+            ${{ runner.os }}--modules
+            ${{ runner.os }}
 
       - name: Yarn install
         if: steps.cache.outputs.cache-hit != 'true'
@@ -45,8 +47,12 @@ jobs:
         uses: actions/cache@v2
         with:
           path: "**/node_modules"
+          key: ${{ runner.os }}-modules-${{ hashFiles('**/yarn.lock') }}
+
           restore-keys: |
             ${{ runner.os }}-modules-${{ hashFiles('**/yarn.lock') }}
+            ${{ runner.os }}--modules
+            ${{ runner.os }}
 
       - name: Yarn install
         if: steps.cache.outputs.cache-hit != 'true'
@@ -78,8 +84,12 @@ jobs:
         uses: actions/cache@v2
         with:
           path: "**/node_modules"
+
+          key: ${{ runner.os }}-modules-${{ hashFiles('**/yarn.lock') }}
           restore-keys: |
             ${{ runner.os }}-modules-${{ hashFiles('**/yarn.lock') }}
+            ${{ runner.os }}--modules
+            ${{ runner.os }}
 
       - name: Yarn install
         if: steps.cache.outputs.cache-hit != 'true'
@@ -104,8 +114,11 @@ jobs:
         uses: actions/cache@v2
         with:
           path: "**/node_modules"
+          key: ${{ runner.os }}-modules-${{ hashFiles('**/yarn.lock') }}
           restore-keys: |
             ${{ runner.os }}-modules-${{ hashFiles('**/yarn.lock') }}
+            ${{ runner.os }}--modules
+            ${{ runner.os }}
 
       - name: Yarn install
         if: steps.cache.outputs.cache-hit != 'true'
@@ -134,8 +147,13 @@ jobs:
         uses: actions/cache@v2
         with:
           path: "**/node_modules"
+
+          key: ${{ runner.os }}-modules-${{ hashFiles('**/yarn.lock') }}
+
           restore-keys: |
             ${{ runner.os }}-modules-${{ hashFiles('**/yarn.lock') }}
+            ${{ runner.os }}--modules
+            ${{ runner.os }}
 
       - name: Yarn install
         if: steps.cache.outputs.cache-hit != 'true'
@@ -162,8 +180,12 @@ jobs:
         uses: actions/cache@v2
         with:
           path: "**/node_modules"
+          key: ${{ runner.os }}-modules-${{ hashFiles('**/yarn.lock') }}
+
           restore-keys: |
             ${{ runner.os }}-modules-${{ hashFiles('**/yarn.lock') }}
+            ${{ runner.os }}--modules
+            ${{ runner.os }}
 
       - name: Yarn install
         if: steps.cache.outputs.cache-hit != 'true'

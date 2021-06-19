@@ -7,8 +7,8 @@ on:
       - "**.md"
 
 jobs:
-  unit-test:
-    name: Unit tests
+  install:
+    name: Yarn install
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -17,12 +17,44 @@ jobs:
         with:
           node-version: "12"
 
-      - uses: actions/cache@v2
+      - name: Cache yarn dependencies
+        uses: actions/cache@v2
         with:
-          path: "**/.yarn"
+          path: "**/node_modules"
           key: ${{ runner.os }}-modules-${{ hashFiles('**/yarn.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-modules-${{ hashFiles('**/yarn.lock') }}
+            ${{ runner.os }}--modules
+            ${{ runner.os }}
 
       - name: Yarn install
+        if: steps.cache.outputs.cache-hit != 'true'
+        run: yarn install
+
+  unit-test:
+    name: Unit tests
+    needs: [install]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Configure node 12
+        uses: actions/setup-node@v1
+        with:
+          node-version: "12"
+
+      - name: Restore yarn dependencies
+        id: cache
+        uses: actions/cache@v2
+        with:
+          path: "**/node_modules"
+          key: ${{ runner.os }}-modules-${{ hashFiles('**/yarn.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-modules-${{ hashFiles('**/yarn.lock') }}
+            ${{ runner.os }}--modules
+            ${{ runner.os }}
+
+      - name: Yarn install
+        if: steps.cache.outputs.cache-hit != 'true'
         run: yarn install
 
       - name: Run tests
@@ -37,6 +69,7 @@ jobs:
 
   lint:
     name: Linting
+    needs: [install]
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -45,12 +78,19 @@ jobs:
         with:
           node-version: "12"
 
-      - uses: actions/cache@v2
+      - name: Restore yarn dependencies
+        id: cache
+        uses: actions/cache@v2
         with:
-          path: "**/.yarn"
+          path: "**/node_modules"
           key: ${{ runner.os }}-modules-${{ hashFiles('**/yarn.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-modules-${{ hashFiles('**/yarn.lock') }}
+            ${{ runner.os }}--modules
+            ${{ runner.os }}
 
       - name: Yarn install
+        if: steps.cache.outputs.cache-hit != 'true'
         run: yarn install
 
       - name: Lint
@@ -58,6 +98,7 @@ jobs:
 
   lint-styles:
     name: Check styles
+    needs: [install]
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -66,12 +107,19 @@ jobs:
         with:
           node-version: "12"
 
-      - uses: actions/cache@v2
+      - name: Restore yarn dependencies
+        id: cache
+        uses: actions/cache@v2
         with:
-          path: "**/.yarn"
+          path: "**/node_modules"
           key: ${{ runner.os }}-modules-${{ hashFiles('**/yarn.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-modules-${{ hashFiles('**/yarn.lock') }}
+            ${{ runner.os }}--modules
+            ${{ runner.os }}
 
       - name: Yarn install
+        if: steps.cache.outputs.cache-hit != 'true'
         run: yarn install
 
       - name: Lint
@@ -79,6 +127,7 @@ jobs:
 
   types:
     name: Typecheck
+    needs: [install]
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -87,12 +136,19 @@ jobs:
         with:
           node-version: "12"
 
-      - uses: actions/cache@v2
+      - name: Restore yarn dependencies
+        id: cache
+        uses: actions/cache@v2
         with:
-          path: "**/.yarn"
+          path: "**/node_modules"
           key: ${{ runner.os }}-modules-${{ hashFiles('**/yarn.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-modules-${{ hashFiles('**/yarn.lock') }}
+            ${{ runner.os }}--modules
+            ${{ runner.os }}
 
       - name: Yarn install
+        if: steps.cache.outputs.cache-hit != 'true'
         run: yarn install
 
       - name: TypeScript compile
@@ -110,12 +166,20 @@ jobs:
         uses: actions/setup-node@v1
         with:
           node-version: "12"
-      - uses: actions/cache@v2
+
+      - name: Restore yarn dependencies
+        id: cache
+        uses: actions/cache@v2
         with:
-          path: "**/.yarn"
+          path: "**/node_modules"
           key: ${{ runner.os }}-modules-${{ hashFiles('**/yarn.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-modules-${{ hashFiles('**/yarn.lock') }}
+            ${{ runner.os }}--modules
+            ${{ runner.os }}
 
       - name: Yarn install
+        if: steps.cache.outputs.cache-hit != 'true'
         run: yarn install
 
       - name: Turnstyle
@@ -161,12 +225,20 @@ jobs:
         uses: actions/setup-node@v1
         with:
           node-version: "12"
-      - uses: actions/cache@v2
+
+      - name: Restore yarn dependencies
+        id: cache
+        uses: actions/cache@v2
         with:
-          path: "**/.yarn"
+          path: "**/node_modules"
           key: ${{ runner.os }}-modules-${{ hashFiles('**/yarn.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-modules-${{ hashFiles('**/yarn.lock') }}
+            ${{ runner.os }}--modules
+            ${{ runner.os }}
 
       - name: Yarn install
+        if: steps.cache.outputs.cache-hit != 'true'
         run: yarn install
 
       - name: Turnstyle
@@ -210,12 +282,20 @@ jobs:
         uses: actions/setup-node@v1
         with:
           node-version: "12"
-      - uses: actions/cache@v2
+
+      - name: Restore yarn dependencies
+        id: cache
+        uses: actions/cache@v2
         with:
-          path: "**/.yarn"
+          path: "**/node_modules"
           key: ${{ runner.os }}-modules-${{ hashFiles('**/yarn.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-modules-${{ hashFiles('**/yarn.lock') }}
+            ${{ runner.os }}--modules
+            ${{ runner.os }}
 
       - name: Yarn install
+        if: steps.cache.outputs.cache-hit != 'true'
         run: yarn install
 
       - name: Turnstyle
