@@ -8,6 +8,7 @@ import { Header } from "./header"
 import { MfaBox } from "./mfa-box"
 import { NewPasswordBox } from "./new-password-box"
 import { QuantityStepper } from "./quantity-stepper"
+import { MealCounter } from "./meal-counter"
 
 export {
   Authenticated,
@@ -18,4 +19,5 @@ export {
   MfaBox,
   NewPasswordBox,
   QuantityStepper,
+  MealCounter,
 }
