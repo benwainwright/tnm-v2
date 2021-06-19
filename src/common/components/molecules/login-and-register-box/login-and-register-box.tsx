@@ -3,6 +3,7 @@ import { TabBox, Tab } from "@common/components/containers"
 import { ErrorResponse } from "@common/types/error-response"
 import LoginForm from "./login-form"
 import NewPasswordForm from "./new-password-form"
+import RegisterForm from "./register-form"
 import MfaForm from "./mfa-form"
 import { handleLogin } from "./handle-login"
 
@@ -45,7 +46,9 @@ const LoginAndRegisterBox: FC = () => {
           }}
         />
       </Tab>
-      <Tab tabTitle="Register"></Tab>
+      <Tab tabTitle="Register">
+        <RegisterForm onSubmit={() => {}} />
+      </Tab>
     </TabBox>
   )
 }

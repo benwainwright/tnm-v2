@@ -8,6 +8,7 @@ const InputContainer = styled.div`
   font-family: "Acumin Pro", Arial, sans-serif;
   display: flex;
   flex-direction: column;
+  flex-grow: 999;
 `
 
 const LabelRow = styled.div`

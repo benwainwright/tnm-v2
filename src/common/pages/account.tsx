@@ -25,8 +25,8 @@ const YourAccountHeader = styled("h1")`
 
 const Account: FC = () => {
   return (
-    <Layout>
-      <Authenticated redirect={Redirect.IfLoggedOut} redirectPath="/login/">
+    <Authenticated redirect={Redirect.IfLoggedOut} redirectPath="/login/">
+      <Layout>
         <Hero>
           <YourAccountHeaderBox>
             <img src={AccountIcon} alt="" height="80" width="80" />
@@ -35,8 +35,8 @@ const Account: FC = () => {
         </Hero>
         <Seo title="Account" />
         <h2>You are logged in</h2>
-      </Authenticated>
-    </Layout>
+      </Layout>
+    </Authenticated>
   )
 }
 
