@@ -63,4 +63,21 @@ describe("The login page", () => {
     cy.get("form").find("button").contains("Login").click()
     cy.location("pathname").should("eq", "/account/")
   })
+
+  it("Should redirect you to the account page if you try to visit the login page after login", () => {
+    cy.visit("/login/")
+    cy.get("form")
+      .find("input[name='email']")
+      .clear()
+      .type(Cypress.env("TEST_EMAIL"))
+    cy.get("form")
+      .find("input[name='password']")
+      .clear()
+      .type(Cypress.env("TEST_USER_FINAL_PASSWORD"))
+    cy.get("form").find("button").contains("Login").click()
+    cy.location("pathname").should("eq", "/account/")
+
+    cy.visit("/login/")
+    cy.location("pathname").should("eq", "/account/")
+  })
 })
