@@ -10,6 +10,7 @@ describe("The login page", () => {
 
   it("Should display an error message if the user doesn't exist", () => {
     cy.visit("/login/")
+    cy.get("form").should("be.visible")
     cy.get("form").find("input[name='email']").clear().type("a@b.c")
     cy.get("form").find("input[name='password']").clear().type("asdds")
     cy.get("form").find("button").contains("Login").click()
@@ -18,6 +19,7 @@ describe("The login page", () => {
 
   it("Should display an error message if your password is incorrect", () => {
     cy.visit("/login/")
+    cy.get("form").should("be.visible")
     cy.get("form")
       .find("input[name='email']")
       .clear()
@@ -29,6 +31,7 @@ describe("The login page", () => {
 
   it("Should ask you to change your password and redirect you to account page when done on first login", () => {
     cy.visit("/login/")
+    cy.get("form").should("be.visible")
     cy.get("form")
       .find("input[name='email']")
       .clear()
@@ -52,6 +55,7 @@ describe("The login page", () => {
 
   it("Should redirect straight to account page on second login", () => {
     cy.visit("/login/")
+    cy.get("form").should("be.visible")
     cy.get("form")
       .find("input[name='email']")
       .clear()
@@ -66,6 +70,7 @@ describe("The login page", () => {
 
   it("Should redirect you to the account page if you try to visit the login page after login", () => {
     cy.visit("/login/")
+    cy.get("form").should("be.visible")
     cy.get("form")
       .find("input[name='email']")
       .clear()
