@@ -1,6 +1,7 @@
 import { CognitoIdentityServiceProvider } from "aws-sdk"
 
 export const TEST_USER = "cypress-test-user"
+export const TEST_USER_2 = "cypress-test-user-2"
 
 export const seedCognito = async () => {
   const cognito = new CognitoIdentityServiceProvider({ region: "eu-west-2" })

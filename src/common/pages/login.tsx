@@ -1,5 +1,6 @@
 import { FC } from "react"
 import { LoginAndRegisterBox } from "@common/components/molecules"
+import { Authenticated, Redirect } from "@common/components/molecules"
 import AccountIcon from "@common/assets/images/icons/TNM_Icons_Final_Account.png"
 import Seo from "@common/components/seo"
 import { Hero, Layout } from "@common/components/containers"
@@ -23,16 +24,18 @@ const YourAccountHeader = styled("h1")`
 
 const Login: FC = () => {
   return (
-    <Layout>
-      <Seo title="Login" />
-      <Hero>
-        <YourAccountHeaderBox>
-          <img src={AccountIcon} alt="" height="80" width="80" />
-          <YourAccountHeader>Your Account</YourAccountHeader>
-        </YourAccountHeaderBox>
-      </Hero>
-      <LoginAndRegisterBox />
-    </Layout>
+    <Authenticated redirect={Redirect.IfLoggedIn} redirectPath="/account/">
+      <Layout>
+        <Seo title="Login" />
+        <Hero>
+          <YourAccountHeaderBox>
+            <img src={AccountIcon} alt="" height="80" width="80" />
+            <YourAccountHeader>Your Account</YourAccountHeader>
+          </YourAccountHeaderBox>
+        </Hero>
+        <LoginAndRegisterBox />
+      </Layout>
+    </Authenticated>
   )
 }
 
