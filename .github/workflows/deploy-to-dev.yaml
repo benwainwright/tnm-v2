@@ -23,9 +23,10 @@ jobs:
           path: "**/node_modules"
           key: ${{ runner.os }}-modules-${{ hashFiles('**/yarn.lock') }}
           restore-keys: |
-            ${{ runner.os }}-modules
+            ${{ runner.os }}-modules-${{ hashFiles('**/yarn.lock') }}
 
       - name: Yarn install
+        if: steps.cache.outputs.cache-hit != 'true'
         run: yarn install
 
   unit-test:
@@ -44,9 +45,8 @@ jobs:
         uses: actions/cache@v2
         with:
           path: "**/node_modules"
-          key: ${{ runner.os }}-modules-${{ hashFiles('**/yarn.lock') }}
           restore-keys: |
-            ${{ runner.os }}-modules
+            ${{ runner.os }}-modules-${{ hashFiles('**/yarn.lock') }}
 
       - name: Yarn install
         if: steps.cache.outputs.cache-hit != 'true'
@@ -78,9 +78,8 @@ jobs:
         uses: actions/cache@v2
         with:
           path: "**/node_modules"
-          key: ${{ runner.os }}-modules-${{ hashFiles('**/yarn.lock') }}
           restore-keys: |
-            ${{ runner.os }}-modules
+            ${{ runner.os }}-modules-${{ hashFiles('**/yarn.lock') }}
 
       - name: Yarn install
         if: steps.cache.outputs.cache-hit != 'true'
@@ -105,9 +104,8 @@ jobs:
         uses: actions/cache@v2
         with:
           path: "**/node_modules"
-          key: ${{ runner.os }}-modules-${{ hashFiles('**/yarn.lock') }}
           restore-keys: |
-            ${{ runner.os }}-modules
+            ${{ runner.os }}-modules-${{ hashFiles('**/yarn.lock') }}
 
       - name: Yarn install
         if: steps.cache.outputs.cache-hit != 'true'
@@ -136,9 +134,8 @@ jobs:
         uses: actions/cache@v2
         with:
           path: "**/node_modules"
-          key: ${{ runner.os }}-modules-${{ hashFiles('**/yarn.lock') }}
           restore-keys: |
-            ${{ runner.os }}-modules
+            ${{ runner.os }}-modules-${{ hashFiles('**/yarn.lock') }}
 
       - name: Yarn install
         if: steps.cache.outputs.cache-hit != 'true'
@@ -165,9 +162,8 @@ jobs:
         uses: actions/cache@v2
         with:
           path: "**/node_modules"
-          key: ${{ runner.os }}-modules-${{ hashFiles('**/yarn.lock') }}
           restore-keys: |
-            ${{ runner.os }}-modules
+            ${{ runner.os }}-modules-${{ hashFiles('**/yarn.lock') }}
 
       - name: Yarn install
         if: steps.cache.outputs.cache-hit != 'true'
