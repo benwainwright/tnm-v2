@@ -20,7 +20,7 @@ jobs:
       - name: Cache yarn dependencies
         uses: actions/cache@v2
         with:
-          path: **/node_modules
+          path: "**/node_modules"
           key: ${{ runner.os }}-modules-${{ hashFiles('**/yarn.lock') }}
           restore-keys: |
             ${{ runner.os }}-modules
@@ -43,7 +43,7 @@ jobs:
         id: cache
         uses: actions/cache@v2
         with:
-          path: **/node_modules
+          path: "**/node_modules"
           key: ${{ runner.os }}-modules-${{ hashFiles('**/yarn.lock') }}
           restore-keys: |
             ${{ runner.os }}-modules
@@ -77,7 +77,7 @@ jobs:
         id: cache
         uses: actions/cache@v2
         with:
-          path: **/node_modules
+          path: "**/node_modules"
           key: ${{ runner.os }}-modules-${{ hashFiles('**/yarn.lock') }}
           restore-keys: |
             ${{ runner.os }}-modules
@@ -104,7 +104,7 @@ jobs:
         id: cache
         uses: actions/cache@v2
         with:
-          path: **/node_modules
+          path: "**/node_modules"
           key: ${{ runner.os }}-modules-${{ hashFiles('**/yarn.lock') }}
           restore-keys: |
             ${{ runner.os }}-modules
@@ -135,7 +135,7 @@ jobs:
         id: cache
         uses: actions/cache@v2
         with:
-          path: **/node_modules
+          path: "**/node_modules"
           key: ${{ runner.os }}-modules-${{ hashFiles('**/yarn.lock') }}
           restore-keys: |
             ${{ runner.os }}-modules
@@ -164,7 +164,7 @@ jobs:
         id: cache
         uses: actions/cache@v2
         with:
-          path: **/node_modules
+          path: "**/node_modules"
           key: ${{ runner.os }}-modules-${{ hashFiles('**/yarn.lock') }}
           restore-keys: |
             ${{ runner.os }}-modules
