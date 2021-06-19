@@ -38,6 +38,7 @@ export class BackendStack extends cdk.Stack {
       customAttributes: {
         surname: new cognito.StringAttribute({ mutable: true }),
         salutation: new cognito.StringAttribute({ mutable: true }),
+        snack: new cognito.StringAttribute({ mutable: true }),
         address: new cognito.StringAttribute({ mutable: true }),
         telephone: new cognito.StringAttribute({ mutable: true }),
         startDate: new cognito.DateTimeAttribute({ mutable: true }),
