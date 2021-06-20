@@ -9,7 +9,6 @@ interface MealListProps {
   selected: SelectedThings
   setSelected: Dispatch<SetStateAction<SelectedThings>>
   max: number
-  overalTotal: number
 }
 
 const FlexBox = styled.div`
@@ -22,6 +21,11 @@ const FlexBox = styled.div`
 `
 
 const MealList: FC<MealListProps> = (props) => {
+  const total = Object.entries(props.selected).reduce(
+    (accum, item) => accum + item[1],
+    0
+  )
+
   return (
     <FlexBox>
       {props.things.map((thing) => (
@@ -31,7 +35,7 @@ const MealList: FC<MealListProps> = (props) => {
           description={thing.description}
           value={props.selected[thing.id]}
           min={0}
-          max={props.max - props.overalTotal + props.selected[thing.id]}
+          max={props.max - total + props.selected[thing.id]}
           onChange={(newValue: number) =>
             props.setSelected({
               ...props.selected,
