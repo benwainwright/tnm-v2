@@ -26,6 +26,9 @@ const StyledDiv = styled("div")`
 
 const LabelText = styled.label`
   flex-grow: 999;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
   font-family: "Acumin Pro", Arial, sans-serif;
   padding-left: 0.5rem;
 `
@@ -87,7 +90,8 @@ const QuantityStepper: FC<QuantityStepperProps> = (props) => {
   const widgets = props.label ? (
     <Fragment>
       {countLabel}
-      <LabelText>{props.label}</LabelText>,{minusButton}
+      <LabelText>{props.label}</LabelText>
+      {minusButton}
       {plusButton}
     </Fragment>
   ) : (
