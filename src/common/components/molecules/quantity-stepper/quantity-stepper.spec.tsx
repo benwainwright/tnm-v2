@@ -17,6 +17,11 @@ describe("Quantity stepper", () => {
     expect(wrapper2.text()).toInclude("5")
   })
 
+  it("displays the label if there is one", () => {
+    const wrapper = shallow(<QuantityStepper label="foo" />)
+    expect(wrapper.text()).toInclude("Foo")
+  })
+
   it("fires an onChange event with the incremented value if the plus button is clicked", () => {
     const onChange = jest.fn()
     const wrapper = shallow(<QuantityStepper value={3} onChange={onChange} />)

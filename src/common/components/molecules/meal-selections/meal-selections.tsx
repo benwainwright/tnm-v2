@@ -21,7 +21,6 @@ const DivContainer = styled.div`
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
-  jestufy-contents: center;
   align-items: flex-end;
   gap: 2rem;
 `
@@ -29,6 +28,7 @@ const DivContainer = styled.div`
 const FlexBox = styled.div`
   display: flex;
   align-items: flex-end;
+  justify-content: center;
   gap: 2rem;
   flex-wrap: wrap;
   width: 100%;
