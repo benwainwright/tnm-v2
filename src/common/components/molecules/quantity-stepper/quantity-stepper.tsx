@@ -1,4 +1,4 @@
-import { FC } from "react"
+import { FC, Fragment } from "react"
 import { IconButton } from "@common/components/atoms"
 import AddIcon from "@common/assets/images/icons/tnm-add.png"
 import MinusIcon from "@common/assets/images/icons/tnm-subtract.png"
@@ -8,7 +8,6 @@ export interface QuantityStepperProps {
   value?: number
   onChange?: (newValue: number) => void
   label?: string
-  variant: "default" | "smallLabelled"
   max?: number
   min?: number
 }
@@ -35,8 +34,8 @@ const QuantityStepper: FC<QuantityStepperProps> = (props) => {
   const CountLabel = styled("div")`
     font-family: "Acumin Pro", Arial, sans-serif;
     font-weight: bold;
-    flex-grow: ${props.variant === `smallLabelled` ? `0` : `999`};
-    padding-left: ${props.variant === `smallLabelled` ? `0.5rem` : `0`};
+    flex-grow: ${props.label ? `0` : `999`};
+    padding-left: ${props.label ? `0.5rem` : `0`};
     text-align: center;
   `
   const minusDisabled =
@@ -85,15 +84,19 @@ const QuantityStepper: FC<QuantityStepperProps> = (props) => {
       {props.value ?? 0}
     </CountLabel>
   )
-  const widgets =
-    props.variant === "smallLabelled"
-      ? [
-          countLabel,
-          <LabelText>{props.label}</LabelText>,
-          minusButton,
-          plusButton,
-        ]
-      : [minusButton, countLabel, plusButton]
+  const widgets = props.label ? (
+    <Fragment>
+      {countLabel}
+      <LabelText>{props.label}</LabelText>,{minusButton}
+      {plusButton}
+    </Fragment>
+  ) : (
+    <Fragment>
+      {minusButton}
+      {countLabel}
+      {plusButton}
+    </Fragment>
+  )
   return <StyledDiv>{widgets}</StyledDiv>
 }
 

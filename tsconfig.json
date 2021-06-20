@@ -6,7 +6,7 @@
       "@common/*": ["common/*"]
     },
     "target": "es5",
-    "lib": ["ES2019"],
+    "lib": ["DOM", "ES2019"],
     "noEmit": true,
     "module": "commonjs",
     "resolveJsonModule": true,

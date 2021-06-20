@@ -1,5 +1,4 @@
 import { Meta, Story } from "@storybook/react"
-import { useState } from "react"
 
 import MealSelectionsComponent, { MealSelectionsProps } from "./meal-selections"
 
@@ -15,7 +14,17 @@ const Template: Story<MealSelectionsProps> = (args) => (
 export const MealSelections = Template.bind({})
 
 MealSelections.args = {
-  max: 4,
+  maxMeals: 4,
+  maxBreakfasts: 2,
+  maxSnacks: 3,
+  snacksAvailable: [],
+  breakfastsAvailable: [
+    {
+      id: "4",
+      title: "Some cool ass Granola",
+      description: "Yeah its got all the ",
+    },
+  ],
   mealsAvailable: [
     {
       id: "1",

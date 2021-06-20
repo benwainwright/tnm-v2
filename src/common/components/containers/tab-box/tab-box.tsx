@@ -1,6 +1,5 @@
 import {
   FC,
-  Fragment,
   useState,
   Children,
   isValidElement,
@@ -55,11 +54,11 @@ const TabBox: FC<TabBoxProps> = (props) => {
     </ButtonComponent>
   ))
   return (
-    <Fragment>
+    <div>
       <ButtonRow role="tablist">{buttons}</ButtonRow>
       {/* eslint-disable-next-line security/detect-object-injection */}
       {tabs[tabIndex]}
-    </Fragment>
+    </div>
   )
 }
 

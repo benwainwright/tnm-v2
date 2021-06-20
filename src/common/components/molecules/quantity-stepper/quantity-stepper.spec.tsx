@@ -18,7 +18,7 @@ describe("Quantity stepper", () => {
   })
 
   it("displays the label if there is one", () => {
-    const wrapper = shallow(<QuantityStepper label="foo" />)
+    const wrapper = shallow(<QuantityStepper label="Foo" />)
     expect(wrapper.text()).toInclude("Foo")
   })
 
