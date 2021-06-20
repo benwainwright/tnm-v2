@@ -9,6 +9,7 @@ interface BasketProps {
   itemWord: string
   itemWordPlural: string
   selectedMeals: SelectedThings
+  max: number
 }
 
 const toTitleCase = (string: string) => {
@@ -36,8 +37,12 @@ const BasketHeader = styled.h3`
   font-family: "Acumin Pro", Arial, sans-serif;
   font-size: 1.3rem;
   font-weight: bold;
-  margin: 1rem 0 1rem 0;
+  margin: 1rem 0 0 0;
   padding: 0;
+`
+
+const BasketRemaining = styled.p`
+  font-family: "Acumin Pro", Arial, sans-serif;
 `
 
 const Basket: FC<BasketProps> = (props) => {
@@ -47,12 +52,17 @@ const Basket: FC<BasketProps> = (props) => {
   )
 
   const itemWord = totalSelected > 1 ? props.itemWordPlural : props.itemWord
-
   const header = toTitleCase(`${totalSelected} ${itemWord} Selected`)
+  const remainingString = (
+    <BasketRemaining>
+      {props.max - totalSelected} {itemWord} remaining
+    </BasketRemaining>
+  )
 
   return (
     <Fragment>
       {totalSelected > 0 ? <BasketHeader>{header}</BasketHeader> : undefined}
+      {totalSelected > 0 ? remainingString : undefined}
       {makeBasketItems(props.selectedMeals, props.available)}
     </Fragment>
   )
