@@ -1,6 +1,7 @@
 import { FC, useState } from "react"
 import { MealCounter } from "@common/components/molecules"
 import { TabBox, Tab } from "@common/components/containers"
+import TabButton from "./tab-button"
 import styled from "@emotion/styled"
 
 interface Meal {
@@ -20,6 +21,7 @@ const DivContainer = styled.div`
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
+  jestufy-contents: center;
   align-items: flex-end;
   gap: 2rem;
 `
@@ -44,7 +46,7 @@ const MealSelections: FC<MealSelectionsProps> = (props) => {
 
   return (
     <DivContainer>
-      <TabBox>
+      <TabBox tabButton={TabButton}>
         <Tab tabTitle="Meals">
           <FlexBox>
             {props.mealsAvailable.map((meal) => (

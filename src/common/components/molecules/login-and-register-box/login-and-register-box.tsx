@@ -6,6 +6,7 @@ import NewPasswordForm from "./new-password-form"
 import RegisterForm from "./register-form"
 import MfaForm from "./mfa-form"
 import { handleLogin } from "./handle-login"
+import styled from "@emotion/styled"
 
 export enum LoginState {
   DoLogin = "DoLogin",
@@ -24,6 +25,10 @@ const getLoginBox = (state: LoginState) => {
   }
 }
 
+const Padding = styled.div`
+  padding: 1.5rem 5rem 3rem 5rem;
+`
+
 const LoginAndRegisterBox: FC = () => {
   const [loginState, setLoginState] = useState<LoginState>(LoginState.DoLogin)
   const [errorMessage, setErrorMessage] = useState<ErrorResponse | undefined>()
@@ -33,22 +38,26 @@ const LoginAndRegisterBox: FC = () => {
     <Box>
       <TabBox>
         <Tab tabTitle="Login">
-          <ChosenLoginForm
-            errors={errorMessage ? [errorMessage] : undefined}
-            onSubmit={async (data) => {
-              await handleLogin(
-                data,
-                loginState,
-                setLoginState,
-                setResponse,
-                setErrorMessage,
-                response
-              )
-            }}
-          />
+          <Padding>
+            <ChosenLoginForm
+              errors={errorMessage ? [errorMessage] : undefined}
+              onSubmit={async (data) => {
+                await handleLogin(
+                  data,
+                  loginState,
+                  setLoginState,
+                  setResponse,
+                  setErrorMessage,
+                  response
+                )
+              }}
+            />
+          </Padding>
         </Tab>
         <Tab tabTitle="Register">
-          <RegisterForm onSubmit={() => {}} />
+          <Padding>
+            <RegisterForm onSubmit={() => {}} />
+          </Padding>
         </Tab>
       </TabBox>
     </Box>
