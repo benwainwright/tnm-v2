@@ -1,4 +1,4 @@
-import { FC } from "react"
+import { FC, Dispatch, SetStateAction } from "react"
 import { Meal } from "./meal"
 import { SelectedThings } from "./selected-things"
 import Basket from "./basket"
@@ -8,10 +8,13 @@ interface BasketProps {
   available: Meal[]
   selectedMeals: SelectedThings
   maxMeals: number
+  setMeals: Dispatch<SetStateAction<SelectedThings>>
   selectedSnacks: SelectedThings
   maxSnacks: number
+  setSnacks: Dispatch<SetStateAction<SelectedThings>>
   selectedBreakfasts: SelectedThings
   maxBreakfasts: number
+  setBreakfasts: Dispatch<SetStateAction<SelectedThings>>
 }
 
 const SelectedBox = styled.div`
@@ -49,6 +52,7 @@ const CombinedBasket: FC<BasketProps> = (props) => {
         itemWordPlural="meals"
         selectedMeals={props.selectedMeals}
         available={props.available}
+        setSelected={props.setMeals}
       />
 
       <Basket
@@ -57,6 +61,7 @@ const CombinedBasket: FC<BasketProps> = (props) => {
         itemWordPlural="snacks"
         selectedMeals={props.selectedSnacks}
         available={props.available}
+        setSelected={props.setSnacks}
       />
       <Basket
         max={props.maxBreakfasts}
@@ -64,6 +69,7 @@ const CombinedBasket: FC<BasketProps> = (props) => {
         itemWordPlural="breakfasts"
         selectedMeals={props.selectedBreakfasts}
         available={props.available}
+        setSelected={props.setBreakfasts}
       />
     </SelectedBox>
   )

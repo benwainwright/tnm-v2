@@ -68,6 +68,7 @@ module.exports = {
     "unicorn/no-array-callback-reference": "off",
     "unicorn/no-useless-undefined": "off",
     "unicorn/no-reduce": "off",
+    "unicorn/no-null": "off",
     "unicorn/no-array-reduce": "off",
     "unicorn/no-fn-reference-in-iterator": "off",
     "unicorn/prevent-abbreviations": "off",
