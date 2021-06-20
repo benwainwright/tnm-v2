@@ -4,7 +4,7 @@ import MealList from "./meal-list"
 import TabButton from "./tab-button"
 import styled from "@emotion/styled"
 import { Meal } from "./meal"
-import Basket from "./basket"
+import CombinedBasket from "./combined-basket"
 
 export interface MealSelectionsProps {
   mealsAvailable: Meal[]
@@ -75,7 +75,7 @@ const MealSelections: FC<MealSelectionsProps> = (props) => {
             />
           </Tab>
         </TabBox>
-        <Basket
+        <CombinedBasket
           available={[
             ...props.mealsAvailable,
             ...props.snacksAvailable,
