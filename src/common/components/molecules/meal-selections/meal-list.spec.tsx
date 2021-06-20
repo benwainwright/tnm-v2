@@ -5,13 +5,7 @@ import { MealCounter } from "@common/components/molecules"
 describe("The <MealList> component", () => {
   it("renders without errors", () => {
     shallow(
-      <MealList
-        things={[]}
-        selected={{}}
-        setSelected={jest.fn()}
-        max={0}
-        overalTotal={0}
-      />
+      <MealList things={[]} selected={{}} setSelected={jest.fn()} max={0} />
     )
   })
 
@@ -34,7 +28,6 @@ describe("The <MealList> component", () => {
         selected={{}}
         setSelected={jest.fn()}
         max={0}
-        overalTotal={0}
       />
     )
 
