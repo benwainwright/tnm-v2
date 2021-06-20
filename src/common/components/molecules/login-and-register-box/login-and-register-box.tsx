@@ -1,5 +1,5 @@
 import { FC, useState } from "react"
-import { TabBox, Tab } from "@common/components/containers"
+import { TabBox, Tab, Box } from "@common/components/containers"
 import { ErrorResponse } from "@common/types/error-response"
 import LoginForm from "./login-form"
 import NewPasswordForm from "./new-password-form"
@@ -30,26 +30,28 @@ const LoginAndRegisterBox: FC = () => {
   const [response, setResponse] = useState<any>()
   const ChosenLoginForm = getLoginBox(loginState)
   return (
-    <TabBox>
-      <Tab tabTitle="Login">
-        <ChosenLoginForm
-          errors={errorMessage ? [errorMessage] : undefined}
-          onSubmit={async (data) => {
-            await handleLogin(
-              data,
-              loginState,
-              setLoginState,
-              setResponse,
-              setErrorMessage,
-              response
-            )
-          }}
-        />
-      </Tab>
-      <Tab tabTitle="Register">
-        <RegisterForm onSubmit={() => {}} />
-      </Tab>
-    </TabBox>
+    <Box>
+      <TabBox>
+        <Tab tabTitle="Login">
+          <ChosenLoginForm
+            errors={errorMessage ? [errorMessage] : undefined}
+            onSubmit={async (data) => {
+              await handleLogin(
+                data,
+                loginState,
+                setLoginState,
+                setResponse,
+                setErrorMessage,
+                response
+              )
+            }}
+          />
+        </Tab>
+        <Tab tabTitle="Register">
+          <RegisterForm onSubmit={() => {}} />
+        </Tab>
+      </TabBox>
+    </Box>
   )
 }
 

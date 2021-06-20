@@ -1,5 +1,6 @@
 import {
   FC,
+  Fragment,
   useState,
   Children,
   isValidElement,
@@ -11,14 +12,9 @@ import TabButton from "./tab-button"
 
 import styled from "@emotion/styled"
 
-const Flex = styled.div`
-  width: 500px;
-  border: 1px solid black;
-  margin-top: -1px;
-`
-
 const ButtonRow = styled.div`
   overflow: hidden;
+  width: 100%;
   display: flex;
   flex-direction: row;
   justify-content: center;
@@ -50,11 +46,11 @@ const TabBox: FC<TabBoxProps> = (props) => {
     </TabButton>
   ))
   return (
-    <Flex>
+    <Fragment>
       <ButtonRow role="tablist">{buttons}</ButtonRow>
       {/* eslint-disable-next-line security/detect-object-injection */}
       {tabs[tabIndex]}
-    </Flex>
+    </Fragment>
   )
 }
 
