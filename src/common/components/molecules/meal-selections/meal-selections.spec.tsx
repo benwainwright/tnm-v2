@@ -17,55 +17,6 @@ describe("The <MealSelections> component", () => {
     )
   })
 
-  it("renders each of the meals into a meals into a <MealCounter />", () => {
-    const wrapper = shallow(
-      <MealSelections
-        breakfastsAvailable={[]}
-        snacksAvailable={[]}
-        maxSnacks={0}
-        maxBreakfasts={0}
-        mealsAvailable={[
-          {
-            id: "1",
-            title: "foo",
-            description: "baz",
-          },
-
-          {
-            id: "2",
-            title: "foobar",
-            description: "bazBash",
-          },
-        ]}
-        maxMeals={4}
-      />
-    )
-
-    expect(
-      wrapper
-        .find(MealCounter)
-        .findWhere((counter) => counter.prop("title") === "foo")
-    ).toHaveLength(1)
-
-    expect(
-      wrapper
-        .find(MealCounter)
-        .findWhere((counter) => counter.prop("description") === "baz")
-    ).toHaveLength(1)
-
-    expect(
-      wrapper
-        .find(MealCounter)
-        .findWhere((counter) => counter.prop("title") === "foobar")
-    ).toHaveLength(1)
-
-    expect(
-      wrapper
-        .find(MealCounter)
-        .findWhere((counter) => counter.prop("description") === "bazBash")
-    ).toHaveLength(1)
-  })
-
   it.skip("all the increase buttons are disabled when the maximum is reached", () => {
     const wrapper = mount(
       <MealSelections

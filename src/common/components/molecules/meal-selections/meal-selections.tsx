@@ -1,14 +1,10 @@
-import { FC, useState, Dispatch, SetStateAction } from "react"
-import { MealCounter, QuantityStepper } from "@common/components/molecules"
+import { FC, useState } from "react"
+import { QuantityStepper } from "@common/components/molecules"
 import { TabBox, Tab } from "@common/components/containers"
+import MealList from "./meal-list"
 import TabButton from "./tab-button"
 import styled from "@emotion/styled"
-
-interface Meal {
-  id: string
-  title: string
-  description: string
-}
+import { Meal } from "./meal"
 
 export interface MealSelectionsProps {
   mealsAvailable: Meal[]
@@ -41,15 +37,6 @@ const DivContainer = styled.div`
   gap: 2rem;
 `
 
-const FlexBox = styled.div`
-  display: flex;
-  align-items: flex-end;
-  justify-content: center;
-  gap: 2rem;
-  flex-wrap: wrap;
-  width: 100%;
-`
-
 const totalThings = (selectedThings: { [id: string]: number }) =>
   Object.entries(selectedThings).reduce((accum, item) => accum + item[1], 0)
 
@@ -70,36 +57,6 @@ const makeBasket = (
         value={thing.count}
       />
     ))
-
-const makeMealList = (
-  title: string,
-  things: Meal[],
-  selectedThings: { [id: string]: number },
-  max: number,
-  total: number,
-  setSelectedThings: Dispatch<SetStateAction<{ [id: string]: number }>>
-) => (
-  <Tab tabTitle={title}>
-    <FlexBox>
-      {things.map((thing) => (
-        <MealCounter
-          key={thing.id}
-          title={thing.title}
-          description={thing.description}
-          value={selectedThings[thing.id]}
-          min={0}
-          max={max - total + selectedThings[thing.id]}
-          onChange={(newValue: number) =>
-            setSelectedThings({
-              ...selectedThings,
-              [thing.id]: newValue,
-            })
-          }
-        />
-      ))}
-    </FlexBox>
-  </Tab>
-)
 
 const createDefaultSelectedThings = (things: Meal[]) =>
   Object.fromEntries(things.map((thing) => [thing.id, 0]))
@@ -131,30 +88,34 @@ const MealSelections: FC<MealSelectionsProps> = (props) => {
     <DivContainer>
       <GridParent>
         <TabBox tabButton={TabButton}>
-          {makeMealList(
-            "Meals",
-            props.mealsAvailable,
-            selectedMeals,
-            props.maxMeals,
-            totalMeals,
-            setSelectedMeals
-          )}
-          {makeMealList(
-            "Breakfasts",
-            props.breakfastsAvailable,
-            selectedBreakfasts,
-            props.maxBreakfasts,
-            totalBreakfasts,
-            setSelectedBreakfasts
-          )}
-          {makeMealList(
-            "Snacks",
-            props.snacksAvailable,
-            selectedSnacks,
-            props.maxSnacks,
-            totalSnacks,
-            setSelectedSnacks
-          )}
+          <Tab tabTitle="Meals">
+            <MealList
+              things={props.mealsAvailable}
+              selected={selectedMeals}
+              setSelected={setSelectedMeals}
+              overalTotal={totalMeals}
+              max={props.maxMeals}
+            />
+          </Tab>
+
+          <Tab tabTitle="Breakfasts">
+            <MealList
+              things={props.breakfastsAvailable}
+              selected={selectedBreakfasts}
+              setSelected={setSelectedBreakfasts}
+              overalTotal={totalBreakfasts}
+              max={props.maxBreakfasts}
+            />
+          </Tab>
+          <Tab tabTitle="Snacks">
+            <MealList
+              things={props.snacksAvailable}
+              selected={selectedSnacks}
+              setSelected={setSelectedSnacks}
+              overalTotal={totalSnacks}
+              max={props.maxSnacks}
+            />
+          </Tab>
         </TabBox>
         <SelectedBox>
           {chosenMealBasket}
