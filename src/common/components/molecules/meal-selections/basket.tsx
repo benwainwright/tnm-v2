@@ -1,4 +1,4 @@
-import { FC, Fragment, Dispatch, SetStateAction } from "react"
+import { FC, Dispatch, SetStateAction } from "react"
 import { Meal } from "./meal"
 import { SelectedThings } from "./selected-things"
 import { QuantityStepper } from "@common/components/molecules"
@@ -18,6 +18,12 @@ const toTitleCase = (string: string) => {
     return text.charAt(0).toUpperCase() + text.slice(1).toLowerCase()
   })
 }
+
+const BasketContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+`
 
 const makeBasketItems = (
   selectedThings: SelectedThings,
@@ -52,10 +58,6 @@ const BasketHeader = styled.h3`
   padding: 0;
 `
 
-const BasketRemaining = styled.p`
-  font-family: "Acumin Pro", Arial, sans-serif;
-`
-
 const Basket: FC<BasketProps> = (props) => {
   const totalSelected = Object.entries(props.selectedMeals).reduce(
     (accum, item) => accum + item[1],
@@ -66,13 +68,20 @@ const Basket: FC<BasketProps> = (props) => {
     return null
   }
 
+  const remaining = props.max - totalSelected
+
+  const BasketRemaining = styled.p`
+    font-family: "Acumin Pro", Arial, sans-serif;
+    color: ${remaining === 0 ? `red` : `default`};
+  `
+
   const itemWord = totalSelected > 1 ? props.itemWordPlural : props.itemWord
   const header = toTitleCase(`${totalSelected} ${itemWord} Selected`)
   return (
-    <Fragment>
+    <BasketContainer>
       <BasketHeader>{header}</BasketHeader>
       <BasketRemaining>
-        {props.max - totalSelected} {itemWord} remaining
+        {remaining} {itemWord} remaining
       </BasketRemaining>
       {makeBasketItems(
         props.selectedMeals,
@@ -81,7 +90,7 @@ const Basket: FC<BasketProps> = (props) => {
         props.max,
         totalSelected
       )}
-    </Fragment>
+    </BasketContainer>
   )
 }
 
