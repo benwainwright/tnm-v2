@@ -78,14 +78,7 @@ const QuantityStepper: FC<QuantityStepperProps> = (props) => {
   )
 
   const countLabel = (
-    <CountLabel
-      role="spinbutton"
-      aria-valuenow={props.value ?? 0}
-      aria-valuemin={props.min}
-      aria-valuemax={props.max}
-    >
-      {props.value ?? 0}
-    </CountLabel>
+    <CountLabel role="spinbutton">{props.value ?? 0}</CountLabel>
   )
   const widgets = props.label ? (
     <Fragment>
