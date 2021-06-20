@@ -25,12 +25,12 @@ export const Stepper = Template.bind({})
 Stepper.args = {
   min: 0,
   max: 4,
+  label: "",
 }
 
 export const LabelledStepper = Template.bind({})
 LabelledStepper.args = {
   min: 0,
   max: 4,
-  variant: "smallLabelled",
   label: "A stepper with some text",
 }
