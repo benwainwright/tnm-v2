@@ -20,7 +20,15 @@ const ButtonRow = styled.div`
   justify-content: center;
 `
 
-interface TabBoxProps {}
+interface TabButtonProps {
+  onClick?: () => void
+  active?: boolean
+  tabListLength: number
+}
+
+interface TabBoxProps {
+  tabButton?: FC<TabButtonProps>
+}
 
 const isTab = (node: ReactNode): node is ReactElement<TabProps> =>
   isValidElement(node) && "tabTitle" in (node as ReactElement<TabProps>).props
@@ -35,15 +43,16 @@ const getTabs = (nodes: ReactNode): ReactElement<TabProps>[] =>
 const TabBox: FC<TabBoxProps> = (props) => {
   const [tabIndex, setTabIndex] = useState(0)
   const tabs = getTabs(props.children)
+  const ButtonComponent = props.tabButton ?? TabButton
   const buttons = tabs.map((tab, index) => (
-    <TabButton
+    <ButtonComponent
       tabListLength={tabs.length}
       key={index}
       onClick={() => setTabIndex(index)}
       active={tabIndex === index}
     >
       {tab.props.tabTitle}
-    </TabButton>
+    </ButtonComponent>
   ))
   return (
     <Fragment>
