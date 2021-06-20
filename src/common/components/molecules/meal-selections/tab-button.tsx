@@ -11,7 +11,7 @@ const MealsSelectionsTabButton: FC<MealsSelectionsTabButtonProps> = (props) => {
   const StyledButton = styled.button`
     font-family: "Acumin Pro", Arial, sans-serif;
     width: calc(100% / ${props.tabListLength});
-    margin: 0;
+    margin: 0 0 1rem 0;
     border: 0;
     cursor: pointer;
     padding: 1rem 3rem;
