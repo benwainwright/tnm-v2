@@ -7,8 +7,11 @@ import styled from "@emotion/styled"
 interface BasketProps {
   available: Meal[]
   selectedMeals: SelectedThings
+  maxMeals: number
   selectedSnacks: SelectedThings
+  maxSnacks: number
   selectedBreakfasts: SelectedThings
+  maxBreakfasts: number
 }
 
 const SelectedBox = styled.div`
@@ -41,6 +44,7 @@ const CombinedBasket: FC<BasketProps> = (props) => {
       <BasketHeader>YOUR SELECTIONS</BasketHeader>
       <Divider />
       <Basket
+        max={props.maxMeals}
         itemWord="meal"
         itemWordPlural="meals"
         selectedMeals={props.selectedMeals}
@@ -48,12 +52,14 @@ const CombinedBasket: FC<BasketProps> = (props) => {
       />
 
       <Basket
+        max={props.maxSnacks}
         itemWord="snack"
         itemWordPlural="snacks"
         selectedMeals={props.selectedSnacks}
         available={props.available}
       />
       <Basket
+        max={props.maxBreakfasts}
         itemWord="breakfast"
         itemWordPlural="breakfasts"
         selectedMeals={props.selectedBreakfasts}

@@ -84,6 +84,9 @@ const MealSelections: FC<MealSelectionsProps> = (props) => {
           selectedMeals={selectedMeals}
           selectedSnacks={selectedSnacks}
           selectedBreakfasts={selectedBreakfasts}
+          maxMeals={props.maxMeals}
+          maxSnacks={props.maxSnacks}
+          maxBreakfasts={props.maxBreakfasts}
         />
       </GridParent>
     </DivContainer>
