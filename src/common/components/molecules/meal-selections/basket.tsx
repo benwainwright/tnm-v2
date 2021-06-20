@@ -1,4 +1,4 @@
-import { FC } from "react"
+import { FC, Fragment } from "react"
 import { Meal } from "./meal"
 import { SelectedThings } from "./selected-things"
 import { QuantityStepper } from "@common/components/molecules"
@@ -6,20 +6,18 @@ import styled from "@emotion/styled"
 
 interface BasketProps {
   available: Meal[]
+  itemWord: string
+  itemWordPlural: string
   selectedMeals: SelectedThings
-  selectedSnacks: SelectedThings
-  selectedBreakfasts: SelectedThings
 }
 
-const SelectedBox = styled.div`
-  padding: 1rem;
-  border: 1px solid black;
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
-`
+const toTitleCase = (string: string) => {
+  return string.replace(/\w\S*/g, (text: string) => {
+    return text.charAt(0).toUpperCase() + text.slice(1).toLowerCase()
+  })
+}
 
-const makeBasket = (selectedThings: SelectedThings, available: Meal[]) =>
+const makeBasketItems = (selectedThings: SelectedThings, available: Meal[]) =>
   Object.entries(selectedThings)
     .filter(([, count]) => count > 0)
     .map(([id, count]) => ({
@@ -34,13 +32,29 @@ const makeBasket = (selectedThings: SelectedThings, available: Meal[]) =>
       />
     ))
 
+const BasketHeader = styled.h3`
+  font-family: "Acumin Pro", Arial, sans-serif;
+  font-size: 1.3rem;
+  font-weight: bold;
+  margin: 1rem 0 1rem 0;
+  padding: 0;
+`
+
 const Basket: FC<BasketProps> = (props) => {
+  const totalSelected = Object.entries(props.selectedMeals).reduce(
+    (accum, item) => accum + item[1],
+    0
+  )
+
+  const itemWord = totalSelected > 1 ? props.itemWordPlural : props.itemWord
+
+  const header = toTitleCase(`${totalSelected} ${itemWord} Selected`)
+
   return (
-    <SelectedBox>
-      {makeBasket(props.selectedMeals, props.available)}
-      {makeBasket(props.selectedBreakfasts, props.available)}
-      {makeBasket(props.selectedSnacks, props.available)}
-    </SelectedBox>
+    <Fragment>
+      {totalSelected > 0 ? <BasketHeader>{header}</BasketHeader> : undefined}
+      {makeBasketItems(props.selectedMeals, props.available)}
+    </Fragment>
   )
 }
 
