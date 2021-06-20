@@ -82,8 +82,11 @@ const MealSelections: FC<MealSelectionsProps> = (props) => {
             ...props.breakfastsAvailable,
           ]}
           selectedMeals={selectedMeals}
+          setMeals={setSelectedMeals}
           selectedSnacks={selectedSnacks}
+          setSnacks={setSelectedSnacks}
           selectedBreakfasts={selectedBreakfasts}
+          setBreakfasts={setSelectedBreakfasts}
           maxMeals={props.maxMeals}
           maxSnacks={props.maxSnacks}
           maxBreakfasts={props.maxBreakfasts}

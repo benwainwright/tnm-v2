@@ -1,4 +1,4 @@
-import { FC, Fragment } from "react"
+import { FC, Fragment, Dispatch, SetStateAction } from "react"
 import { Meal } from "./meal"
 import { SelectedThings } from "./selected-things"
 import { QuantityStepper } from "@common/components/molecules"
@@ -9,6 +9,7 @@ interface BasketProps {
   itemWord: string
   itemWordPlural: string
   selectedMeals: SelectedThings
+  setSelected: Dispatch<SetStateAction<SelectedThings>>
   max: number
 }
 
@@ -18,7 +19,13 @@ const toTitleCase = (string: string) => {
   })
 }
 
-const makeBasketItems = (selectedThings: SelectedThings, available: Meal[]) =>
+const makeBasketItems = (
+  selectedThings: SelectedThings,
+  available: Meal[],
+  setSelected: Dispatch<SetStateAction<SelectedThings>>,
+  max: number,
+  total: number
+) =>
   Object.entries(selectedThings)
     .filter(([, count]) => count > 0)
     .map(([id, count]) => ({
@@ -30,6 +37,10 @@ const makeBasketItems = (selectedThings: SelectedThings, available: Meal[]) =>
         key={`${thing.id}-basket-item`}
         label={thing.title}
         value={thing.count}
+        max={max - total + selectedThings[thing.id ?? ""]}
+        onChange={(newValue: number) =>
+          setSelected({ ...selectedThings, [thing?.id ?? ""]: newValue })
+        }
       />
     ))
 
@@ -51,19 +62,25 @@ const Basket: FC<BasketProps> = (props) => {
     0
   )
 
+  if (totalSelected === 0) {
+    return null
+  }
+
   const itemWord = totalSelected > 1 ? props.itemWordPlural : props.itemWord
   const header = toTitleCase(`${totalSelected} ${itemWord} Selected`)
-  const remainingString = (
-    <BasketRemaining>
-      {props.max - totalSelected} {itemWord} remaining
-    </BasketRemaining>
-  )
-
   return (
     <Fragment>
-      {totalSelected > 0 ? <BasketHeader>{header}</BasketHeader> : undefined}
-      {totalSelected > 0 ? remainingString : undefined}
-      {makeBasketItems(props.selectedMeals, props.available)}
+      <BasketHeader>{header}</BasketHeader>
+      <BasketRemaining>
+        {props.max - totalSelected} {itemWord} remaining
+      </BasketRemaining>
+      {makeBasketItems(
+        props.selectedMeals,
+        props.available,
+        props.setSelected,
+        props.max,
+        totalSelected
+      )}
     </Fragment>
   )
 }
