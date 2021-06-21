@@ -1,3 +1,5 @@
+import { getOutputs } from "./getOutputs"
+
 type AuthDetails = {
   UserPoolId: string
   AuthUrl: string
@@ -10,8 +12,7 @@ type BackendOutputs = {
 }
 
 export const getPoolConfig = async (): Promise<AuthDetails> => {
-  // @ts-ignore
-  const json: BackendOutputs = await import("/static/backend-outputs.json")
+  const json: BackendOutputs = await getOutputs()
   const config = Object.entries(json).find(([key]) =>
     key.includes("BackendStack")
   )
