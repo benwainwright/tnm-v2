@@ -145,7 +145,7 @@ jobs:
       - uses: actions/upload-artifact@v2
         with:
           name: gatsby-cache
-          path: .gatsby
+          path: .cache
 
   lint:
     name: Linting
@@ -330,7 +330,7 @@ jobs:
         uses: actions/download-artifact@v2
         with:
           name: gatsby-cache
-          path: .gatsby
+          path: .cache
 
       - name: Yarn install
         if: steps.cache.outputs.cache-hit != 'true'
