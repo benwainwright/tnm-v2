@@ -1,5 +1,6 @@
 import { FC } from "react"
 import { QuantityStepper } from "@common/components/molecules"
+import { ParagraphText } from "@common/components/atoms"
 import styled from "@emotion/styled"
 
 export interface MealCounterProps {
@@ -16,11 +17,6 @@ const Header = styled.h3`
   font-size: 1.7rem;
   margin: 0;
 `
-
-const Description = styled.p`
-  font-family: "IBM Plex Serif", "Times New Roman", serif;
-`
-
 const Container = styled.div`
   display: flex;
   flex-direction: column;
@@ -33,7 +29,7 @@ const MealCounter: FC<MealCounterProps> = (props) => {
   return (
     <Container>
       <Header>{props.title}</Header>
-      <Description>{props.description}</Description>
+      <ParagraphText>{props.description}</ParagraphText>
       <QuantityStepper
         onChange={props.onChange}
         value={props.value}
