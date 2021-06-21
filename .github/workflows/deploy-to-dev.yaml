@@ -202,8 +202,7 @@ jobs:
 
   deploy-to-dev:
     name: Deploy to Dev
-    needs:
-      [types, lint, lint-styles, unit-test, build-frontend, build-storybook]
+    needs: [types, lint, lint-styles, unit-test, build-frontend]
 
     runs-on: ubuntu-latest
     steps:
