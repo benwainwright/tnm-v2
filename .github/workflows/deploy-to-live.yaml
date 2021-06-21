@@ -37,6 +37,40 @@ jobs:
         if: steps.cache.outputs.cache-hit != 'true'
         run: yarn install
 
+  build-storybook-test:
+    name: Build Storybook for Test
+    needs: [install]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Configure node 12
+        uses: actions/setup-node@v1
+        with:
+          node-version: "12"
+
+      - name: Restore yarn dependencies
+        id: cache
+        uses: actions/cache@v2
+        with:
+          path: "**/node_modules"
+          key: ${{ runner.os }}-modules-${{ hashFiles('**/yarn.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-modules-${{ hashFiles('**/yarn.lock') }}
+            ${{ runner.os }}--modules
+            ${{ runner.os }}
+
+      - name: Yarn install
+        if: steps.cache.outputs.cache-hit != 'true'
+        run: yarn install
+
+      - name: Build Storybook
+        run: NODE_ENV=test yarn storybook:build
+
+      - uses: actions/upload-artifact@v2
+        with:
+          name: storybook-test
+          path: storybook
+
   unit-test:
     name: Unit tests
     needs: [install]
@@ -72,6 +106,46 @@ jobs:
           directory: coverage
           flags: unittests
           verbose: true
+
+  build-frontend:
+    name: Build frontend
+    needs: [install]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Configure node 12
+        uses: actions/setup-node@v1
+        with:
+          node-version: "12"
+
+      - name: Restore yarn dependencies
+        id: cache
+        uses: actions/cache@v2
+        with:
+          path: "**/node_modules"
+          key: ${{ runner.os }}-modules-${{ hashFiles('**/yarn.lock') }}
+
+          restore-keys: |
+            ${{ runner.os }}-modules-${{ hashFiles('**/yarn.lock') }}
+            ${{ runner.os }}--modules
+            ${{ runner.os }}
+
+      - name: Yarn install
+        if: steps.cache.outputs.cache-hit != 'true'
+        run: yarn install
+
+      - name: Build Gatsby
+        run: yarn build
+
+      - uses: actions/upload-artifact@v2
+        with:
+          name: gatsby
+          path: public
+
+      - uses: actions/upload-artifact@v2
+        with:
+          name: gatsby-cache
+          path: .gatsby
 
   lint:
     name: Linting
@@ -162,7 +236,15 @@ jobs:
 
   deploy-to-test:
     name: Deploy to Test
-    needs: [types, lint, lint-styles, unit-test]
+    needs:
+      [
+        types,
+        lint,
+        lint-styles,
+        unit-test,
+        build-frontend,
+        build-storybook-test,
+      ]
 
     runs-on: ubuntu-latest
     steps:
@@ -195,8 +277,11 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Create public folder
-        run: mkdir public
+      - name: Download frontend
+        uses: actions/download-artifact@v2
+        with:
+          name: gatsby
+          path: public
 
       - name: Deploy Backend
         run: yarn deploy:backend --require-approval never
@@ -205,8 +290,11 @@ jobs:
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           AWS_DEFAULT_REGION: eu-west-2
 
-      - name: Build frontend
-        run: yarn build
+      - name: Download Storybook
+        uses: actions/download-artifact@v2
+        with:
+          name: storybook-test
+          path: public/storybook
 
       - name: Deploy Frontend
         run: yarn deploy:frontend --require-approval never
@@ -215,6 +303,46 @@ jobs:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           AWS_DEFAULT_REGION: eu-west-2
+
+  build-storybook-prod:
+    name: Build Storybook For Live
+    needs: [install, build-storybook-test]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Configure node 12
+        uses: actions/setup-node@v1
+        with:
+          node-version: "12"
+
+      - name: Restore yarn dependencies
+        id: cache
+        uses: actions/cache@v2
+        with:
+          path: "**/node_modules"
+          key: ${{ runner.os }}-modules-${{ hashFiles('**/yarn.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-modules-${{ hashFiles('**/yarn.lock') }}
+            ${{ runner.os }}--modules
+            ${{ runner.os }}
+
+      - name: Download frontend
+        uses: actions/download-artifact@v2
+        with:
+          name: gatsby-cache
+          path: .gatsby
+
+      - name: Yarn install
+        if: steps.cache.outputs.cache-hit != 'true'
+        run: yarn install
+
+      - name: Build Storybook
+        run: NODE_ENV=test yarn storybook:build
+
+      - uses: actions/upload-artifact@v2
+        with:
+          name: storybook-prod
+          path: storybook
 
   e2e-tests:
     name: Run E2E Tests
@@ -317,8 +445,11 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Create public folder
-        run: mkdir public
+      - name: Download frontend
+        uses: actions/download-artifact@v2
+        with:
+          name: gatsby
+          path: public
 
       - name: Deploy Backend
         run: yarn deploy:backend:prod --require-approval never
@@ -327,8 +458,11 @@ jobs:
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           AWS_DEFAULT_REGION: eu-west-2
 
-      - name: Build frontend
-        run: yarn build
+      - name: Download Storybook
+        uses: actions/download-artifact@v2
+        with:
+          name: storybook-prod
+          path: public/storybook
 
       - name: Deploy Frontend
         run: yarn deploy:frontend:prod --require-approval never

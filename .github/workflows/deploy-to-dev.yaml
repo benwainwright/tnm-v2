@@ -32,7 +32,7 @@ jobs:
         run: yarn install
 
   build-storybook:
-    name: Build Storybook
+    name: Build Storybook for Test
     needs: [install]
     runs-on: ubuntu-latest
     steps:
