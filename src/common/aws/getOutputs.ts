@@ -1,4 +1,4 @@
-export const getOutputs = () => {
-  // @ts-ignore
-  return import("/static/backend-outputs.json")
+export const getOutputs = async () => {
+  const outputs = await fetch("/backend-outputs.json")
+  return outputs.json()
 }
