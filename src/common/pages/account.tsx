@@ -3,7 +3,7 @@ import { Hero, Layout } from "@common/components/containers"
 import AccountIcon from "@common/assets/images/icons/TNM_Icons_Final_Account.png"
 import Authenticated, {
   Redirect,
-} from "@common/components/molecules/login-and-register-box/authenticated"
+} from "@common/components/organisms/login-and-register-box/authenticated"
 import Seo from "../components/seo"
 import styled from "@emotion/styled"
 

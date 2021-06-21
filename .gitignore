@@ -70,3 +70,11 @@ yarn-error.log
 template
 storybook-static
 tags.files
+.yarn/*
+!.yarn/patches
+!.yarn/releases
+!.yarn/plugins
+!.yarn/sdks
+!.yarn/versions
+.pnp.*
+tags.lock

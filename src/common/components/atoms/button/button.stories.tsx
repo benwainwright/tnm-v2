@@ -1,10 +1,10 @@
 import { Story, Meta } from "@storybook/react"
 
-import Button, { ButtonProps } from "./button"
+import ButtonComponent, { ButtonProps } from "./button"
 
 export default {
   title: "atoms/Button",
-  component: Button,
+  component: ButtonComponent,
   argTypes: {
     primary: { name: "Primary", type: "boolean", defaultValue: false },
     color: { name: "Color", type: "string", defaultValue: undefined },
@@ -12,11 +12,10 @@ export default {
 } as Meta
 
 const Template: Story<ButtonProps> = (args) => (
-  <Button {...args}>Click Me</Button>
+  <ButtonComponent {...args}>Click Me</ButtonComponent>
 )
 
 export const Primary = Template.bind({})
-
 Primary.args = {
   primary: true,
 }

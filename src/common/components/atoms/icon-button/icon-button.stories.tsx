@@ -1,15 +1,15 @@
 import { Story, Meta } from "@storybook/react"
 import MenuIcon from "../../../assets/images/icons/menu.svg"
 
-import IconButton, { IconButtonProps } from "./icon-button"
+import IconButtonComponent, { IconButtonProps } from "./icon-button"
 
 export default {
-  title: "atoms/IconButton",
-  component: IconButton,
+  title: "atoms/Icon Button",
+  component: IconButtonComponent,
 } as Meta
 
 const Template: Story<IconButtonProps> = (args) => {
-  return <IconButton ariaLabel="Menu Button" icon={MenuIcon} />
+  return <IconButtonComponent ariaLabel="Menu Button" icon={MenuIcon} />
 }
 
-export const Primary = Template.bind({})
+export const IconButton = Template.bind({})

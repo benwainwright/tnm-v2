@@ -1,6 +1,9 @@
 import { FC } from "react"
-import { LoginAndRegisterBox } from "@common/components/molecules"
-import { Authenticated, Redirect } from "@common/components/molecules"
+import {
+  LoginAndRegisterBox,
+  Authenticated,
+  Redirect,
+} from "@common/components/organisms"
 import AccountIcon from "@common/assets/images/icons/TNM_Icons_Final_Account.png"
 import Seo from "@common/components/seo"
 import { Hero, Layout } from "@common/components/containers"

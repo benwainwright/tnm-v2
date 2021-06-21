@@ -3,7 +3,7 @@ import { Meta, Story } from "@storybook/react"
 import MealSelectionsComponent, { MealSelectionsProps } from "./meal-selections"
 
 export default {
-  title: "molecules/Meal Selections",
+  title: "organisms/Meal Selections",
   component: MealSelectionsComponent,
 } as Meta
 

@@ -1,6 +1,7 @@
 import { shallow } from "enzyme"
 import MealCounter from "./meal-counter"
 import { QuantityStepper } from "@common/components/molecules"
+import { ParagraphText } from "@common/components/atoms"
 
 describe("The <MealCounter> component", () => {
   it("renders without errors", () => {
@@ -16,7 +17,11 @@ describe("The <MealCounter> component", () => {
   it("renders the description", () => {
     const wrapper = shallow(<MealCounter title="foo" description="bar" />)
 
-    expect(wrapper.text()).toInclude("bar")
+    expect(
+      wrapper
+        .find(ParagraphText)
+        .findWhere((text) => text.prop("children") === "bar")
+    ).toHaveLength(1)
   })
 
   it("passes the value, max, min and onChange through to the quantity-stepper", () => {
