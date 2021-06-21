@@ -1,10 +1,10 @@
 import { Story, Meta } from "@storybook/react"
 
-import ChallengeForm, { ChallengeFormProps } from "./challenge-form"
+import ChallengeFormComponent, { ChallengeFormProps } from "./challenge-form"
 
 export default {
-  title: "containers/ChallengeForm",
-  component: ChallengeForm,
+  title: "containers/Challenge Form",
+  component: ChallengeFormComponent,
   argTypes: {
     errors: {
       control: "array",
@@ -16,16 +16,16 @@ export default {
 } as Meta
 
 const Template: Story<ChallengeFormProps<{}>> = (args) => (
-  <ChallengeForm {...args}>
+  <ChallengeFormComponent {...args}>
     <p>Some content</p>
-  </ChallengeForm>
+  </ChallengeFormComponent>
 )
 
-export const ChallengeFormStory = Template.bind({})
+export const Main = Template.bind({})
 
-ChallengeFormStory.args = {}
+Main.args = {}
 
-export const ChallengeFormStoryWithErrors = Template.bind({})
-ChallengeFormStoryWithErrors.args = {
+export const WithErrors = Template.bind({})
+WithErrors.args = {
   errors: [{ message: "An error!" }],
 }
