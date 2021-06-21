@@ -3,7 +3,7 @@ import { Story, Meta } from "@storybook/react"
 import LoginAndRegisterBox from "./login-and-register-box"
 
 export default {
-  title: "molecules/LoginBox",
+  title: "organisms/LoginBox",
   component: LoginAndRegisterBox,
   argTypes: { onLogin: { action: "clicked", errors: { control: "array" } } },
 } as Meta

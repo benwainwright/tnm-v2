@@ -3,7 +3,7 @@ import { Story, Meta } from "@storybook/react"
 import RegisterFormComponent, { RegisterFormProps } from "./register-form"
 
 export default {
-  title: "molecules/RegisterForm",
+  title: "organisms/RegisterForm",
   component: RegisterFormComponent,
 } as Meta
 

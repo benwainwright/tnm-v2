@@ -4,7 +4,7 @@ import { useState } from "react"
 import MealCounterComponent, { MealCounterProps } from "./meal-counter"
 
 export default {
-  title: "molecules/Meal Counter",
+  title: "organisms/Meal Counter",
   component: MealCounterComponent,
 } as Meta
 
