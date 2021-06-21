@@ -31,6 +31,66 @@ jobs:
         if: steps.cache.outputs.cache-hit != 'true'
         run: yarn install
 
+  build-storybook:
+    name: Build Storybook
+    needs: [install]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Configure node 12
+        uses: actions/setup-node@v1
+        with:
+          node-version: "12"
+
+      - name: Restore yarn dependencies
+        id: cache
+        uses: actions/cache@v2
+        with:
+          path: "**/node_modules"
+          key: ${{ runner.os }}-modules-${{ hashFiles('**/yarn.lock') }}
+
+          restore-keys: |
+            ${{ runner.os }}-modules-${{ hashFiles('**/yarn.lock') }}
+            ${{ runner.os }}--modules
+            ${{ runner.os }}
+
+      - name: Yarn install
+        if: steps.cache.outputs.cache-hit != 'true'
+        run: yarn install
+
+      - name: Build Storybook
+        run: yarn build:storybook
+
+  build-frontend:
+    name: Build frontend
+    needs: [install]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Configure node 12
+        uses: actions/setup-node@v1
+        with:
+          node-version: "12"
+
+      - name: Restore yarn dependencies
+        id: cache
+        uses: actions/cache@v2
+        with:
+          path: "**/node_modules"
+          key: ${{ runner.os }}-modules-${{ hashFiles('**/yarn.lock') }}
+
+          restore-keys: |
+            ${{ runner.os }}-modules-${{ hashFiles('**/yarn.lock') }}
+            ${{ runner.os }}--modules
+            ${{ runner.os }}
+
+      - name: Yarn install
+        if: steps.cache.outputs.cache-hit != 'true'
+        run: yarn install
+
+      - name: Build Gatsby
+        run: yarn build
+
   unit-test:
     name: Unit tests
     needs: [install]
@@ -58,7 +118,7 @@ jobs:
         if: steps.cache.outputs.cache-hit != 'true'
         run: yarn install
 
-      - name: Run tests
+      - name: Run Tests
         run: CI=true yarn test:coverage
 
       - uses: codecov/codecov-action@v1
@@ -164,7 +224,8 @@ jobs:
 
   deploy-to-dev:
     name: Deploy to Dev
-    needs: [types, lint, lint-styles, unit-test]
+    needs:
+      [types, lint, lint-styles, unit-test, build-frontend, build-storybook]
 
     runs-on: ubuntu-latest
     steps:

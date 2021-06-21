@@ -9,8 +9,9 @@ type BackendOutputs = {
   [stackName: string]: AuthDetails
 }
 
-export const getPoolConfig = (outputs: BackendOutputs): AuthDetails => {
-  const config = Object.entries(outputs).find(([key]) =>
+export const getPoolConfig = async (): Promise<AuthDetails> => {
+  const json: BackendOutputs = await import("/static/backend-outputs.json")
+  const config = Object.entries(json).find(([key]) =>
     key.includes("BackendStack")
   )
 

@@ -1,14 +1,13 @@
 import { Auth } from "@aws-amplify/auth"
 import { getPoolConfig } from "./getPoolConfig"
-import backendOutputs from "../../backend-outputs.json"
 
 const REGION = "eu-west-2"
 
 const getConfigurer = () => {
   // eslint-disable-next-line fp/no-let
   let configureDone = false
-  return () => {
-    const outputs = getPoolConfig(backendOutputs)
+  return async () => {
+    const outputs = await getPoolConfig()
     if (!configureDone) {
       Auth.configure({
         Auth: {
