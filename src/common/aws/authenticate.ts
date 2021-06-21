@@ -24,17 +24,17 @@ const getConfigurer = () => {
 const configureAuth = getConfigurer()
 
 export const login = async (username: string, password: string) => {
-  configureAuth()
+  await configureAuth()
   return Auth.signIn(username, password)
 }
 
 export const signOut = async () => {
-  configureAuth()
+  await configureAuth()
   return Auth.signOut()
 }
 
 export const currentUser = async () => {
-  configureAuth()
+  await configureAuth()
   try {
     return await Auth.currentAuthenticatedUser()
   } catch {
@@ -46,6 +46,6 @@ export const newPasswordChallengeResponse = async (
   user: any,
   password: string
 ) => {
-  configureAuth()
+  await configureAuth()
   return Auth.completeNewPassword(user, password)
 }
