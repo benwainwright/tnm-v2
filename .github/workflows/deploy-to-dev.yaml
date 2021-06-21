@@ -273,6 +273,10 @@ jobs:
         uses: actions/download-artifact@v2
         with:
           name: gatsby
+          path: public
+
+      - name: Remove old outputs file
+        run: rm public/backend-outputs.json
 
       - name: Deploy Backend
         run: yarn deploy:backend:dev --require-approval never
@@ -285,9 +289,7 @@ jobs:
         uses: actions/download-artifact@v2
         with:
           name: storybook
-
-      - name: Move Storybook into deployment directory
-        run: mv storybook public
+          path: public/storybook
 
       - name: Deploy Frontend
         run: yarn deploy:frontend:dev --require-approval never
