@@ -3,7 +3,7 @@ import { Story, Meta } from "@storybook/react"
 import Footer from "./footer"
 
 export default {
-  title: "molecules/Footer",
+  title: "organisms/Footer",
   component: Footer,
 } as Meta
 
