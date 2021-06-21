@@ -61,6 +61,11 @@ jobs:
       - name: Build Storybook
         run: yarn build:storybook
 
+      - uses: actions/upload-artifact@v2
+        with:
+          name: storybook
+          path: storybook
+
   build-frontend:
     name: Build frontend
     needs: [install]
@@ -90,6 +95,11 @@ jobs:
 
       - name: Build Gatsby
         run: yarn build
+
+      - uses: actions/upload-artifact@v2
+        with:
+          name: gatsby
+          path: public
 
   unit-test:
     name: Unit tests
@@ -259,8 +269,10 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Create public folder
-        run: mkdir public
+      - name: Download frontend
+        uses: actions/download-artifact@v2
+        with:
+          name: gatsby
 
       - name: Deploy Backend
         run: yarn deploy:backend:dev --require-approval never
@@ -269,8 +281,13 @@ jobs:
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           AWS_DEFAULT_REGION: eu-west-2
 
-      - name: Build frontend
-        run: yarn build
+      - name: Download Storybook
+        uses: actions/download-artifact@v2
+        with:
+          name: storybook
+
+      - name: Move Storybook into deployment directory
+        run: mv storybook public
 
       - name: Deploy Frontend
         run: yarn deploy:frontend:dev --require-approval never
