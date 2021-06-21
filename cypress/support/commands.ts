@@ -1,18 +1,19 @@
 import { Auth } from "@aws-amplify/auth"
 import { getPoolConfig } from "../../src/common/aws/getPoolConfig"
-import backendOutputs from "../../src/backend-outputs.json"
 
-const outputs = getPoolConfig(backendOutputs)
+const configureAuth = async () => {
+  const outputs = await getPoolConfig()
 
-const REGION = "eu-west-2"
+  const REGION = "eu-west-2"
 
-Auth.configure({
-  Auth: {
-    region: REGION,
-    userPoolId: outputs.UserPoolId,
-    userPoolWebClientId: outputs.ClientId,
-  },
-})
+  Auth.configure({
+    Auth: {
+      region: REGION,
+      userPoolId: outputs.UserPoolId,
+      userPoolWebClientId: outputs.ClientId,
+    },
+  })
+}
 
 declare global {
   namespace Cypress {
@@ -24,7 +25,8 @@ declare global {
 
 // Taken from https://docs.cypress.io/guides/testing-strategies/amazon-cognito-authentication#Custom-Command-for-Amazon-Cognito-Authentication
 // Amazon Cognito
-Cypress.Commands.add("loginByCognitoApi", (username, password) => {
+Cypress.Commands.add("loginByCognitoApi", async (username, password) => {
+  await configureAuth()
   const log = Cypress.log({
     displayName: "COGNITO LOGIN",
     message: [`🔐 Authenticating | ${username}`],

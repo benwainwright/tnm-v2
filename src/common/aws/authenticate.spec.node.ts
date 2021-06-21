@@ -11,7 +11,7 @@ jest.mock("./getPoolConfig")
 describe("The authenticate module", () => {
   describe("login()", () => {
     it("returns the promise from Auth.signIn", async () => {
-      mocked(getPoolConfig).mockReturnValue({
+      mocked(getPoolConfig).mockResolvedValue({
         UserPoolId: "pool-id",
         ClientId: "client-id",
         RedirectUrl: "redirect-url",
@@ -30,7 +30,7 @@ describe("The authenticate module", () => {
 
   describe("signOut()", () => {
     it("returns the promise from Auth.logout", async () => {
-      mocked(getPoolConfig).mockReturnValue({
+      mocked(getPoolConfig).mockResolvedValue({
         UserPoolId: "pool-id",
         ClientId: "client-id",
         RedirectUrl: "redirect-url",
@@ -47,7 +47,7 @@ describe("The authenticate module", () => {
 
   describe("newPasswordChallengeResponse", () => {
     it("returns the promise from completeNewPassword", async () => {
-      mocked(getPoolConfig).mockReturnValue({
+      mocked(getPoolConfig).mockResolvedValue({
         UserPoolId: "pool-id",
         ClientId: "client-id",
         RedirectUrl: "redirect-url",
@@ -70,7 +70,7 @@ describe("The authenticate module", () => {
 
   describe("currentUser()", () => {
     it("returns the promise from Auth.currentAuthenticatedUser", async () => {
-      mocked(getPoolConfig).mockReturnValue({
+      mocked(getPoolConfig).mockResolvedValue({
         UserPoolId: "pool-id",
         ClientId: "client-id",
         RedirectUrl: "redirect-url",
@@ -87,7 +87,7 @@ describe("The authenticate module", () => {
     })
 
     it("returns undefined if currentAuthenticatedUser throws", async () => {
-      mocked(getPoolConfig).mockReturnValue({
+      mocked(getPoolConfig).mockResolvedValue({
         UserPoolId: "pool-id",
         ClientId: "client-id",
         RedirectUrl: "redirect-url",
