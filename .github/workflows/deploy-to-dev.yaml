@@ -96,9 +96,6 @@ jobs:
       - name: Build Gatsby
         run: yarn build
 
-      - name: Build Storybook
-        run: yarn storybook:build
-
       - uses: actions/upload-artifact@v2
         with:
           name: gatsby
