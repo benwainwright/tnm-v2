@@ -31,6 +31,41 @@ jobs:
         if: steps.cache.outputs.cache-hit != 'true'
         run: yarn install
 
+  build-storybook:
+    name: Build Storybook
+    needs: [install]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Configure node 12
+        uses: actions/setup-node@v1
+        with:
+          node-version: "12"
+
+      - name: Restore yarn dependencies
+        id: cache
+        uses: actions/cache@v2
+        with:
+          path: "**/node_modules"
+          key: ${{ runner.os }}-modules-${{ hashFiles('**/yarn.lock') }}
+
+          restore-keys: |
+            ${{ runner.os }}-modules-${{ hashFiles('**/yarn.lock') }}
+            ${{ runner.os }}--modules
+            ${{ runner.os }}
+
+      - name: Yarn install
+        if: steps.cache.outputs.cache-hit != 'true'
+        run: yarn install
+
+      - name: Build Storybook
+        run: NODE_ENV=test yarn storybook:build
+
+      - uses: actions/upload-artifact@v2
+        with:
+          name: storybook
+          path: storybook
+
   build-frontend:
     name: Build frontend
     needs: [install]
@@ -202,7 +237,8 @@ jobs:
 
   deploy-to-dev:
     name: Deploy to Dev
-    needs: [types, lint, lint-styles, unit-test, build-frontend]
+    needs:
+      [types, lint, lint-styles, unit-test, build-frontend, build-storybook]
 
     runs-on: ubuntu-latest
     steps:
@@ -241,15 +277,20 @@ jobs:
         with:
           name: gatsby
 
-      - name: Remove statics output file
-        run: rm public/backend-outputs.json
-
       - name: Deploy Backend
         run: yarn deploy:backend:dev --require-approval never
         env:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           AWS_DEFAULT_REGION: eu-west-2
+
+      - name: Download Storybook
+        uses: actions/download-artifact@v2
+        with:
+          name: storybook
+
+      - name: Move Storybook into deployment directory
+        run: mv storybook public
 
       - name: Deploy Frontend
         run: yarn deploy:frontend:dev --require-approval never

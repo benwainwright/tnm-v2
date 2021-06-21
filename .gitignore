@@ -78,3 +78,4 @@ tags.files
 !.yarn/versions
 .pnp.*
 tags.lock
+storybook
