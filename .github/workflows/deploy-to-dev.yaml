@@ -129,7 +129,13 @@ jobs:
         run: yarn install
 
       - name: Run Tests
-        run: CI=true yarn test:coverage
+        run: yarn test:ci
+
+      - name: Publish Unit Test Results
+        uses: EnricoMi/publish-unit-test-result-action@v1
+        if: always()
+        with:
+          files: junit/*.xml
 
       - uses: codecov/codecov-action@v1
         with:
