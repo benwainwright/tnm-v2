@@ -1,6 +1,6 @@
 import { getOutputs } from "./getOutputs"
 
-type AuthDetails = {
+export type AuthDetails = {
   UserPoolId: string
   AuthUrl: string
   ClientId: string

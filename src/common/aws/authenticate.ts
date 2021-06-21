@@ -1,14 +1,14 @@
 import { Auth } from "@aws-amplify/auth"
-import { getPoolConfig } from "./getPoolConfig"
+import { getPoolConfig, AuthDetails } from "./getPoolConfig"
 
 const REGION = "eu-west-2"
 
 const getConfigurer = () => {
   // eslint-disable-next-line fp/no-let
-  let configureDone = false
+  let outputs: undefined | AuthDetails
   return async () => {
-    const outputs = await getPoolConfig()
-    if (!configureDone) {
+    if (!outputs) {
+      outputs = await getPoolConfig()
       Auth.configure({
         Auth: {
           region: REGION,
@@ -16,8 +16,6 @@ const getConfigurer = () => {
           userPoolWebClientId: outputs.ClientId,
         },
       })
-      // eslint-disable-next-line fp/no-mutation
-      configureDone = true
     }
     return outputs
   }
