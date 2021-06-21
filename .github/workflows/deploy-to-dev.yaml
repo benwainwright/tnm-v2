@@ -59,7 +59,7 @@ jobs:
         run: yarn install
 
       - name: Build Storybook
-        run: yarn storybook:build
+        run: NODE_ENV=test yarn storybook:build
 
       - uses: actions/upload-artifact@v2
         with:
