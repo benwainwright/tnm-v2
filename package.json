@@ -128,7 +128,7 @@
     "test:cypress": "CYPRESS_TEST_EMAIL=something@someone.com CYPRESS_TEST_USER_INITIAL_PASSWORD=Asdasdfasdad.a123 CYPRESS_TEST_USER_FINAL_PASSWORD=Asdasdfasdasd.asd113 CYPRESS_POOL_ID=eu-west-2_STGr0ooNo yarn cypress run",
     "test:cypress:open": "CYPRESS_TEST_EMAIL=something@someone.com CYPRESS_TEST_USER_INITIAL_PASSWORD=Asdasdfasdad.a123 CYPRESS_TEST_USER_FINAL_PASSWORD=Asdasdfasdasd.as1 CYPRESS_POOL_ID=eu-west-2_STGr0ooNo yarn cypress open",
     "storybook": "start-storybook --port 6006 --static-dir ./src/common/assets",
-    "storybook:build": "build-storybook --static-dir ./src/common/assets --output-dir ./storybook",
+    "storybook:build": "build-storybook --static-dir ./src/common/assets --output-dir ./public/storybook",
     "lint": "eslint .",
     "lint:styles": "stylelint  './src/**/*.css' './src/**/*.tsx' './src/**/*.ts'",
     "types": "tsc && tsc --project ./cypress/tsconfig.json",
