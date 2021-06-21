@@ -273,6 +273,7 @@ jobs:
         uses: actions/download-artifact@v2
         with:
           name: gatsby
+          path: public
 
       - name: Deploy Backend
         run: yarn deploy:backend:dev --require-approval never
@@ -285,6 +286,7 @@ jobs:
         uses: actions/download-artifact@v2
         with:
           name: storybook
+          path: public/storybook
 
       - name: Deploy Frontend
         run: yarn deploy:frontend:dev --require-approval never
