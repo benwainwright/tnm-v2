@@ -1,4 +1,4 @@
-import { FC, Fragment } from "react"
+import { FC } from "react"
 import styled from "@emotion/styled"
 
 const StyledP = styled.p`
