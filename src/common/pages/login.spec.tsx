@@ -1,7 +1,7 @@
 import Login from "./login"
 import { Layout } from "@common/components/containers"
 import { shallow } from "enzyme"
-import { LoginAndRegisterBox } from "../components/molecules"
+import { LoginAndRegisterBox } from "@common/components/organisms"
 
 describe("The login page", () => {
   it("renders everything within the main layout", () => {

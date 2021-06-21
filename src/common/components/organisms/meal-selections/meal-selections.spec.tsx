@@ -1,6 +1,7 @@
 import { shallow, mount } from "enzyme"
 import MealSelections from "./meal-selections"
-import { MealCounter, QuantityStepper } from "@common/components/molecules"
+import { QuantityStepper } from "@common/components/molecules"
+import MealCounter from "./meal-counter"
 import { act } from "react-dom/test-utils"
 
 describe("The <MealSelections> component", () => {

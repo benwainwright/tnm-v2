@@ -1,5 +1,5 @@
 import { FC, useState, useEffect } from "react"
-import { Footer, Header } from "@common/components/molecules"
+import { Footer, Header } from "@common/components/organisms"
 import "./layout.css"
 import { UserContext, User } from "@common/user-context"
 import { currentUser } from "@common/aws/authenticate"
