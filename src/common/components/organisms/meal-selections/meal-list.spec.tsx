@@ -1,6 +1,6 @@
 import { shallow } from "enzyme"
 import MealList from "./meal-list"
-import { MealCounter } from "@common/components/molecules"
+import MealCounter from "./meal-counter"
 
 describe("The <MealList> component", () => {
   it("renders without errors", () => {

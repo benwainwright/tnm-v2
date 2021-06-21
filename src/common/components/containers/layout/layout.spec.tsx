@@ -1,6 +1,6 @@
 import { shallow } from "enzyme"
 import Layout from "./layout"
-import { Header } from "@common/components/molecules"
+import { Header } from "@common/components/organisms"
 
 describe("the layout component", () => {
   it("renders a header", () => {

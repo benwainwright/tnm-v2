@@ -1,5 +1,5 @@
 import { FC, Dispatch, SetStateAction } from "react"
-import { MealCounter } from "@common/components/molecules"
+import MealCounter from "./meal-counter"
 import { SelectedThings } from "./selected-things"
 import { Meal } from "./meal"
 import styled from "@emotion/styled"
