@@ -412,7 +412,7 @@ jobs:
 
   deploy-to-prod:
     name: Deploy to Production
-    needs: [e2e-tests]
+    needs: [e2e-tests, build-storybook-prod]
 
     runs-on: ubuntu-latest
     steps:
