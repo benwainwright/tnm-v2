@@ -306,7 +306,7 @@ jobs:
 
   build-storybook-prod:
     name: Build Storybook For Live
-    needs: [install, build-storybook-test]
+    needs: [build-frontend]
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
