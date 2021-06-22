@@ -2,26 +2,27 @@ import QuantityStepper from "./quantity-stepper"
 import { shallow } from "enzyme"
 import { IconButton } from "@common/components/atoms"
 import { act } from "react-dom/test-utils"
+import { render, screen } from "@testing-library/react"
+
+test("Quantity stepper displays a 0 if there is no value", () => {
+  render(<QuantityStepper />)
+  expect(screen.getByRole("spinbutton")).toHaveTextContent("0")
+})
+
+test("Quantity stepper displays the value passed into the value prop", () => {
+  const { rerender } = render(<QuantityStepper value={3} />)
+  expect(screen.getByRole("spinbutton")).toHaveTextContent("3")
+
+  rerender(<QuantityStepper value={5} />)
+  expect(screen.getByRole("spinbutton")).toHaveTextContent("5")
+})
+
+test("Quantity renders the label if there is one", () => {
+  render(<QuantityStepper label="Foo" />)
+  expect(screen.queryByText("Foo")).toBeInTheDocument()
+})
 
 describe("Quantity stepper", () => {
-  it("displays 0 if there is no value", () => {
-    const wrapper = shallow(<QuantityStepper />)
-    expect(wrapper.text()).toInclude("0")
-  })
-
-  it("Displays the value passed into the value prop", () => {
-    const wrapper = shallow(<QuantityStepper value={3} />)
-    expect(wrapper.text()).toInclude("3")
-
-    const wrapper2 = shallow(<QuantityStepper value={5} />)
-    expect(wrapper2.text()).toInclude("5")
-  })
-
-  it("displays the label if there is one", () => {
-    const wrapper = shallow(<QuantityStepper label="Foo" />)
-    expect(wrapper.text()).toInclude("Foo")
-  })
-
   it("fires an onChange event with the incremented value if the plus button is clicked", () => {
     const onChange = jest.fn()
     const wrapper = shallow(<QuantityStepper value={3} onChange={onChange} />)
