@@ -13,7 +13,6 @@ const ButtonElement = styled.button((props: ButtonProps) => {
   const color = props.color || BUTTON_BLACK
   return {
     height: "100%",
-    outline: 0,
     borderRadius: "25px",
     border: props.primary ? `1px solid ${color}` : 0,
     cursor: "pointer",
