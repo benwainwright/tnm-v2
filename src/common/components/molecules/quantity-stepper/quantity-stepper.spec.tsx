@@ -1,8 +1,6 @@
 import QuantityStepper from "./quantity-stepper"
-import { shallow } from "enzyme"
-import { IconButton } from "@common/components/atoms"
-import { act } from "react-dom/test-utils"
-import { render, screen } from "@testing-library/react"
+import userEvent from "@testing-library/user-event"
+import { render, screen, act } from "@testing-library/react"
 
 test("Quantity stepper displays a 0 if there is no value", () => {
   render(<QuantityStepper />)
@@ -22,103 +20,69 @@ test("Quantity renders the label if there is one", () => {
   expect(screen.queryByText("Foo")).toBeInTheDocument()
 })
 
-describe("Quantity stepper", () => {
-  it("fires an onChange event with the incremented value if the plus button is clicked", () => {
-    const onChange = jest.fn()
-    const wrapper = shallow(<QuantityStepper value={3} onChange={onChange} />)
+test("Quanity stepper fires the onChange event with the incremented value if the plus button is clicked", () => {
+  const onChange = jest.fn()
+  render(<QuantityStepper label="foobar" onChange={onChange} />)
+})
 
-    act(() => {
-      wrapper
-        .find(IconButton)
-        .findWhere((button) => button.prop("ariaLabel") === "Increase")
-        .simulate("click")
-    })
+test("Quantity steppers fires the onChange event with the incremented value if the plus button is clicked", () => {
+  const onChange = jest.fn()
 
-    expect(onChange).toHaveBeenCalledWith(4)
+  render(<QuantityStepper value={3} onChange={onChange} />)
+
+  act(() => {
+    const increaseButton = screen.getByRole("button", { name: "Increase" })
+    userEvent.click(increaseButton)
   })
 
-  it("first the onChange event with the decremented value if the minus button is clicked", () => {
-    const onChange = jest.fn()
-    const wrapper = shallow(<QuantityStepper value={3} onChange={onChange} />)
+  expect(onChange).toHaveBeenCalledWith(4)
+})
 
-    act(() => {
-      wrapper
-        .find(IconButton)
-        .findWhere((button) => button.prop("ariaLabel") === "Decrease")
-        .simulate("click")
-    })
+test("Quantity stepper fires the onChange event with the decremented value if the decrease button is clicked", () => {
+  const onChange = jest.fn()
 
-    expect(onChange).toHaveBeenCalledWith(2)
+  render(<QuantityStepper value={3} onChange={onChange} />)
+
+  act(() => {
+    const decreaseButton = screen.getByRole("button", { name: "Decrease" })
+    userEvent.click(decreaseButton)
   })
 
-  it("disables the plus button if the max value is reached", () => {
-    const onChange = jest.fn()
-    const wrapper = shallow(
-      <QuantityStepper value={6} max={6} onChange={onChange} />
-    )
+  expect(onChange).toHaveBeenCalledWith(2)
+})
 
-    const increaseButton = wrapper
-      .find(IconButton)
-      .findWhere((button) => button.prop("ariaLabel") === "Increase")
+test("Quantity stepper disables the Increase button if the max value is reached", () => {
+  const onChange = jest.fn()
+  render(<QuantityStepper value={6} max={6} onChange={onChange} />)
 
-    act(() => {
-      increaseButton.simulate("click")
-    })
+  const increaseButton = screen.getByRole("button", { name: "Increase" })
 
-    expect(onChange).not.toHaveBeenCalled()
-    expect(increaseButton.prop("disabled")).toBeTrue()
-  })
+  expect(increaseButton).toHaveAttribute("disabled")
+})
 
-  it("enables the plus button if the max value is not reached", () => {
-    const onChange = jest.fn()
-    const wrapper = shallow(
-      <QuantityStepper value={5} max={6} onChange={onChange} />
-    )
-    const increaseButton = wrapper
-      .find(IconButton)
-      .findWhere((button) => button.prop("ariaLabel") === "Increase")
+test("Quantity enables the plus button if the max value is not reached", () => {
+  const onChange = jest.fn()
+  render(<QuantityStepper value={5} max={6} onChange={onChange} />)
 
-    act(() => {
-      increaseButton.simulate("click")
-    })
+  const increaseButton = screen.getByRole("button", { name: "Increase" })
 
-    expect(onChange).toHaveBeenCalled()
-    expect(increaseButton.prop("disabled")).not.toBeTrue()
-  })
+  expect(increaseButton).not.toHaveAttribute("disabled")
+})
 
-  it("disables the minus button if the min value is reached", () => {
-    const onChange = jest.fn()
-    const wrapper = shallow(
-      <QuantityStepper value={3} min={3} onChange={onChange} />
-    )
+test("Quantity stepper disables the decrease button if the min value is reached", () => {
+  const onChange = jest.fn()
+  render(<QuantityStepper value={3} min={3} onChange={onChange} />)
 
-    const decreaseButton = wrapper
-      .find(IconButton)
-      .findWhere((button) => button.prop("ariaLabel") === "Decrease")
+  const increaseButton = screen.getByRole("button", { name: "Decrease" })
 
-    act(() => {
-      decreaseButton.simulate("click")
-    })
+  expect(increaseButton).toHaveAttribute("disabled")
+})
 
-    expect(onChange).not.toHaveBeenCalled()
-    expect(decreaseButton.prop("disabled")).toBeTrue()
-  })
+test("Quantity enables the decrease button if the min value is not reached", () => {
+  const onChange = jest.fn()
+  render(<QuantityStepper value={5} min={3} onChange={onChange} />)
 
-  it("enables the plus button if the min value is not reached", () => {
-    const onChange = jest.fn()
-    const wrapper = shallow(
-      <QuantityStepper value={2} min={3} onChange={onChange} />
-    )
+  const increaseButton = screen.getByRole("button", { name: "Increase" })
 
-    const decreaseButton = wrapper
-      .find(IconButton)
-      .findWhere((button) => button.prop("ariaLabel") === "Decrease")
-
-    act(() => {
-      decreaseButton.simulate("click")
-    })
-
-    expect(decreaseButton.prop("disabled")).not.toBeTrue()
-    expect(onChange).toHaveBeenCalled()
-  })
+  expect(increaseButton).not.toHaveAttribute("disabled")
 })

@@ -1,29 +1,37 @@
 import IconButton from "./icon-button"
-import { shallow } from "enzyme"
 
-describe("the icon button", () => {
-  it("should render a button component", () => {
-    const icon = "icon"
-    const wrapper = shallow(<IconButton ariaLabel="icon" icon={icon} />)
-    expect(wrapper.find("button")).toHaveLength(1)
+import { render, screen, act } from "@testing-library/react"
+import userEvent from "@testing-library/user-event"
+
+test("The icon button should render without errors", () => {
+  render(<IconButton icon="icon" a11yLabel="foo" />)
+})
+
+test("Should contain a button", () => {
+  render(<IconButton icon="icon" a11yLabel="foo" />)
+  screen.getByRole("button")
+})
+
+test("Button element should have the a11y name that is passed in as a11yLabel", () => {
+  render(<IconButton icon="icon" a11yLabel="foo-name" />)
+  const button = screen.getByRole("button")
+  expect(button).toHaveAccessibleName("foo-name")
+})
+
+test("Should fire onClick when the button is clicked", () => {
+  const onClick = jest.fn()
+  render(<IconButton icon="icon" a11yLabel="foo" onClick={onClick} />)
+  const button = screen.getByRole("button")
+
+  act(() => {
+    userEvent.click(button)
   })
 
-  it("should pass the onclick, disabled and aria-label prop", () => {
-    const icon = "icon"
-    const onClick = jest.fn()
-    const wrapper = shallow(
-      <IconButton
-        icon={icon}
-        onClick={onClick}
-        disabled={false}
-        ariaLabel="foo-label"
-      />
-    )
+  expect(onClick).toHaveBeenCalled()
+})
 
-    expect(wrapper.find("button").prop("onClick")).toEqual(onClick)
-
-    expect(wrapper.find("button").prop("disabled")).toEqual(false)
-
-    expect(wrapper.find("button").prop("aria-label")).toEqual("foo-label")
-  })
+test("Should disable the button when disabled prop is passed", () => {
+  render(<IconButton icon="icon" a11yLabel="foo" disabled />)
+  const button = screen.getByRole("button")
+  expect(button).toHaveAttribute("disabled")
 })

@@ -59,7 +59,7 @@ const QuantityStepper: FC<QuantityStepperProps> = (props) => {
         }
       }}
       icon={MinusIcon}
-      ariaLabel="Decrease"
+      a11yLabel="Decrease"
       disabled={minusDisabled}
     />
   )
@@ -72,7 +72,7 @@ const QuantityStepper: FC<QuantityStepperProps> = (props) => {
         }
       }}
       icon={AddIcon}
-      ariaLabel="Increase"
+      a11yLabel="Increase"
       disabled={plusDisabled}
     />
   )

@@ -5,7 +5,7 @@ export interface IconButtonProps {
   icon: string
   onClick?: (event: MouseEvent<HTMLButtonElement>) => void
   disabled?: boolean
-  ariaLabel: string
+  a11yLabel: string
 }
 
 const StyledButton = styled("button")`
@@ -29,13 +29,21 @@ const StyledButton = styled("button")`
 `
 StyledButton.displayName = "button"
 
+const VisuallyHiddenText = styled.span`
+  position: absolute;
+  overflow: hidden;
+  margin: 0px;
+  width: 1px;
+  height: 1px;
+  clip-path: inset(100%);
+  clip: rect(1px, 1px, 1px, 1px);
+  white-space: nowrap;
+`
+
 const IconButton: FC<IconButtonProps> = (props) => (
-  <StyledButton
-    onClick={props.onClick}
-    disabled={props.disabled}
-    aria-label={props.ariaLabel}
-  >
+  <StyledButton onClick={props.onClick} disabled={props.disabled}>
     <img src={props.icon} alt="" width="40px" height="40px" />
+    <VisuallyHiddenText>{props.a11yLabel}</VisuallyHiddenText>
   </StyledButton>
 )
 

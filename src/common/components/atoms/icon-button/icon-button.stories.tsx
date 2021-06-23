@@ -9,7 +9,7 @@ export default {
 } as Meta
 
 const Template: Story<IconButtonProps> = (args) => {
-  return <IconButtonComponent ariaLabel="Menu Button" icon={MenuIcon} />
+  return <IconButtonComponent a11yLabel="Menu Button" icon={MenuIcon} />
 }
 
 export const IconButton = Template.bind({})
