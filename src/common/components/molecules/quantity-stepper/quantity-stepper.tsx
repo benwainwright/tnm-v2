@@ -2,6 +2,7 @@ import { FC, Fragment } from "react"
 import { IconButton } from "@common/components/atoms"
 import AddIcon from "@common/assets/images/icons/tnm-add.png"
 import MinusIcon from "@common/assets/images/icons/tnm-subtract.png"
+import { uniqueId } from "lodash"
 import styled from "@emotion/styled"
 
 export interface QuantityStepperProps {
@@ -77,12 +78,15 @@ const QuantityStepper: FC<QuantityStepperProps> = (props) => {
     />
   )
 
+  const labelId = uniqueId()
+
   const countLabel = (
     <CountLabel
       role="spinbutton"
       aria-valuenow={props.value ?? 0}
       aria-valuemin={props.min}
       aria-valuemax={props.max}
+      aria-labelledby={labelId}
     >
       {props.value ?? 0}
     </CountLabel>
@@ -90,7 +94,7 @@ const QuantityStepper: FC<QuantityStepperProps> = (props) => {
   const widgets = props.label ? (
     <Fragment>
       {countLabel}
-      <LabelText>{props.label}</LabelText>
+      <LabelText id={labelId}>{props.label}</LabelText>
       {minusButton}
       {plusButton}
     </Fragment>

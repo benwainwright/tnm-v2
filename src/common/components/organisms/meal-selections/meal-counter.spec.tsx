@@ -2,6 +2,7 @@ import { shallow } from "enzyme"
 import MealCounter from "./meal-counter"
 import { QuantityStepper } from "@common/components/molecules"
 import { ParagraphText } from "@common/components/atoms"
+import { render, screen } from "@testing-library/react"
 
 describe("The <MealCounter> component", () => {
   it("renders without errors", () => {
@@ -12,6 +13,12 @@ describe("The <MealCounter> component", () => {
     const wrapper = shallow(<MealCounter title="foo" description="bar" />)
 
     expect(wrapper.text()).toInclude("foo")
+  })
+
+  it("Sets the title as the accessible name", () => {
+    render(<MealCounter title="foo-title" description="bar" />)
+    const counter = screen.getByRole("region")
+    expect(counter).toHaveAccessibleName("foo-title")
   })
 
   it("renders the description", () => {

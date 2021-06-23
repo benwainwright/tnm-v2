@@ -1,5 +1,6 @@
 import { FC } from "react"
 import { QuantityStepper } from "@common/components/molecules"
+import { uniqueId } from "lodash"
 import { ParagraphText } from "@common/components/atoms"
 import styled from "@emotion/styled"
 
@@ -17,7 +18,7 @@ const Header = styled.h3`
   font-size: 1.7rem;
   margin: 0;
 `
-const Container = styled.div`
+const Container = styled.section`
   display: flex;
   flex-direction: column;
   width: 20rem;
@@ -26,9 +27,10 @@ const Container = styled.div`
 `
 
 const MealCounter: FC<MealCounterProps> = (props) => {
+  const headerId = uniqueId()
   return (
-    <Container>
-      <Header>{props.title}</Header>
+    <Container aria-labelledby={headerId}>
+      <Header id={headerId}>{props.title}</Header>
       <ParagraphText>{props.description}</ParagraphText>
       <QuantityStepper
         onChange={props.onChange}

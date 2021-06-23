@@ -86,3 +86,12 @@ test("Quantity enables the decrease button if the min value is not reached", () 
 
   expect(increaseButton).not.toHaveAttribute("disabled")
 })
+
+test("Provides the label as the a11y name for the stepper if there is one", () => {
+  const onChange = jest.fn()
+  render(
+    <QuantityStepper value={5} min={3} onChange={onChange} label="foo-label" />
+  )
+  const spinbutton = screen.getByRole("spinbutton")
+  expect(spinbutton).toHaveAccessibleName("foo-label")
+})
