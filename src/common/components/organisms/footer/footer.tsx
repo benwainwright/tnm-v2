@@ -32,7 +32,7 @@ const FooterColumns = styled.div`
   justify-content: space-between;
 `
 
-const FooterHeaders = styled.h3`
+const FooterHeaders = styled.h2`
   margin: 0;
   padding: 0;
   color: #177f7a;
