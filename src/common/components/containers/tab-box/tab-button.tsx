@@ -13,12 +13,14 @@ const TabButton: FC<TabButtonProps> = (props) => {
     font-weight: bold;
     width: calc(100% / ${props.tabListLength});
     margin: 0;
-    border: 0;
     cursor: pointer;
     padding: 1rem 3rem;
     font-size: 2rem;
     background: ${props.active ? `white` : `#E3E3E3`};
     border-bottom: ${props.active ? `0` : `1px solid black`};
+    border-top: 0;
+    border-left: 0;
+    border-right: 0;
 
     &:not(:first-of-type) {
       border-left: 1px solid black;
