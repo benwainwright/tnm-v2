@@ -1,33 +1,10 @@
-import { curry, pipe } from "ramda"
+import { ValueType } from "./types";
 import { left, right, Either } from "fp-ts/Either"
+import processField from "./processField"
+
 /**
  * Implementation is based on https://tools.ietf.org/html/rfc4180#section-2
  */
-
-type ValueType = string | number | boolean | undefined
-
-const containsStringOf = (field: string, chars: string[]) =>
-  chars.some((char) => field.includes(char))
-
-const convertTypeToString = curry(
-  (type: ValueType, field: string): ValueType =>
-    typeof field === type ? String(field) : field
-)
-
-const surroundFieldsWithSpecialCharactersInQuotes = curry(
-  (chars: string[], field: string) =>
-    containsStringOf(field, chars) ? `"${field}"` : field
-)
-
-const escapeQuotes = (field: string | undefined) =>
-  field?.replace(/"/gu, '""') ?? ""
-
-const processField = pipe(
-  convertTypeToString("number"),
-  convertTypeToString("boolean"),
-  escapeQuotes,
-  surroundFieldsWithSpecialCharactersInQuotes([",", '"', "\r\n"])
-)
 
 const createCsvRowString = (fields: ValueType[]) =>
   fields.map(processField).join(",")
@@ -62,8 +39,8 @@ const fromObjectArray = <T extends ArbitraryObjectType>(
     ? left("inputObjectArray.length must have a length greater than zero")
     : right(processObjectArrayToCsv(inputObjectArray))
 
-const csv = {
+const Csv = {
   fromObjectArray,
 }
 
-export default csv
+export default Csv

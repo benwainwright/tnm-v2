@@ -1,2 +1,4 @@
 import { batchArray } from "./batch-array"
-export { batchArray }
+import Csv from "./csv"
+
+export { batchArray, Csv }
