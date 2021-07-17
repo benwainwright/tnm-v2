@@ -1,4 +1,4 @@
-import { shallow, mount } from "enzyme"
+import { mount } from "enzyme"
 import Basket from "./basket"
 import { QuantityStepper } from "@common/components/molecules"
 import { act } from "react-dom/test-utils"

@@ -44,7 +44,7 @@ const DesktopHeader: FC = () => (
     </HeaderListItem>
     <HeaderListItem>Why Choose Us</HeaderListItem>
     <HeaderListItem>
-      <TheNutritionistLogo href="/" />
+      <TheNutritionistLogo href="/">The Nutritionist MCR</TheNutritionistLogo>
     </HeaderListItem>
     <HeaderListItem>The Plans</HeaderListItem>
     <HeaderListItem>
