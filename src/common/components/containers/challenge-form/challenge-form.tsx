@@ -70,18 +70,22 @@ const addEventHandlers = <T,>(
     if (!isValidElement(node)) {
       return node
     }
-    const element: ReactElement = node
-    if (element.props.name) {
-      return (
-        <element.type
-          {...element.props}
-          onChange={(event: ChangeEvent<HTMLInputElement>) => {
-            setData({ ...data, [element.props.name]: event.target.value })
-          }}
-        />
-      )
-    }
-    return <element.type {...element.props} />
+
+    const { type: Type, props } = node
+    const { name, children } = props
+
+    return name ? (
+      <Type
+        {...props}
+        onChange={(event: ChangeEvent<HTMLInputElement>) =>
+          setData({ ...data, [name]: event.target.value })
+        }
+      >
+        {addEventHandlers(children, data, setData)}
+      </Type>
+    ) : (
+      <Type {...props}>{addEventHandlers(children, data, setData)}</Type>
+    )
   })
 }
 

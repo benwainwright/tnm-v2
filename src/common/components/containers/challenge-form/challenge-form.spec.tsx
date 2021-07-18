@@ -1,4 +1,4 @@
-import { shallow } from "enzyme"
+import { mount, render, shallow } from "enzyme"
 import { Button, Input } from "@common/components/atoms"
 import ChallengeForm from "./challenge-form"
 import { act } from "react-dom/test-utils"
@@ -91,6 +91,41 @@ describe("the challenge form", () => {
     wrapper.find(Button).simulate("click", { preventDefault })
 
     expect(preventDefault).toHaveBeenCalled()
+  })
+
+  it("Can handle nested children", () => {
+    const mockOnSubmit = jest.fn()
+
+    const wrapper = mount(
+      <ChallengeForm submitText="login" onSubmit={mockOnSubmit}>
+        <div>
+          <input name="foo" />
+        </div>
+        <input name="bar" />
+      </ChallengeForm>
+    )
+
+    act(() => {
+      wrapper
+        .find("input[name='foo']")
+        .at(0)
+        .simulate("change", { target: { value: "foo-value" } })
+    })
+
+    act(() => {
+      wrapper
+        .find("input[name='bar']")
+        .at(0)
+        .simulate("change", { target: { value: "bar-value" } })
+    })
+
+    const button = wrapper.find(Button)
+    button.simulate("click", { preventDefault: jest.fn() })
+
+    expect(mockOnSubmit).toHaveBeenCalledWith({
+      foo: "foo-value",
+      bar: "bar-value",
+    })
   })
 
   it("Displays error messages that have no fields", () => {
