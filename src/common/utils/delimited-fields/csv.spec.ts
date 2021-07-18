@@ -1,8 +1,12 @@
-import csv from "./csv"
 import { isLeft, isRight } from "fp-ts/Either"
+import processFieldRfc4180 from "./csv/rfc4180/process-field"
+import processFields from "./process-fields"
+
+const csv = processFields(",", "\r\n", processFieldRfc4180)
+
 describe("Generate CSV string", () => {
   it("Returns an error if there is no rows", () => {
-    const result = csv.fromObjectArray([])
+    const result = csv([])
     expect(isLeft(result)).toBeTrue()
     if (isLeft(result)) {
       expect(result.left).toEqual(
@@ -19,7 +23,7 @@ describe("Generate CSV string", () => {
       },
     ]
 
-    const result = csv.fromObjectArray(bar)
+    const result = csv(bar)
     expect(isRight(result)).toBeTrue()
     if (isRight(result)) {
       const splitResult = result.right.split("\r\n")
@@ -35,7 +39,7 @@ describe("Generate CSV string", () => {
       },
     ]
 
-    const result = csv.fromObjectArray(bar)
+    const result = csv(bar)
 
     expect(isRight(result)).toBeTrue()
 
@@ -53,7 +57,7 @@ describe("Generate CSV string", () => {
       },
     ]
 
-    const result = csv.fromObjectArray(bar)
+    const result = csv(bar)
 
     expect(isRight(result)).toBeTrue()
 
@@ -79,7 +83,7 @@ describe("Generate CSV string", () => {
       },
     ]
 
-    const result = csv.fromObjectArray(bar)
+    const result = csv(bar)
 
     if (isRight(result)) {
       const splitResult = result.right.split("\r\n")
@@ -101,7 +105,7 @@ describe("Generate CSV string", () => {
       },
     ]
 
-    const result = csv.fromObjectArray(bar)
+    const result = csv(bar)
 
     expect(isRight(result)).toBeTrue()
     if (isRight(result)) {
@@ -136,7 +140,7 @@ describe("Generate CSV string", () => {
         },
       ]
 
-      const result = csv.fromObjectArray(bar)
+      const result = csv(bar)
 
       expect(isRight(result)).toBeTrue()
       if (isRight(result)) {

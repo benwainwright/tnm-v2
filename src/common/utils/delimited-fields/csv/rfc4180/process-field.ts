@@ -1,5 +1,5 @@
 import { curry, pipe } from "ramda"
-import { ValueType } from "./types"
+import { ValueType } from "../../types"
 const containsStringOf = (field: string, chars: string[]) =>
   chars.some((char) => field.includes(char))
 
@@ -13,10 +13,10 @@ const surroundFieldsWithSpecialCharactersInQuotes = curry(
     containsStringOf(field, chars) ? `"${field}"` : field
 )
 
-const escapeQuotes = (field: string | undefined) =>
-  field?.replace(/"/gu, '""') ?? ""
+const escapeQuotes = (field: ValueType) =>
+  typeof field === "string" ? field.replace(/"/gu, '""') : ""
 
-const processField = pipe(
+const processField = pipe<ValueType, ValueType, ValueType, ValueType, string>(
   convertTypeToString("number"),
   convertTypeToString("boolean"),
   escapeQuotes,
