@@ -44,20 +44,21 @@ const StyledH2 = styled.h2`
 `
 StyledH2.displayName = "h2"
 
-const addErrorMessages = (nodes: ReactNode, errorMessages?: ErrorResponse[]) =>
-  Children.map(nodes, (node) => {
-    if (!isValidElement(node)) {
-      return node
-    }
+const transformElements = (
+  nodes: ReactNode,
+  func: (element: ReactElement) => ReactNode
+) => Children.map(nodes, (node) => (isValidElement(node) ? func(node) : node))
 
+const addErrorMessages = (nodes: ReactNode, errorMessages?: ErrorResponse[]) =>
+  transformElements(nodes, (element) => {
     const matchingMessage = errorMessages?.find(
-      (message) => node.props.name === message.field
+      (message) => element.props.name === message.field
     )
 
     return matchingMessage ? (
-      <node.type {...node.props} errorMessage={matchingMessage.message} />
+      <element.type {...element.props} errorMessage={matchingMessage.message} />
     ) : (
-      node
+      element
     )
   })
 
@@ -65,16 +66,9 @@ const addEventHandlers = <T,>(
   nodes: ReactNode,
   data: T,
   setData: Dispatch<SetStateAction<T>>
-) => {
-  return Children.map(nodes, (node) => {
-    if (!isValidElement(node)) {
-      return node
-    }
-
-    const { type: Type, props } = node
-    const { name, children } = props
-
-    return name ? (
+) =>
+  transformElements(nodes, ({ type: Type, props: { name, children }, props }) =>
+    name ? (
       <Type
         {...props}
         onChange={(event: ChangeEvent<HTMLInputElement>) =>
@@ -86,8 +80,7 @@ const addEventHandlers = <T,>(
     ) : (
       <Type {...props}>{addEventHandlers(children, data, setData)}</Type>
     )
-  })
-}
+  )
 
 function assertFC<P>(
   _component: React.FC<P>
