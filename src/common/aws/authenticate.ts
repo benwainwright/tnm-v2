@@ -28,6 +28,31 @@ export const login = async (username: string, password: string) => {
   return Auth.signIn(username, password)
 }
 
+export const register = async (
+  username: string,
+  password: string,
+  salutation: string,
+  email: string,
+  firstname: string,
+  surname: string,
+  address: string,
+  telephone: string
+) => {
+  await configureAuth()
+  return Auth.signUp({
+    username,
+    password,
+    attributes: {
+      salutation,
+      email,
+      firstname,
+      surname,
+      address,
+      telephone,
+    },
+  })
+}
+
 export const signOut = async () => {
   await configureAuth()
   return Auth.signOut()

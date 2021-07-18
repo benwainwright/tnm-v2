@@ -3,12 +3,55 @@ import { when } from "jest-when"
 import { mocked } from "ts-jest/utils"
 import { getPoolConfig } from "./getPoolConfig"
 import * as authenticate from "./authenticate"
+import { mock } from "jest-mock-extended"
+import { ISignUpResult } from "amazon-cognito-identity-js"
 
 jest.mock("@aws-amplify/auth")
 jest.mock("aws-sdk")
 jest.mock("./getPoolConfig")
 
 describe("The authenticate module", () => {
+  describe("register()", () => {
+    it("returns the promise from Auth.signUp", async () => {
+      mocked(getPoolConfig).mockResolvedValue({
+        UserPoolId: "pool-id",
+        ClientId: "client-id",
+        RedirectUrl: "redirect-url",
+        AuthUrl: "auth-url",
+      })
+
+      const mockResult = mock<ISignUpResult>()
+
+      when(mocked(Auth.signUp))
+        .calledWith({
+          username: "foo-username",
+          password: "foo-password",
+          attributes: {
+            salutation: "foo-salutation",
+            email: "foo-email",
+            firstname: "foo-firstname",
+            surname: "foo-surname",
+            address: "foo-address",
+            telephone: "foo-telephone",
+          },
+        })
+        .mockResolvedValue(mockResult)
+
+      const result = await authenticate.register(
+        "foo-username",
+        "foo-password",
+        "foo-salutation",
+        "foo-email",
+        "foo-firstname",
+        "foo-surname",
+        "foo-address",
+        "foo-telephone"
+      )
+
+      expect(result).toEqual(mockResult)
+    })
+  })
+
   describe("login()", () => {
     it("returns the promise from Auth.signIn", async () => {
       mocked(getPoolConfig).mockResolvedValue({
