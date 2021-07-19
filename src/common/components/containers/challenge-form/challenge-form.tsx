@@ -43,15 +43,17 @@ const StyledH2 = styled.h2`
 `
 StyledH2.displayName = "h2"
 
-const addErrorMessages = (nodes: ReactNode, errorMessages?: ErrorResponse[]) =>
-  addNewProps(nodes, ({ props: { name } }) => {
-    const { message } = errorMessages?.find(({ field }) => name === field) ?? {}
+const findMessage = (
+  errorMessages: ErrorResponse[],
+  name: string
+): ErrorResponse | undefined =>
+  errorMessages?.find((message) => message.field === name)
 
-    return {
-      apply: Boolean(message),
-      props: { errorMessage: message },
-    }
-  })
+const addErrorMessages = (nodes: ReactNode, errorMessages: ErrorResponse[]) =>
+  addNewProps(nodes, ({ props: { name } }) => ({
+    apply: Boolean(findMessage(errorMessages, name)),
+    props: { errorMessage: findMessage(errorMessages, name)?.message },
+  }))
 
 const addEventHandlers = <T,>(
   nodes: ReactNode,
@@ -76,7 +78,10 @@ function ChallengeForm<T>(
 ): ReactElement | null {
   const [data, setData] = useState<T | undefined>()
   const eventHandlersAdded = addEventHandlers(props.children, data, setData)
-  const errorMessagesAdded = addErrorMessages(eventHandlersAdded, props.errors)
+  const errorMessagesAdded = addErrorMessages(
+    eventHandlersAdded,
+    props.errors ?? []
+  )
   const formErrors = props.errors?.filter((error) => !error.field) ?? []
   return (
     <FlexForm>
