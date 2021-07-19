@@ -1,15 +1,14 @@
 import { Button } from "@common/components/atoms"
+import { recursiveTransform, addNewProps } from "@common/utils/react"
 import { ErrorResponse } from "@common/types/error-response"
 import {
   Dispatch,
   SetStateAction,
-  Children,
   ReactElement,
   ReactNode,
   PropsWithChildren,
   ChangeEvent,
   useState,
-  isValidElement,
 } from "react"
 import styled from "@emotion/styled"
 
@@ -44,22 +43,14 @@ const StyledH2 = styled.h2`
 `
 StyledH2.displayName = "h2"
 
-const transformElements = (
-  nodes: ReactNode,
-  func: (element: ReactElement) => ReactNode
-) => Children.map(nodes, (node) => (isValidElement(node) ? func(node) : node))
-
 const addErrorMessages = (nodes: ReactNode, errorMessages?: ErrorResponse[]) =>
-  transformElements(nodes, (element) => {
-    const matchingMessage = errorMessages?.find(
-      (message) => element.props.name === message.field
-    )
+  addNewProps(nodes, ({ props: { name } }) => {
+    const { message } = errorMessages?.find(({ field }) => name === field) ?? {}
 
-    return matchingMessage ? (
-      <element.type {...element.props} errorMessage={matchingMessage.message} />
-    ) : (
-      element
-    )
+    return {
+      apply: Boolean(message),
+      props: { errorMessage: message },
+    }
   })
 
 const addEventHandlers = <T,>(
@@ -67,20 +58,13 @@ const addEventHandlers = <T,>(
   data: T,
   setData: Dispatch<SetStateAction<T>>
 ) =>
-  transformElements(nodes, ({ type: Type, props: { name, children }, props }) =>
-    name ? (
-      <Type
-        {...props}
-        onChange={(event: ChangeEvent<HTMLInputElement>) =>
-          setData({ ...data, [name]: event.target.value })
-        }
-      >
-        {addEventHandlers(children, data, setData)}
-      </Type>
-    ) : (
-      <Type {...props}>{addEventHandlers(children, data, setData)}</Type>
-    )
-  )
+  addNewProps(nodes, ({ props: { name } }) => ({
+    apply: name,
+    props: {
+      onChange: (event: ChangeEvent<HTMLInputElement>) =>
+        setData({ ...data, [name]: event.target.value }),
+    },
+  }))
 
 function assertFC<P>(
   _component: React.FC<P>

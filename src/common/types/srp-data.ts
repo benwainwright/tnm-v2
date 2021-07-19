@@ -12,12 +12,15 @@ export interface ChangePasswordFormData {
 }
 
 export interface RegisterFormData {
+  saluation: string
   username: string
+  password: string
   firstName: string
-  lastName: string
+  surname: string
   email: string
   contactNumber: string
   postcode: string
+  telephone: string
   addressLine1: string
   addressLine2?: string
   county?: string

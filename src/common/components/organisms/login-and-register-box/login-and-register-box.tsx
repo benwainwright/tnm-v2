@@ -7,6 +7,7 @@ import RegisterForm from "./register-form"
 import MfaForm from "./mfa-form"
 import { handleLogin } from "./handle-login"
 import styled from "@emotion/styled"
+import { handleRegister } from "./handle-register"
 
 export enum LoginState {
   DoLogin = "DoLogin",
@@ -56,7 +57,7 @@ const LoginAndRegisterBox: FC = () => {
         </Tab>
         <Tab tabTitle="Register">
           <Padding>
-            <RegisterForm onSubmit={() => {}} />
+            <RegisterForm onSubmit={handleRegister} />
           </Padding>
         </Tab>
       </TabBox>

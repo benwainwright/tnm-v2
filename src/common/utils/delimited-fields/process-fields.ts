@@ -21,7 +21,7 @@ const mapRowsToMatrix = <T extends ArbitraryObjectType>(
 const getHeaders = <T extends ArbitraryObjectType>(inputObjectArray: T[]) =>
   Object.keys(inputObjectArray[0])
 
-const convertToMatrixWithHeaderRow = <T extends ArbitraryObjectType>(
+const convertToMatrix = <T extends ArbitraryObjectType>(
   inputObjectArray: T[]
 ) => [
   getHeaders(inputObjectArray),
@@ -33,7 +33,7 @@ const processMatrixToOutputString = curry(
     fieldSeparator: string,
     lineSeparator: string,
     fieldProcessor: (field: ValueType) => string,
-    matrix: ReturnType<typeof convertToMatrixWithHeaderRow>
+    matrix: ReturnType<typeof convertToMatrix>
   ) =>
     matrix
       .map((row) => row.map(fieldProcessor).join(fieldSeparator))
@@ -46,8 +46,8 @@ const doProcess = <T extends ArbitraryObjectType>(
   fieldProcessor: (field: ValueType) => string,
   inputObjectArray: T[]
 ): string =>
-  pipe<T[], ReturnType<typeof convertToMatrixWithHeaderRow>, string>(
-    convertToMatrixWithHeaderRow,
+  pipe<T[], ReturnType<typeof convertToMatrix>, string>(
+    convertToMatrix,
     processMatrixToOutputString(fieldSeparator, lineSeparator, fieldProcessor)
   )(inputObjectArray)
 
