@@ -1,60 +1,52 @@
-import { shallow } from "enzyme"
+import { render, screen } from "@testing-library/react"
 import { act } from "react-dom/test-utils"
 import Input from "./input"
+import userEvent from "@testing-library/user-event"
 
 describe("The input component", () => {
-  it("renders an html input component", () => {
-    const wrapper = shallow(<Input />)
+  it("renders a text box", () => {
+    render(<Input label="an-input" name="an-input" />)
 
-    expect(wrapper.find("input")).toHaveLength(1)
+    expect(screen.queryByRole("textbox")).toBeInTheDocument()
   })
 
   it("passes the value prop through to the value prop of the component", () => {
-    const wrapper = shallow(<Input value="some field value" />)
+    const onChange = jest.fn();
 
-    expect(wrapper.find("input").prop("value")).toEqual("some field value")
+    render(<Input label="foo-input" value="some field value" onChange={onChange} name="an-input"/>)
+    expect(screen.getByLabelText("foo-input")).toHaveAttribute("value", "some field value")
   })
 
-  it("renders the label text in a label element", () => {
-    const wrapper = shallow(<Input label="some label text" />)
-
-    expect(wrapper.find("label").text()).toEqual("some label text")
-  })
-
-  it("if a name is specified, it is passed in as the name and id of the input and the for attribute for the label", () => {
-    const wrapper = shallow(<Input name="input-name" />)
-    expect(wrapper.find("input").prop("id")).toEqual("input-name")
-    expect(wrapper.find("input").prop("name")).toEqual("input-name")
-    expect(wrapper.find("label").prop("htmlFor")).toEqual("input-name")
+  it("Id is set the same as the name", () => {
+    render(<Input name="input-name" label="A Label" />)
+    expect(screen.getByLabelText("A Label")).toHaveAttribute("id", "input-name")
   })
 
   it("passes the 'type' prop through to the underlying input field", () => {
-    const wrapper = shallow(<Input type="a@b.c" />)
-
-    expect(wrapper.find("input").prop("type")).toEqual("a@b.c")
+    render(<Input name="input-name" label="A Label" type="email"/>)
+    expect(screen.getByLabelText("A Label")).toHaveAttribute("type", "email")
   })
 
   it("passes the 'placeholder' prop through to the underlying input field", () => {
-    const wrapper = shallow(<Input placeholder="type something" />)
-
-    expect(wrapper.find("input").prop("placeholder")).toEqual("type something")
+    render(<Input name="input-name" placeholder="type something" label="A Label"/>)
+    expect(screen.getByLabelText("A Label")).toHaveAttribute("placeholder", "type something")
   })
 
-  it("renders an error message if there is an error", () => {
-    const wrapper = shallow(<Input errorMessage="Oh noes!" />)
-    expect(wrapper.find("label").at(1).text()).toInclude("Oh noes!")
+  it("renders a red outline if there is an error", () => {
+    render(<Input error name="input-name" label="A Label"/>)
+    expect(screen.getByLabelText("A Label")).toHaveStyleRule("border", `1px solid red`);
   })
 
   it("triggers the component onChange handler if there is a change in the element", () => {
     const onChange = jest.fn()
-    const wrapper = shallow(<Input name="input-name" onChange={onChange} />)
+    render(<Input label="A label" name="input-name" onChange={onChange} />)
 
-    const testEvent = { target: { value: "hello" } }
+    const input = screen.getByText("A label")
 
     act(() => {
-      wrapper.find("input").simulate("change", testEvent)
+      userEvent.type(input, "hello")
     })
 
-    expect(onChange).toHaveBeenCalledWith(testEvent)
+    expect(onChange).toHaveBeenCalledWith(expect.objectContaining({ target: expect.objectContaining({ value: "hello" }) }))
   })
 })
