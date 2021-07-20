@@ -1,8 +1,8 @@
 {
-  "test-TnmV2BackendStack": {
-    "UserPoolId": "eu-west-2_STGr0ooNo",
-    "AuthUrl": "https://test-tnmv2-auth.auth.eu-west-2.amazoncognito.com",
-    "ClientId": "1ee4eqjm7mpi85rngf5rese5g9",
-    "RedirectUrl": "https://test-tnmv2-auth.auth.eu-west-2.amazoncognito.com/login?client_id=1ee4eqjm7mpi85rngf5rese5g9&response_type=code&redirect_uri=https://d2bnp0b9ah9f76.cloudfront.net/"
+  "dev-TnmV2BackendStack": {
+    "UserPoolId": "us-east-1_V2xPlMijd",
+    "AuthUrl": "https://dev-tnmv2-auth.auth.us-east-1.amazoncognito.com",
+    "ClientId": "74achqvr3ee7psmb7dgi26aspe",
+    "RedirectUrl": "https://dev-tnmv2-auth.auth.us-east-1.amazoncognito.com/login?client_id=74achqvr3ee7psmb7dgi26aspe&response_type=code&redirect_uri=https://d2bnp0b9ah9f76.cloudfront.net/"
   }
 }
