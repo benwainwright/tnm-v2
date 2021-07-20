@@ -33,10 +33,11 @@ const RegisterForm: FC<RegisterFormProps> = (props) => {
       onSubmit={props.onSubmit}
       errors={props.errors}
     >
+      <Input label="Username" name="username" />
       <Input label="Email Address" name="email" type="email" placeholder="a@b.c" />
       <FieldRow>
         <Input label="Password" name="password" type='password' />
-        <Input label="Verify Password" name="password" type="verifyPassword"/>
+        <Input label="Verify Password" name="verifyPassword" type="password"/>
       </FieldRow>
       <FieldRow>
         <Input label="First Name" name="firstName" />

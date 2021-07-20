@@ -27,12 +27,12 @@ describe("The authenticate module", () => {
           username: "foo-username",
           password: "foo-password",
           attributes: {
-            salutation: "foo-salutation",
-            email: "foo-email",
-            firstname: "foo-firstname",
-            surname: "foo-surname",
-            address: "foo-address",
-            telephone: "foo-telephone",
+            "custom:salutation": "foo-salutation",
+            "custom:email": "foo-email",
+            "custom:firstname": "foo-firstname",
+            "custom:surname": "foo-surname",
+            "custom:address": "foo-address",
+            "custom:telephone": "foo-telephone",
           },
         })
         .mockResolvedValue(mockResult)
