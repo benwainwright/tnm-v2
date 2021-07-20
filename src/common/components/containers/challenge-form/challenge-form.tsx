@@ -51,7 +51,7 @@ const findMessage = (
 ): ErrorResponse | undefined =>
   errorMessages?.find((message) => message.fields?.includes(name))
 
-const addErrorProp = (nodes: ReactNode, errorMessages: ErrorResponse[]) =>
+const addErrorMessages = (nodes: ReactNode, errorMessages: ErrorResponse[]) =>
   addNewProps<typeof Input>(nodes, ({ props: { name } }) => ({
     apply: Boolean(findMessage(errorMessages, name)),
     props: { error: true },
@@ -80,7 +80,7 @@ function ChallengeForm<T>(
 ): ReactElement | null {
   const [data, setData] = useState<T | undefined>()
   const eventHandlersAdded = addEventHandlers(props.children, data, setData)
-  const errorMessagesAdded = addErrorProp(
+  const errorMessagesAdded = addErrorMessages(
     eventHandlersAdded,
     props.errors ?? []
   )

@@ -13,6 +13,8 @@ describe("the login handler", () => {
     jest.restoreAllMocks()
   })
 
+
+
   it("Fires the setErrorMessage handler if an error is thrown", async () => {
     mocked(login).mockRejectedValue(new Error("AN ERROR!"))
 

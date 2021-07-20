@@ -1,4 +1,4 @@
-import { Dispatch, FC, SetStateAction } from "react"
+import { FC } from "react"
 import { ChallengeForm } from "@common/components/containers"
 import { Input } from "@common/components/atoms"
 import { ErrorResponse } from "@common/types/error-response"
@@ -7,8 +7,7 @@ import styled from "@emotion/styled"
 
 export interface RegisterFormProps {
   onSubmit: (
-    data: RegisterFormData,
-    setErrorMessage: Dispatch<SetStateAction<ErrorResponse | undefined>>
+    data: RegisterFormData
   ) => void
   errors?: ErrorResponse[]
 }
@@ -34,15 +33,15 @@ const RegisterForm: FC<RegisterFormProps> = (props) => {
       onSubmit={props.onSubmit}
       errors={props.errors}
     >
+      <Input label="Email Address" name="email" type="email" placeholder="a@b.c" />
       <FieldRow>
-        <Input label="Username" name="username" />
-        <Input label="Password" name="password" />
+        <Input label="Password" name="password" type='password' />
+        <Input label="Verify Password" name="password" type="verifyPassword"/>
       </FieldRow>
       <FieldRow>
         <Input label="First Name" name="firstName" />
         <Input label="Last Name" name="lastName" />
       </FieldRow>
-      <Input label="Email Address" name="email" type="email" />
       <Input label="Contact Number" name="telephone" />
       <FormDivider />
       <FieldRow>

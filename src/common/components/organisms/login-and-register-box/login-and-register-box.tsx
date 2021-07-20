@@ -57,7 +57,10 @@ const LoginAndRegisterBox: FC = () => {
         </Tab>
         <Tab tabTitle="Register">
           <Padding>
-            <RegisterForm onSubmit={handleRegister} />
+            <RegisterForm
+              onSubmit={(data) => handleRegister(data, setErrorMessage)}
+              errors={errorMessage ? [errorMessage] : undefined}
+            />
           </Padding>
         </Tab>
       </TabBox>

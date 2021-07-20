@@ -20,7 +20,7 @@ export class BackendStack extends cdk.Stack {
       userVerification: {
         emailBody: verificationString,
         emailSubject: `TNM signup`,
-        emailStyle: cognito.VerificationEmailStyle.CODE,
+       emailStyle: cognito.VerificationEmailStyle.CODE,
         smsMessage: verificationString,
       },
 

@@ -35,41 +35,40 @@ const InputLabel = styled.label`
 InputLabel.displayName = "label"
 
 export interface InputProps {
-  label: string
-  name: string
+  label?: string
   placeholder?: string
   value?: string
+  name?: string
   type?: string
   error?: boolean
   onChange?: (event: ChangeEvent<HTMLInputElement>) => void
 }
 
-const Input: FC<InputProps> = (props) => {
+const InputField = styled.input<InputProps>`
+  font-family: "Acumin Pro", Arial, sans-serif;
+  margin: 0;
+  border-radius: 0;
+  border: 1px solid ${props => props.error ? `red` : BUTTON_BLACK};
+  line-height: 1.5rem;
+  padding: 0.5rem 0.5rem;
+`
+InputField.displayName = "input"
 
-    const InputField = styled.input`
-      font-family: "Acumin Pro", Arial, sans-serif;
-      margin: 0;
-      border-radius: 0;
-      border: 1px solid ${props.error ? `red` : BUTTON_BLACK};
-      line-height: 1.5rem;
-      padding: 0.5rem 0.5rem;
-    `
-    InputField.displayName = "input"
-
-    return (
-        <InputContainer>
-            <LabelRow>
-                <InputLabel htmlFor={props.name}>{props.label}</InputLabel>
-            </LabelRow>
-            <InputField
-                id={props.name}
-                name={props.name}
-                value={props.value}
-                type={props.type}
-                onChange={props.onChange}
-                placeholder={props.placeholder} />
-        </InputContainer>
-    )
-}
+const Input: FC<InputProps> = (props) => (
+  <InputContainer>
+    <LabelRow>
+      <InputLabel htmlFor={props.name}>{props.label}</InputLabel>
+    </LabelRow>
+    <InputField
+      id={props.name}
+      name={props.name}
+      value={props.value}
+      error={props.error}
+      type={props.type}
+      onChange={props.onChange}
+      placeholder={props.placeholder}
+    />
+  </InputContainer>
+)
 
 export default Input

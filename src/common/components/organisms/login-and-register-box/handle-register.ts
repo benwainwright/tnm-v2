@@ -17,18 +17,18 @@ export const handleRegister = async (
     .filter(Boolean)
     .join("\n")
 
-  console.log(JSON.stringify(data))
-
-  const result = await register(
-    data.username,
-    data.password,
-    data.saluation,
-    data.email,
-    data.firstName,
-    data.surname,
-    address,
-    data.telephone
-  )
-
-  console.log(result)
+  try {
+    await register(
+      data.username,
+      data.password,
+      data.saluation,
+      data.email,
+      data.firstName,
+      data.surname,
+      address,
+      data.telephone
+    )
+  } catch (error) {
+    setErrorMessage({message: error.message})
+  }
 }
