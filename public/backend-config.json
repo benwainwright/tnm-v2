@@ -1,8 +1,0 @@
-{
-  "dev-TnmV2BackendStack": {
-    "UserPoolId": "us-east-1_V2xPlMijd",
-    "AuthUrl": "https://dev-tnmv2-auth.auth.us-east-1.amazoncognito.com",
-    "ClientId": "74achqvr3ee7psmb7dgi26aspe",
-    "RedirectUrl": "https://dev-tnmv2-auth.auth.us-east-1.amazoncognito.com/login?client_id=74achqvr3ee7psmb7dgi26aspe&response_type=code&redirect_uri=https://d2bnp0b9ah9f76.cloudfront.net/"
-  }
-}
