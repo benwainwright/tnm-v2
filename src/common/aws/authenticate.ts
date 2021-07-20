@@ -44,11 +44,11 @@ export const register = async (
     password,
     attributes: {
       "custom:salutation":salutation,
-      "custom:email":email,
-      "custom:firstname":firstname,
-      "custom:surname":surname,
-      "custom:address":address,
-      "custom:telephone":telephone,
+      "email":email,
+      "given_name":firstname,
+      "family_name":surname,
+      "address":address,
+      "phone_number":telephone,
     }
   })
 }
