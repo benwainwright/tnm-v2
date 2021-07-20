@@ -14,6 +14,6 @@ export const Input = Template.bind({})
 Input.args = {
   label: "Some Field",
   value: "",
-  errorMessage: "",
+  error: false,
   placeholder: "Enter something",
 }

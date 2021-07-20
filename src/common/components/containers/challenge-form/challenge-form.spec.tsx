@@ -1,4 +1,4 @@
-import { mount, render, shallow } from "enzyme"
+import { mount, shallow } from "enzyme"
 import { Button, Input } from "@common/components/atoms"
 import ChallengeForm from "./challenge-form"
 import { act } from "react-dom/test-utils"
@@ -144,8 +144,8 @@ describe("the challenge form", () => {
         onSubmit={mockOnSubmit}
         errors={errorMessages}
       >
-        <Input name="foo" />
-        <Input name="bar" />
+        <Input name="foo" label="A label" />
+        <Input name="bar" label="A label" />
       </ChallengeForm>
     )
 
@@ -154,8 +154,8 @@ describe("the challenge form", () => {
     const fooInput = wrapper.findWhere((input) => input.prop("name") === "foo")
     const barInput = wrapper.findWhere((input) => input.prop("name") === "bar")
 
-    expect(fooInput.prop("errorMessage")).toBeUndefined()
-    expect(barInput.prop("errorMessage")).toBeUndefined()
+    expect(fooInput.prop("error")).toBeUndefined()
+    expect(barInput.prop("error")).toBeUndefined()
   })
 
   it("Displays error messages that have no fields and removes weird period on end of error", () => {
@@ -179,7 +179,7 @@ describe("the challenge form", () => {
     expect(wrapper.text()).not.toInclude(".")
   })
 
-  it("passes error messages for the correct fields into the correct input boxes", () => {
+  it("Adds an error prop when a field matches an error field", () => {
     type FormData = {
       foo: string
       bar: string
@@ -188,7 +188,7 @@ describe("the challenge form", () => {
     const mockOnSubmit = mock<(data: FormData) => void>()
 
     const errorMessages = [
-      { field: "bar" as const, message: "An error message for bar" },
+      { fields: ["bar"], message: "An error message for bar" },
     ]
 
     const wrapper = shallow(
@@ -197,19 +197,19 @@ describe("the challenge form", () => {
         onSubmit={mockOnSubmit}
         errors={errorMessages}
       >
-        <Input name="foo" />
-        <Input name="bar" />
+        <Input name="foo" label="A label" />
+        <Input name="bar" label="A label" />
       </ChallengeForm>
     )
 
     const fooInput = wrapper.findWhere((input) => input.prop("name") === "foo")
     const barInput = wrapper.findWhere((input) => input.prop("name") === "bar")
 
-    expect(fooInput.prop("errorMessage")).toBeUndefined()
-    expect(barInput.prop("errorMessage")).toEqual("An error message for bar")
+    expect(fooInput.prop("error")).toBeUndefined()
+    expect(barInput.prop("error")).toBeTrue()
   })
 
-  it("passes error messages for the correct fields into the correct input boxes", () => {
+  it("Passes the error prop into the correct input", () => {
     type FormData = {
       foo: string
       bar: string
@@ -218,7 +218,7 @@ describe("the challenge form", () => {
     const mockOnSubmit = mock<(data: FormData) => void>()
 
     const errorMessages = [
-      { field: "bar" as const, message: "An error message for bar" },
+      { fields: ["bar"], message: "An error message for bar" },
     ]
 
     const wrapper = shallow(
@@ -227,15 +227,15 @@ describe("the challenge form", () => {
         onSubmit={mockOnSubmit}
         errors={errorMessages}
       >
-        <Input name="foo" />
-        <Input name="bar" />
+        <Input name="foo" label="A label" />
+        <Input name="bar" label="A label" />
       </ChallengeForm>
     )
 
     const fooInput = wrapper.findWhere((input) => input.prop("name") === "foo")
     const barInput = wrapper.findWhere((input) => input.prop("name") === "bar")
 
-    expect(fooInput.prop("errorMessage")).toBeUndefined()
-    expect(barInput.prop("errorMessage")).toEqual("An error message for bar")
+    expect(fooInput.prop("error")).toBeUndefined()
+    expect(barInput.prop("error")).toBeTrue()
   })
 })

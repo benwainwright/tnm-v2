@@ -1,5 +1,5 @@
-import { Button } from "@common/components/atoms"
-import { recursiveTransform, addNewProps } from "@common/utils/react"
+import { Button, Input } from "@common/components/atoms"
+import { addNewProps } from "@common/utils/react"
 import { ErrorResponse } from "@common/types/error-response"
 import {
   Dispatch,
@@ -36,6 +36,8 @@ const FormError = styled.div`
   height: 1em;
   font-family: "Acumin Pro", Arial, sans-serif;
   margin-top: 1rem;
+  text-align: center;
+  font-weight: bold;
 `
 const StyledH2 = styled.h2`
   font-family: "Acumin Pro", Arial, sans-serif;
@@ -47,12 +49,12 @@ const findMessage = (
   errorMessages: ErrorResponse[],
   name: string
 ): ErrorResponse | undefined =>
-  errorMessages?.find((message) => message.field === name)
+  errorMessages?.find((message) => message.fields?.includes(name))
 
-const addErrorMessages = (nodes: ReactNode, errorMessages: ErrorResponse[]) =>
-  addNewProps(nodes, ({ props: { name } }) => ({
+const addErrorProp = (nodes: ReactNode, errorMessages: ErrorResponse[]) =>
+  addNewProps<typeof Input>(nodes, ({ props: { name } }) => ({
     apply: Boolean(findMessage(errorMessages, name)),
-    props: { errorMessage: findMessage(errorMessages, name)?.message },
+    props: { error: true },
   }))
 
 const addEventHandlers = <T,>(
@@ -60,7 +62,7 @@ const addEventHandlers = <T,>(
   data: T,
   setData: Dispatch<SetStateAction<T>>
 ) =>
-  addNewProps(nodes, ({ props: { name } }) => ({
+  addNewProps<typeof Input>(nodes, ({ props: { name } }) => ({
     apply: name,
     props: {
       onChange: (event: ChangeEvent<HTMLInputElement>) =>
@@ -78,11 +80,11 @@ function ChallengeForm<T>(
 ): ReactElement | null {
   const [data, setData] = useState<T | undefined>()
   const eventHandlersAdded = addEventHandlers(props.children, data, setData)
-  const errorMessagesAdded = addErrorMessages(
+  const errorMessagesAdded = addErrorProp(
     eventHandlersAdded,
     props.errors ?? []
   )
-  const formErrors = props.errors?.filter((error) => !error.field) ?? []
+  const formErrors = props.errors?.filter((error) => !error.fields) ?? []
   return (
     <FlexForm>
       <FormHeader>
