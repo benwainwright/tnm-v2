@@ -4,7 +4,6 @@ import { ISignUpResult } from "amazon-cognito-identity-js"
 import { mocked } from "ts-jest/utils"
 import { RegisterFormData } from "@common/types/srp-data"
 import { handleRegister } from "./handle-register";
-import Auth from "@aws-amplify/auth"
 
 jest.mock("@aws-amplify/auth")
 jest.mock("@common/aws/authenticate")
