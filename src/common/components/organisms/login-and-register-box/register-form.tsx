@@ -6,9 +6,7 @@ import { RegisterFormData } from "@common/types/srp-data"
 import styled from "@emotion/styled"
 
 export interface RegisterFormProps {
-  onSubmit: (
-    data: RegisterFormData
-  ) => void
+  onSubmit: (data: RegisterFormData) => void
   errors?: ErrorResponse[]
 }
 
@@ -34,10 +32,15 @@ const RegisterForm: FC<RegisterFormProps> = (props) => {
       errors={props.errors}
     >
       <Input label="Username" name="username" />
-      <Input label="Email Address" name="email" type="email" placeholder="a@b.c" />
+      <Input
+        label="Email Address"
+        name="email"
+        type="email"
+        placeholder="a@b.c"
+      />
       <FieldRow>
-        <Input label="Password" name="password" type='password' />
-        <Input label="Verify Password" name="verifyPassword" type="password"/>
+        <Input label="Password" name="password" type="password" />
+        <Input label="Verify Password" name="verifyPassword" type="password" />
       </FieldRow>
       <FieldRow>
         <Input label="First Name" name="firstName" />

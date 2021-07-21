@@ -48,7 +48,7 @@ const InputField = styled.input<InputProps>`
   font-family: "Acumin Pro", Arial, sans-serif;
   margin: 0;
   border-radius: 0;
-  border: 1px solid ${props => props.error ? `red` : BUTTON_BLACK};
+  border: 1px solid ${(props) => (props.error ? `red` : BUTTON_BLACK)};
   line-height: 1.5rem;
   padding: 0.5rem 0.5rem;
 `

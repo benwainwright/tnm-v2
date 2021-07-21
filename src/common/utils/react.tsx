@@ -16,7 +16,7 @@ export const recursiveTransform = (
       : node
   })
 
-type PropsOf<P> = P extends FC<infer T> ? T : never;
+type PropsOf<P> = P extends FC<infer T> ? T : never
 
 interface AddNewPropsReturnVal<P> {
   props: Partial<PropsOf<P>>

@@ -11,10 +11,20 @@ describe("The input component", () => {
   })
 
   it("passes the value prop through to the value prop of the component", () => {
-    const onChange = jest.fn();
+    const onChange = jest.fn()
 
-    render(<Input label="foo-input" value="some field value" onChange={onChange} name="an-input"/>)
-    expect(screen.getByLabelText("foo-input")).toHaveAttribute("value", "some field value")
+    render(
+      <Input
+        label="foo-input"
+        value="some field value"
+        onChange={onChange}
+        name="an-input"
+      />
+    )
+    expect(screen.getByLabelText("foo-input")).toHaveAttribute(
+      "value",
+      "some field value"
+    )
   })
 
   it("Id is set the same as the name", () => {
@@ -23,18 +33,26 @@ describe("The input component", () => {
   })
 
   it("passes the 'type' prop through to the underlying input field", () => {
-    render(<Input name="input-name" label="A Label" type="email"/>)
+    render(<Input name="input-name" label="A Label" type="email" />)
     expect(screen.getByLabelText("A Label")).toHaveAttribute("type", "email")
   })
 
   it("passes the 'placeholder' prop through to the underlying input field", () => {
-    render(<Input name="input-name" placeholder="type something" label="A Label"/>)
-    expect(screen.getByLabelText("A Label")).toHaveAttribute("placeholder", "type something")
+    render(
+      <Input name="input-name" placeholder="type something" label="A Label" />
+    )
+    expect(screen.getByLabelText("A Label")).toHaveAttribute(
+      "placeholder",
+      "type something"
+    )
   })
 
   it("renders a red outline if there is an error", () => {
-    render(<Input error name="input-name" label="A Label"/>)
-    expect(screen.getByLabelText("A Label")).toHaveStyleRule("border", `1px solid red`);
+    render(<Input error name="input-name" label="A Label" />)
+    expect(screen.getByLabelText("A Label")).toHaveStyleRule(
+      "border",
+      `1px solid red`
+    )
   })
 
   it("triggers the component onChange handler if there is a change in the element", () => {
@@ -47,6 +65,10 @@ describe("The input component", () => {
       userEvent.type(input, "hello")
     })
 
-    expect(onChange).toHaveBeenCalledWith(expect.objectContaining({ target: expect.objectContaining({ value: "hello" }) }))
+    expect(onChange).toHaveBeenCalledWith(
+      expect.objectContaining({
+        target: expect.objectContaining({ value: "hello" }),
+      })
+    )
   })
 })

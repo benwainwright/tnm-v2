@@ -1,8 +1,9 @@
 import { handleLogin } from "./handle-login"
 import { login, newPasswordChallengeResponse } from "@common/aws/authenticate"
-import { LoginState } from "./login-and-register-box"
+
 import { navigate } from "gatsby"
 import { mocked } from "ts-jest/utils"
+import { LoginState } from "./login-box"
 
 jest.mock("gatsby")
 jest.mock("@common/aws/authenticate")
@@ -12,8 +13,6 @@ describe("the login handler", () => {
   afterEach(() => {
     jest.restoreAllMocks()
   })
-
-
 
   it("Fires the setErrorMessage handler if an error is thrown", async () => {
     mocked(login).mockRejectedValue(new Error("AN ERROR!"))

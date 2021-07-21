@@ -3,7 +3,7 @@ import { mock } from "jest-mock-extended"
 import { ISignUpResult } from "amazon-cognito-identity-js"
 import { mocked } from "ts-jest/utils"
 import { RegisterFormData } from "@common/types/srp-data"
-import { handleRegister } from "./handle-register";
+import { handleRegister } from "./handle-register"
 
 jest.mock("@aws-amplify/auth")
 jest.mock("@common/aws/authenticate")

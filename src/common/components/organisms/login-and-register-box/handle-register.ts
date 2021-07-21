@@ -29,6 +29,6 @@ export const handleRegister = async (
       data.telephone
     )
   } catch (error) {
-    setErrorMessage({message: error.message})
+    setErrorMessage({ message: error.message })
   }
 }

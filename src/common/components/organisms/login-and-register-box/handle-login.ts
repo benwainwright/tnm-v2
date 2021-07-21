@@ -6,8 +6,8 @@ import {
   ChangePasswordFormData,
 } from "@common/types/srp-data"
 import { navigate } from "gatsby"
-import { LoginState } from "./login-and-register-box"
 import { login, newPasswordChallengeResponse } from "@common/aws/authenticate"
+import { LoginState } from "./login-box"
 
 const isLoginData = (
   formData: SrpData,

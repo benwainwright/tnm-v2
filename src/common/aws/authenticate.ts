@@ -43,13 +43,13 @@ export const register = async (
     username,
     password,
     attributes: {
-      "custom:salutation":salutation,
-      "email":email,
-      "given_name":firstname,
-      "family_name":surname,
-      "address":address,
-      "phone_number":telephone,
-    }
+      "custom:salutation": salutation,
+      email: email,
+      given_name: firstname,
+      family_name: surname,
+      address: address,
+      phone_number: telephone,
+    },
   })
 }
 
