@@ -27,4 +27,8 @@ export interface RegisterFormData {
   townOrCity?: string
 }
 
-export type SrpData = LoginFormData | MfaFormData | ChangePasswordFormData
+export type SrpData =
+  | LoginFormData
+  | MfaFormData
+  | ChangePasswordFormData
+  | RegisterFormData
