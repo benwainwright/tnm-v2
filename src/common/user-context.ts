@@ -1,6 +1,7 @@
 import { createContext, Dispatch, SetStateAction } from "react"
 
 export type User = {
+  name: string
   email: string
 }
 
@@ -11,5 +12,5 @@ type UserContextType = {
 
 export const UserContext = createContext<UserContextType>({
   user: undefined,
-  setUser: undefined,
+  setUser: undefined
 })

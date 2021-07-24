@@ -1,43 +1,39 @@
-import { shallow } from "enzyme"
 import Authenticated, { Redirect } from "./authenticated"
-import renderer from "react-test-renderer"
 import { currentUser } from "@common/aws/authenticate"
 import { mocked } from "ts-jest/utils"
+import { render, screen, waitFor } from "@testing-library/react"
+import { navigate } from "gatsby"
 
 jest.mock("@common/aws/authenticate")
+jest.mock("gatsby")
 
 describe("The <Authenticated> component", () => {
-  it("renders without errors", () => {
-    shallow(<Authenticated redirect={Redirect.IfLoggedIn} />)
-  })
-
-  it("renders its children", () => {
-    const wrapper = shallow(
-      <Authenticated redirect={Redirect.IfLoggedIn}>Hello!</Authenticated>
-    )
-    expect(wrapper.text()).toInclude("Hello!")
-  })
-
-  it("hides its contents on first render", () => {
-    const authenticated = renderer
-      .create(<Authenticated redirect={Redirect.IfLoggedIn} />)
-      .toJSON()
-    expect(authenticated).toHaveStyleRule("display", "none")
-  })
-
-  it.skip("shows contents when a user has been found", () => {
+  it("shows contents when a user has been found", async () => {
     const user = jest.fn()
     mocked(currentUser).mockResolvedValue(user)
-    // eslint-disable-next-line fp/no-let
-    let authenticated: ReturnType<typeof renderer.create> | undefined
-    authenticated = renderer.create(
-      <Authenticated redirect={Redirect.IfLoggedIn} />
-    )
 
-    renderer.act(() => {
-      authenticated?.update(<Authenticated redirect={Redirect.IfLoggedIn} />)
-    })
+    render(<Authenticated redirect={Redirect.IfLoggedIn}>Hello!</Authenticated>)
 
-    expect(authenticated.toJSON()).toHaveStyleRule("display", "block")
+    const childText = await screen.findByText("Hello!")
+
+    expect(childText).toBeInTheDocument()
+  })
+
+  it("does not show content when a user has not been found", async () => {
+    mocked(currentUser).mockReturnValue(Promise.resolve())
+
+    render(<Authenticated redirect={Redirect.IfLoggedIn}>Hello!</Authenticated>)
+
+    const childText = await screen.findByText("Hello!")
+
+    expect(childText).not.toBeInTheDocument()
+  })
+
+  it("Redirects to /login/ when no user has been found", async () => {
+    mocked(currentUser).mockReturnValue(Promise.resolve())
+
+    render(<Authenticated redirect={Redirect.IfLoggedIn}>Hello!</Authenticated>)
+
+    await waitFor(() => expect(navigate).toHaveBeenCalledWith("/login/"))
   })
 })

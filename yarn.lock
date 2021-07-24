@@ -20112,6 +20112,15 @@ fsevents@^1.2.7:
   languageName: node
   linkType: hard
 
+"jest-skipped-reporter@npm:^0.0.5":
+  version: 0.0.5
+  resolution: "jest-skipped-reporter@npm:0.0.5"
+  dependencies:
+    jest-util: ^24.9.0
+  checksum: 8a3773f0f752e1f778372b389737a3169d5c01080928276f0aaff363b71d3b6e9a858d76add73d8e70bab04d47032ae935e6816facdf9a34e4e79f9a647ad066
+  languageName: node
+  linkType: hard
+
 "jest-snapshot@npm:^27.0.4":
   version: 27.0.4
   resolution: "jest-snapshot@npm:27.0.4"
@@ -30142,6 +30151,7 @@ resolve@^2.0.0-next.3:
     jest-extended: ^0.11.5
     jest-junit: ^12.2.0
     jest-mock-extended: ^1.0.15
+    jest-skipped-reporter: ^0.0.5
     jest-svg-transformer: ^1.0.0
     jest-transform-stub: ^2.0.0
     jest-when: ^3.3.1

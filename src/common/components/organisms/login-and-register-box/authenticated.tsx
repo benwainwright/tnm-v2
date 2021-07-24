@@ -5,7 +5,7 @@ import styled from "@emotion/styled"
 
 export enum Redirect {
   IfLoggedIn,
-  IfLoggedOut,
+  IfLoggedOut
 }
 
 interface AuthenticatedProps {
@@ -13,7 +13,7 @@ interface AuthenticatedProps {
   redirectPath?: string
 }
 
-const Authenticated: FC<AuthenticatedProps> = (props) => {
+const Authenticated: FC<AuthenticatedProps> = props => {
   const [authenticated, setAuthenticated] = useState(false)
 
   useEffect(() => {

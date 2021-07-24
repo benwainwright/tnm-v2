@@ -3,7 +3,7 @@ import AWS from "aws-sdk"
 import { seedCognito, TEST_USER } from "./seed-cognito"
 import {
   AdminDeleteUserRequest,
-  AdminCreateUserRequest,
+  AdminCreateUserRequest
 } from "aws-sdk/clients/cognitoidentityserviceprovider"
 
 describe("seed cognito", () => {
@@ -24,7 +24,7 @@ describe("seed cognito", () => {
     process.env.CYPRESS_POOL_ID = "foo-id"
     process.env.CYPRESS_TEST_USER_INITIAL_PASSWORD = "password-thing"
     const mockAdminDeleteUser = jest.fn(
-      (params: AdminDeleteUserRequest, callback: Function) => {
+      (_params: AdminDeleteUserRequest, callback: Function) => {
         callback()
       }
     )
@@ -36,7 +36,7 @@ describe("seed cognito", () => {
     )
 
     const mockAdminCreateUser = jest.fn(
-      (params: AdminCreateUserRequest, callback: Function) => {
+      (_params: AdminCreateUserRequest, callback: Function) => {
         callback()
       }
     )
@@ -52,7 +52,7 @@ describe("seed cognito", () => {
     expect(mockAdminDeleteUser).toBeCalledWith(
       {
         UserPoolId: "foo-id",
-        Username: TEST_USER,
+        Username: TEST_USER
       },
       expect.anything()
     )
@@ -64,7 +64,7 @@ describe("seed cognito", () => {
     process.env.CYPRESS_TEST_USER_INITIAL_PASSWORD = "password-thing"
 
     const mockAdminDeleteUser = jest.fn(
-      (params: AdminDeleteUserRequest, callback: Function) => {
+      (_params: AdminDeleteUserRequest, callback: Function) => {
         callback()
       }
     )
@@ -76,7 +76,7 @@ describe("seed cognito", () => {
     )
 
     const mockAdminCreateUser = jest.fn(
-      (params: AdminCreateUserRequest, callback: Function) => {
+      (_params: AdminCreateUserRequest, callback: Function) => {
         callback()
       }
     )
@@ -99,24 +99,30 @@ describe("seed cognito", () => {
         UserAttributes: [
           {
             Name: "email_verified",
-            Value: "True",
+            Value: "True"
           },
           {
             Name: "phone_number_verified",
-            Value: "True",
+            Value: "True"
           },
           {
             Name: "email",
-            Value: "foo@bar.com",
+            Value: "foo@bar.com"
           },
           {
             Name: "phone_number",
-            Value: "+447732432435",
-          },
-        ],
+            Value: "+447732432435"
+          }
+        ]
       },
       expect.anything()
     )
+  })
+
+  it("throws an error if there is no cypress initial password", async () => {
+    process.env.CYPRESS_POOL_ID = "foo-id"
+    process.env.CYPRESS_TEST_EMAIL = "foo@bar.com"
+    await expect(seedCognito()).rejects.toThrow()
   })
 
   it("Throws an error if there is no email", async () => {
