@@ -7,7 +7,7 @@ const commonConfig: Config.InitialOptions = {
     "^.+\\.[jt]sx?$": "<rootDir>/config/jest-preprocess.js"
   },
   moduleNameMapper: {
-    "^@common(.*)$": "<rootDir>/src/common$1"
+    "^@app(.*)$": "<rootDir>/src/app$1"
   },
 
   testPathIgnorePatterns: [
