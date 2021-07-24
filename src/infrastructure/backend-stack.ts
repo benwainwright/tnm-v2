@@ -1,7 +1,16 @@
+/* eslint-disable unicorn/prefer-module */
 import * as cdk from "aws-cdk-lib"
 import * as cognito from "aws-cdk-lib/aws-cognito"
-import { IUserPool } from "aws-cdk-lib/aws-cognito"
+import { UserPool } from "aws-cdk-lib/aws-cognito"
+import {
+  Cors,
+  LambdaIntegration,
+  RestApi
+} from "aws-cdk-lib/lib/aws-apigateway"
+import { AttributeType, BillingMode, Table } from "aws-cdk-lib/lib/aws-dynamodb"
+import { NodejsFunction } from "aws-cdk-lib/lib/aws-lambda-nodejs"
 import { Construct } from "constructs"
+import path from "path"
 
 interface BackendStackProps extends cdk.StackProps {
   environmentName: string
@@ -9,7 +18,7 @@ interface BackendStackProps extends cdk.StackProps {
 }
 
 export class BackendStack extends cdk.Stack {
-  public userPool: IUserPool
+  public userPool: UserPool
   constructor(scope: Construct, props: BackendStackProps) {
     super(scope, `${props.environmentName}-TnmV2BackendStack`, {
       env: props.env
@@ -88,5 +97,82 @@ export class BackendStack extends cdk.Stack {
     new cdk.CfnOutput(this, "Redirect Url", {
       value: signInUrl
     })
+
+    const customisationsTable = new Table(this, "CustomisationsTable", {
+      tableName: `${props.environmentName}-TnmV2-customisations-table`,
+      billingMode: BillingMode.PAY_PER_REQUEST,
+      partitionKey: {
+        name: "id",
+        type: AttributeType.STRING
+      }
+    })
+
+    new Table(this, "RecipesTable", {
+      tableName: `${props.environmentName}-TnmV2-recipes-table`,
+      billingMode: BillingMode.PAY_PER_REQUEST,
+      partitionKey: {
+        name: "id",
+        type: AttributeType.STRING
+      }
+    })
+
+    const appApi = new RestApi(this, "api", {
+      defaultCorsPreflightOptions: {
+        allowOrigins: Cors.ALL_ORIGINS
+      },
+      restApiName: `${props.environmentName}-api`
+    })
+
+    const customersFunction = new NodejsFunction(this, "CustomersApiFunction", {
+      functionName: `${props.environmentName}-TnmV2-customers-api-function`,
+      entry: path.resolve(
+        __dirname,
+        "..",
+        "app",
+        "api",
+        "handlers",
+        "customers.ts"
+      )
+    })
+    const customersResource = appApi.root.addResource("customers")
+    const customersIntegration = new LambdaIntegration(customersFunction)
+    customersResource.addMethod("GET", customersIntegration)
+
+    const recipesFunction = new NodejsFunction(this, "RecipesApiFunction", {
+      functionName: `${props.environmentName}-TnmV2-recipes-api-function`,
+      entry: path.resolve(
+        __dirname,
+        "..",
+        "app",
+        "api",
+        "handlers",
+        "recipes.ts"
+      )
+    })
+    const recipesResource = appApi.root.addResource("recipes")
+    const recipesIntegration = new LambdaIntegration(recipesFunction)
+    recipesResource.addMethod("GET", recipesIntegration)
+
+    const customisationsFunction = new NodejsFunction(
+      this,
+      "CustomisationsApiFunction",
+      {
+        functionName: `${props.environmentName}-TnmV2-customisations-api-function`,
+        entry: path.resolve(
+          __dirname,
+          "..",
+          "app",
+          "api",
+          "handlers",
+          "customisations.ts"
+        )
+      }
+    )
+    const customisationsResource = appApi.root.addResource("customisations")
+    const customisationsIntegration = new LambdaIntegration(
+      customisationsFunction
+    )
+    customisationsResource.addMethod("GET", customisationsIntegration)
+    customisationsTable.grantReadData(customisationsFunction)
   }
 }

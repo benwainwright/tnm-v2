@@ -14537,6 +14537,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"esbuild@npm:^0.12.15":
+  version: 0.12.15
+  resolution: "esbuild@npm:0.12.15"
+  bin:
+    esbuild: bin/esbuild
+  checksum: 22ec14d41c8a9256934b476575f3dbb47437c3c9953c4e4e00560454449075822c0824fa982a51cb545c255c561a781908da9711081d57b4f3bca15341569906
+  languageName: node
+  linkType: hard
+
 "escalade@npm:^3.0.2, escalade@npm:^3.1.1":
   version: 3.1.1
   resolution: "escalade@npm:3.1.1"
@@ -31321,6 +31330,7 @@ resolve@^2.0.0-next.3:
     constructs: ^10.0.5
     cypress: 8.0.0
     enzyme: ^3.11.0
+    esbuild: ^0.12.15
     eslint: ^7.28.0
     eslint-config-react-app: ^6.0.0
     eslint-index: ^1.5.0
