@@ -81,3 +81,4 @@ tags.lock
 storybook
 junit
 cypress.env.json
+cypress/videos
