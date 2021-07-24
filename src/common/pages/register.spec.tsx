@@ -1,13 +1,13 @@
-import { mocked } from "ts-jest/utils"
-import { render, screen } from "@testing-library/react"
 import { currentUser } from "@common/aws/authenticate"
+import { render, screen } from "@testing-library/react"
 import { useStaticQuery } from "gatsby"
-import Login from "./login"
+import { mocked } from "ts-jest/utils"
+import Register from "./register"
 
 jest.mock("gatsby")
 jest.mock("@common/aws/authenticate")
 
-test("The login page shows the login tab by default", async () => {
+test("The register page shows the register tab by default", async () => {
   const user = jest.fn()
   mocked(currentUser).mockResolvedValue(user)
 
@@ -15,9 +15,9 @@ test("The login page shows the login tab by default", async () => {
     site: { siteMetadata: { title: "foo", description: "foo" } }
   })
 
-  render(<Login />)
+  render(<Register />)
 
-  const forgot = await screen.findByText("Forgot your password?")
+  const forgot = await screen.findByText("Verify Password")
 
   expect(forgot).toBeInTheDocument()
 })

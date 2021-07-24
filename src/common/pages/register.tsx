@@ -25,7 +25,7 @@ const YourAccountHeader = styled("h1")`
   margin: 0.5rem 0 0 0;
 `
 
-const Login: FC = () => {
+const Register: FC = () => {
   return (
     <Authenticated redirect={Redirect.IfLoggedIn} redirectPath="/account/">
       <Layout>
@@ -36,10 +36,10 @@ const Login: FC = () => {
             <YourAccountHeader>Your Account</YourAccountHeader>
           </YourAccountHeaderBox>
         </Hero>
-        <LoginAndRegisterBox defaultTab="Login" />
+        <LoginAndRegisterBox defaultTab="Register" />
       </Layout>
     </Authenticated>
   )
 }
 
-export default Login
+export default Register

@@ -8,9 +8,22 @@ const Padding = styled.div`
   padding: 1.5rem 5rem 3rem 5rem;
 `
 
-const LoginAndRegisterBox: FC = () => (
+interface LoginAndRegisterBoxProps {
+  defaultTab: string
+}
+
+const LoginAndRegisterBox: FC<LoginAndRegisterBoxProps> = props => (
   <Box>
-    <TabBox>
+    <TabBox
+      defaultTab={props.defaultTab}
+      onChange={tab => {
+        window.history.replaceState(
+          null,
+          "",
+          `/${tab.props.tabTitle.toLocaleLowerCase()}/`
+        )
+      }}
+    >
       <Tab tabTitle="Login">
         <Padding>
           <LoginBox />

@@ -21,7 +21,6 @@ const commonConfig: Config.InitialOptions = {
 }
 
 const config: Config.InitialOptions = {
-  reporters: ["default", "jest-skipped-reporter"],
   collectCoverageFrom: [
     "<rootDir>/src/**/*.{ts,tsx}",
     "!<rootDir>/src/**/*.spec.{ts,tsx}",

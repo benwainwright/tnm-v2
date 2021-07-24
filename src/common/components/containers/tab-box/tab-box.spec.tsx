@@ -78,4 +78,16 @@ describe("The <TabBox> component", () => {
 
     expect(screen.queryByText("One")).not.toBeInTheDocument()
   })
+
+  it("renders the defaultTab first if provided", () => {
+    render(
+      <TabBox defaultTab="twoTitle">
+        <Tab tabTitle="oneTitle">One</Tab>
+        <Tab tabTitle="twoTitle">Two</Tab>
+      </TabBox>
+    )
+
+    expect(screen.queryByText("One")).not.toBeInTheDocument()
+    expect(screen.queryByText("Two")).toBeInTheDocument()
+  })
 })

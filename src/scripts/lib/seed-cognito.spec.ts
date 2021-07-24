@@ -5,6 +5,9 @@ import {
   AdminDeleteUserRequest,
   AdminCreateUserRequest
 } from "aws-sdk/clients/cognitoidentityserviceprovider"
+import { readJson } from "fs-extra"
+
+jest.mock("fs-extra")
 
 describe("seed cognito", () => {
   beforeEach(() => {
@@ -21,8 +24,19 @@ describe("seed cognito", () => {
 
   it("deletes the test-user", async () => {
     process.env.CYPRESS_TEST_EMAIL = "foo@bar.com"
-    process.env.CYPRESS_POOL_ID = "foo-id"
     process.env.CYPRESS_TEST_USER_INITIAL_PASSWORD = "password-thing"
+
+    const data = {
+      "dev-TnmV2BackendStack": {
+        UserPoolId: "foo-id",
+        AuthUrl: "https://dev-tnmv2-auth.auth.eu-west-2.amazoncognito.com",
+        ClientId: "5a4apnputbtdiso76mqgheu17d",
+        RedirectUrl:
+          "https://dev-tnmv2-auth.auth.eu-west-2.amazoncognito.com/login?client_id=5a4apnputbtdiso76mqgheu17d&response_type=code&redirect_uri=https://d2bnp0b9ah9f76.cloudfront.net/"
+      }
+    }
+
+    ;(readJson as any).mockResolvedValue(data)
     const mockAdminDeleteUser = jest.fn(
       (_params: AdminDeleteUserRequest, callback: Function) => {
         callback()
@@ -59,7 +73,17 @@ describe("seed cognito", () => {
   })
 
   it("recreates the test-user with the correct email and password", async () => {
-    process.env.CYPRESS_POOL_ID = "foo-id"
+    const data = {
+      "dev-TnmV2BackendStack": {
+        UserPoolId: "foo-id",
+        AuthUrl: "https://dev-tnmv2-auth.auth.eu-west-2.amazoncognito.com",
+        ClientId: "5a4apnputbtdiso76mqgheu17d",
+        RedirectUrl:
+          "https://dev-tnmv2-auth.auth.eu-west-2.amazoncognito.com/login?client_id=5a4apnputbtdiso76mqgheu17d&response_type=code&redirect_uri=https://d2bnp0b9ah9f76.cloudfront.net/"
+      }
+    }
+
+    ;(readJson as any).mockResolvedValue(data)
     process.env.CYPRESS_TEST_EMAIL = "foo@bar.com"
     process.env.CYPRESS_TEST_USER_INITIAL_PASSWORD = "password-thing"
 
