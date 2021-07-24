@@ -1,9 +1,9 @@
 import { FC, useEffect } from "react"
 
-import { ParagraphText } from "@common/components/atoms"
-import { Layout, Hero } from "@common/components/containers"
-import Seo from "@common/components/seo"
-import { signOut } from "@common/aws/authenticate"
+import { ParagraphText } from "@app/components/atoms"
+import { Layout, Hero } from "@app/components/containers"
+import Seo from "@app/components/seo"
+import { signOut } from "@app/aws/authenticate"
 import styled from "@emotion/styled"
 
 const StyledDiv = styled.div`

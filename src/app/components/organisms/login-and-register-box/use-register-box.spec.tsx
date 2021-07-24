@@ -1,5 +1,5 @@
-import { confirmSignup, login, register } from "@common/aws/authenticate"
-import { RegisterFormData } from "@common/types/srp-data"
+import { confirmSignup, login, register } from "@app/aws/authenticate"
+import { RegisterFormData } from "@app/types/srp-data"
 import { act, renderHook } from "@testing-library/react-hooks"
 import { CognitoUser, ISignUpResult } from "amazon-cognito-identity-js"
 import { navigate } from "gatsby"
@@ -8,7 +8,7 @@ import { when } from "jest-when"
 import { mocked } from "ts-jest/utils"
 import { RegisterState, useRegisterBox } from "./use-register-box"
 
-jest.mock("@common/aws/authenticate")
+jest.mock("@app/aws/authenticate")
 jest.mock("gatsby")
 
 afterEach(() => jest.clearAllMocks())

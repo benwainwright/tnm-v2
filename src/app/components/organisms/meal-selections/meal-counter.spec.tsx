@@ -1,7 +1,7 @@
 import { shallow } from "enzyme"
 import MealCounter from "./meal-counter"
-import { QuantityStepper } from "@common/components/molecules"
-import { ParagraphText } from "@common/components/atoms"
+import { QuantityStepper } from "@app/components/molecules"
+import { ParagraphText } from "@app/components/atoms"
 import { render, screen } from "@testing-library/react"
 
 describe("The <MealCounter> component", () => {
@@ -27,7 +27,7 @@ describe("The <MealCounter> component", () => {
     expect(
       wrapper
         .find(ParagraphText)
-        .findWhere((text) => text.prop("children") === "bar")
+        .findWhere(text => text.prop("children") === "bar")
     ).toHaveLength(1)
   })
 

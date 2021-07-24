@@ -1,9 +1,9 @@
 import { FC, useState, useEffect } from "react"
-import { Footer, Header } from "@common/components/organisms"
+import { Footer, Header } from "@app/components/organisms"
 import "./layout.css"
-import { UserContext, User } from "@common/user-context"
-import { currentUser } from "@common/aws/authenticate"
-import { useAxe } from "@common/hooks"
+import { UserContext, User } from "@app/user-context"
+import { currentUser } from "@app/aws/authenticate"
+import { useAxe } from "@app/hooks"
 
 import styled from "@emotion/styled"
 

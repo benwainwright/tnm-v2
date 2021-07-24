@@ -30,7 +30,7 @@ module.exports = async ({ config }) => {
           "module-resolver",
           {
             alias: {
-              "@common": "./src/common",
+              "@app": "./src/app",
             },
           },
         ],

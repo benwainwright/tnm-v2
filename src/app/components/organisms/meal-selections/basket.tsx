@@ -1,7 +1,7 @@
 import { FC, Dispatch, SetStateAction } from "react"
 import { Meal } from "./meal"
 import { SelectedThings } from "./selected-things"
-import { QuantityStepper } from "@common/components/molecules"
+import { QuantityStepper } from "@app/components/molecules"
 import styled from "@emotion/styled"
 
 interface BasketProps {
@@ -35,10 +35,10 @@ const makeBasketItems = (
   Object.entries(selectedThings)
     .filter(([, count]) => count > 0)
     .map(([id, count]) => ({
-      ...available.find((thing) => thing.id === id),
-      count,
+      ...available.find(thing => thing.id === id),
+      count
     }))
-    .map((thing) => (
+    .map(thing => (
       <QuantityStepper
         key={`${thing.id}-basket-item`}
         label={thing.title}
@@ -58,7 +58,7 @@ const BasketHeader = styled.h3`
   padding: 0;
 `
 
-const Basket: FC<BasketProps> = (props) => {
+const Basket: FC<BasketProps> = props => {
   const totalSelected = Object.entries(props.selectedMeals).reduce(
     (accum, item) => accum + item[1],
     0

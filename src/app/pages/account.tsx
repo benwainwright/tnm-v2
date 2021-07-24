@@ -1,9 +1,9 @@
 import { FC } from "react"
-import { Hero, Layout } from "@common/components/containers"
-import AccountIcon from "@common/assets/images/icons/TNM_Icons_Final_Account.png"
+import { Hero, Layout } from "@app/components/containers"
+import AccountIcon from "@app/assets/images/icons/TNM_Icons_Final_Account.png"
 import Authenticated, {
-  Redirect,
-} from "@common/components/organisms/login-and-register-box/authenticated"
+  Redirect
+} from "@app/components/organisms/login-and-register-box/authenticated"
 import Seo from "../components/seo"
 import styled from "@emotion/styled"
 

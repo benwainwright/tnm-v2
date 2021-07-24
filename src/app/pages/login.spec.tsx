@@ -1,11 +1,11 @@
 import { mocked } from "ts-jest/utils"
 import { render, screen } from "@testing-library/react"
-import { currentUser } from "@common/aws/authenticate"
+import { currentUser } from "@app/aws/authenticate"
 import { useStaticQuery } from "gatsby"
 import Login from "./login"
 
 jest.mock("gatsby")
-jest.mock("@common/aws/authenticate")
+jest.mock("@app/aws/authenticate")
 
 test("The login page shows the login tab by default", async () => {
   const user = jest.fn()

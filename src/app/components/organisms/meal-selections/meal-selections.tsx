@@ -1,5 +1,5 @@
 import { FC, useState } from "react"
-import { TabBox, Tab } from "@common/components/containers"
+import { TabBox, Tab } from "@app/components/containers"
 import MealList from "./meal-list"
 import TabButton from "./tab-button"
 import styled from "@emotion/styled"
@@ -30,9 +30,9 @@ const DivContainer = styled.div`
 `
 
 const createDefaultSelectedThings = (things: Meal[]) =>
-  Object.fromEntries(things.map((thing) => [thing.id, 0]))
+  Object.fromEntries(things.map(thing => [thing.id, 0]))
 
-const MealSelections: FC<MealSelectionsProps> = (props) => {
+const MealSelections: FC<MealSelectionsProps> = props => {
   const [selectedMeals, setSelectedMeals] = useState(
     createDefaultSelectedThings(props.mealsAvailable)
   )
@@ -79,7 +79,7 @@ const MealSelections: FC<MealSelectionsProps> = (props) => {
           available={[
             ...props.mealsAvailable,
             ...props.snacksAvailable,
-            ...props.breakfastsAvailable,
+            ...props.breakfastsAvailable
           ]}
           selectedMeals={selectedMeals}
           setMeals={setSelectedMeals}

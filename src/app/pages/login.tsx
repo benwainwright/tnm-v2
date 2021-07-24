@@ -3,10 +3,10 @@ import {
   LoginAndRegisterBox,
   Authenticated,
   Redirect
-} from "@common/components/organisms"
-import AccountIcon from "@common/assets/images/icons/TNM_Icons_Final_Account.png"
-import Seo from "@common/components/seo"
-import { Hero, Layout } from "@common/components/containers"
+} from "@app/components/organisms"
+import AccountIcon from "@app/assets/images/icons/TNM_Icons_Final_Account.png"
+import Seo from "@app/components/seo"
+import { Hero, Layout } from "@app/components/containers"
 import styled from "@emotion/styled"
 
 const YourAccountHeaderBox = styled("div")`

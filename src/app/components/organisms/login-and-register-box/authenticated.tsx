@@ -1,5 +1,5 @@
 import { FC, useState, useEffect } from "react"
-import { currentUser } from "@common/aws/authenticate"
+import { currentUser } from "@app/aws/authenticate"
 import { navigate } from "gatsby"
 import styled from "@emotion/styled"
 

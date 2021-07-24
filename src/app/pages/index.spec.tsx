@@ -1,4 +1,4 @@
-import { Layout } from "@common/components/containers"
+import { Layout } from "@app/components/containers"
 import { shallow } from "enzyme"
 import IndexPage from "./index"
 

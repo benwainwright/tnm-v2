@@ -1,7 +1,7 @@
 import { FC } from "react"
-import { QuantityStepper } from "@common/components/molecules"
+import { QuantityStepper } from "@app/components/molecules"
 import { uniqueId } from "lodash"
-import { ParagraphText } from "@common/components/atoms"
+import { ParagraphText } from "@app/components/atoms"
 import styled from "@emotion/styled"
 
 export interface MealCounterProps {
@@ -26,7 +26,7 @@ const Container = styled.section`
   align-items: center;
 `
 
-const MealCounter: FC<MealCounterProps> = (props) => {
+const MealCounter: FC<MealCounterProps> = props => {
   const headerId = uniqueId()
   return (
     <Container aria-labelledby={headerId}>

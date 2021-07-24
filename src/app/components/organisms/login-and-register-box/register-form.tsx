@@ -1,8 +1,8 @@
 import { FC } from "react"
-import { ChallengeForm } from "@common/components/containers"
-import { Input } from "@common/components/atoms"
-import { ErrorResponse } from "@common/types/error-response"
-import { RegisterFormData } from "@common/types/srp-data"
+import { ChallengeForm } from "@app/components/containers"
+import { Input } from "@app/components/atoms"
+import { ErrorResponse } from "@app/types/error-response"
+import { RegisterFormData } from "@app/types/srp-data"
 import styled from "@emotion/styled"
 
 export interface RegisterFormProps {

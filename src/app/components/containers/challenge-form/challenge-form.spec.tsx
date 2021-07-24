@@ -1,5 +1,5 @@
 import { mount, shallow } from "enzyme"
-import { Button, Input } from "@common/components/atoms"
+import { Button, Input } from "@app/components/atoms"
 import ChallengeForm from "./challenge-form"
 import { act } from "react-dom/test-utils"
 import { mock } from "jest-mock-extended"
@@ -61,7 +61,7 @@ describe("the challenge form", () => {
 
     expect(mockOnSubmit).toHaveBeenCalledWith({
       foo: "foo-value",
-      bar: "bar-value",
+      bar: "bar-value"
     })
   })
 
@@ -124,7 +124,7 @@ describe("the challenge form", () => {
 
     expect(mockOnSubmit).toHaveBeenCalledWith({
       foo: "foo-value",
-      bar: "bar-value",
+      bar: "bar-value"
     })
   })
 
@@ -151,8 +151,8 @@ describe("the challenge form", () => {
 
     expect(wrapper.text()).toInclude("An error")
 
-    const fooInput = wrapper.findWhere((input) => input.prop("name") === "foo")
-    const barInput = wrapper.findWhere((input) => input.prop("name") === "bar")
+    const fooInput = wrapper.findWhere(input => input.prop("name") === "foo")
+    const barInput = wrapper.findWhere(input => input.prop("name") === "bar")
 
     expect(fooInput.prop("error")).toBeUndefined()
     expect(barInput.prop("error")).toBeUndefined()
@@ -188,7 +188,7 @@ describe("the challenge form", () => {
     const mockOnSubmit = mock<(data: FormData) => void>()
 
     const errorMessages = [
-      { fields: ["bar"], message: "An error message for bar" },
+      { fields: ["bar"], message: "An error message for bar" }
     ]
 
     const wrapper = shallow(
@@ -202,8 +202,8 @@ describe("the challenge form", () => {
       </ChallengeForm>
     )
 
-    const fooInput = wrapper.findWhere((input) => input.prop("name") === "foo")
-    const barInput = wrapper.findWhere((input) => input.prop("name") === "bar")
+    const fooInput = wrapper.findWhere(input => input.prop("name") === "foo")
+    const barInput = wrapper.findWhere(input => input.prop("name") === "bar")
 
     expect(fooInput.prop("error")).toBeUndefined()
     expect(barInput.prop("error")).toBeTrue()
@@ -218,7 +218,7 @@ describe("the challenge form", () => {
     const mockOnSubmit = mock<(data: FormData) => void>()
 
     const errorMessages = [
-      { fields: ["bar"], message: "An error message for bar" },
+      { fields: ["bar"], message: "An error message for bar" }
     ]
 
     const wrapper = shallow(
@@ -232,8 +232,8 @@ describe("the challenge form", () => {
       </ChallengeForm>
     )
 
-    const fooInput = wrapper.findWhere((input) => input.prop("name") === "foo")
-    const barInput = wrapper.findWhere((input) => input.prop("name") === "bar")
+    const fooInput = wrapper.findWhere(input => input.prop("name") === "foo")
+    const barInput = wrapper.findWhere(input => input.prop("name") === "bar")
 
     expect(fooInput.prop("error")).toBeUndefined()
     expect(barInput.prop("error")).toBeTrue()

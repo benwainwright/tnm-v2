@@ -1,6 +1,6 @@
 import { FC } from "react"
 
-import { Layout } from "@common/components/containers"
+import { Layout } from "@app/components/containers"
 import Seo from "../components/seo"
 
 const NotFoundPage: FC = () => (

@@ -2,8 +2,8 @@ import { FC } from "react"
 
 import styled from "@emotion/styled"
 import TnmHeader from "../../../assets/images/TNM-Header.svg"
-import { Button } from "@common/components/atoms"
-import { BUTTON_BLACK } from "@common/config"
+import { Button } from "@app/components/atoms"
+import { BUTTON_BLACK } from "@app/config"
 
 const HeaderUnorderedList = styled("ul")`
   display: flex;

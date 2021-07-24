@@ -1,10 +1,10 @@
 import Authenticated, { Redirect } from "./authenticated"
-import { currentUser } from "@common/aws/authenticate"
+import { currentUser } from "@app/aws/authenticate"
 import { mocked } from "ts-jest/utils"
 import { render, screen, waitFor } from "@testing-library/react"
 import { navigate } from "gatsby"
 
-jest.mock("@common/aws/authenticate")
+jest.mock("@app/aws/authenticate")
 jest.mock("gatsby")
 
 describe("The <Authenticated> component", () => {

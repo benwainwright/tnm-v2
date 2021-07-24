@@ -15,7 +15,7 @@ module.exports = {
         "module-resolver",
         {
           alias: {
-            "@common": "./src/common",
+            "@app": "./src/app",
           },
         },
       ],

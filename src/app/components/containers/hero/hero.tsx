@@ -1,6 +1,6 @@
 import { FC } from "react"
 import styled from "@emotion/styled"
-import { MENUBAR_HEIGHT } from "@common/config"
+import { MENUBAR_HEIGHT } from "@app/config"
 
 const HeroBox = styled("div")`
   min-height: 330px;
@@ -15,6 +15,6 @@ const HeroBox = styled("div")`
   background-color: #d4f9e3;
 `
 
-const Hero: FC = (props) => <HeroBox>{props.children}</HeroBox>
+const Hero: FC = props => <HeroBox>{props.children}</HeroBox>
 
 export default Hero

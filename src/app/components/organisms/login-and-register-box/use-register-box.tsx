@@ -1,6 +1,6 @@
-import { confirmSignup, login, register } from "@common/aws/authenticate"
-import { ErrorResponse } from "@common/types/error-response"
-import { MfaFormData, RegisterFormData, SrpData } from "@common/types/srp-data"
+import { confirmSignup, login, register } from "@app/aws/authenticate"
+import { ErrorResponse } from "@app/types/error-response"
+import { MfaFormData, RegisterFormData, SrpData } from "@app/types/srp-data"
 import { navigate } from "gatsby"
 import { useState } from "react"
 

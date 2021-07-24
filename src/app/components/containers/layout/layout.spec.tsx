@@ -1,13 +1,13 @@
 import Layout from "./layout"
 import { render, screen } from "@testing-library/react"
 import { useContext } from "react"
-import { UserContext } from "@common/user-context"
+import { UserContext } from "@app/user-context"
 import { mocked } from "ts-jest/utils"
-import { currentUser } from "@common/aws/authenticate"
+import { currentUser } from "@app/aws/authenticate"
 import { act } from "react-dom/test-utils"
 import userEvent from "@testing-library/user-event"
 
-jest.mock("@common/aws/authenticate")
+jest.mock("@app/aws/authenticate")
 
 describe("the layout component", () => {
   it("renders without errors", () => {

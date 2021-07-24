@@ -1,7 +1,7 @@
 import { FC, Fragment } from "react"
-import { IconButton } from "@common/components/atoms"
-import AddIcon from "@common/assets/images/icons/tnm-add.png"
-import MinusIcon from "@common/assets/images/icons/tnm-subtract.png"
+import { IconButton } from "@app/components/atoms"
+import AddIcon from "@app/assets/images/icons/tnm-add.png"
+import MinusIcon from "@app/assets/images/icons/tnm-subtract.png"
 import { uniqueId } from "lodash"
 import styled from "@emotion/styled"
 
@@ -34,7 +34,7 @@ const LabelText = styled.label`
   padding-left: 0.5rem;
 `
 
-const QuantityStepper: FC<QuantityStepperProps> = (props) => {
+const QuantityStepper: FC<QuantityStepperProps> = props => {
   const CountLabel = styled("div")`
     font-family: "Acumin Pro", Arial, sans-serif;
     font-weight: bold;

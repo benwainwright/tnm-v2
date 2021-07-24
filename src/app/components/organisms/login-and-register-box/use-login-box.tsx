@@ -1,10 +1,10 @@
-import { login, newPasswordChallengeResponse } from "@common/aws/authenticate"
-import { ErrorResponse } from "@common/types/error-response"
+import { login, newPasswordChallengeResponse } from "@app/aws/authenticate"
+import { ErrorResponse } from "@app/types/error-response"
 import {
   ChangePasswordFormData,
   LoginFormData,
   SrpData
-} from "@common/types/srp-data"
+} from "@app/types/srp-data"
 import { navigate } from "gatsby"
 import { useState } from "react"
 

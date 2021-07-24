@@ -1,9 +1,9 @@
 import { FC } from "react"
-import { ChallengeForm } from "@common/components/containers"
-import { Input } from "@common/components/atoms"
-import { ErrorResponse } from "@common/types/error-response"
-import { LoginFormData } from "@common/types/srp-data"
-import { BUTTON_BLACK } from "@common/config"
+import { ChallengeForm } from "@app/components/containers"
+import { Input } from "@app/components/atoms"
+import { ErrorResponse } from "@app/types/error-response"
+import { LoginFormData } from "@app/types/srp-data"
+import { BUTTON_BLACK } from "@app/config"
 import styled from "@emotion/styled"
 
 interface LoginFormProps {
@@ -17,7 +17,7 @@ const StyledLink = styled.a`
   text-decoration: 0;
 `
 
-const LoginForm: FC<LoginFormProps> = (props) => (
+const LoginForm: FC<LoginFormProps> = props => (
   <ChallengeForm
     submitText="Login"
     onSubmit={props.onSubmit}

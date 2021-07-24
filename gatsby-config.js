@@ -11,14 +11,14 @@ module.exports = {
       resolve: "gatsby-plugin-alias-imports",
       options: {
         alias: {
-          "@common": path.resolve(__dirname, "src", "common"),
+          "@app": path.resolve(__dirname, "src", "app"),
         },
       },
     },
     {
       resolve: "gatsby-plugin-page-creator",
       options: {
-        path: path.resolve(__dirname, "src", "common", "pages"),
+        path: path.resolve(__dirname, "src", "app", "pages"),
       },
     },
     {

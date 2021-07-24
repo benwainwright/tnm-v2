@@ -1,6 +1,6 @@
-import { Button, Input } from "@common/components/atoms"
-import { addNewProps } from "@common/utils/react"
-import { ErrorResponse } from "@common/types/error-response"
+import { Button, Input } from "@app/components/atoms"
+import { addNewProps } from "@app/utils/react"
+import { ErrorResponse } from "@app/types/error-response"
 import {
   Dispatch,
   SetStateAction,
@@ -8,7 +8,7 @@ import {
   ReactNode,
   PropsWithChildren,
   ChangeEvent,
-  useState,
+  useState
 } from "react"
 import styled from "@emotion/styled"
 
@@ -49,12 +49,12 @@ const findMessage = (
   errorMessages: ErrorResponse[],
   name: string
 ): ErrorResponse | undefined =>
-  errorMessages?.find((message) => message.fields?.includes(name))
+  errorMessages?.find(message => message.fields?.includes(name))
 
 const addErrorMessages = (nodes: ReactNode, errorMessages: ErrorResponse[]) =>
   addNewProps<typeof Input>(nodes, ({ props: { name } }) => ({
     apply: Boolean(findMessage(errorMessages, name)),
-    props: { error: true },
+    props: { error: true }
   }))
 
 const addEventHandlers = <T,>(
@@ -66,8 +66,8 @@ const addEventHandlers = <T,>(
     apply: name,
     props: {
       onChange: (event: ChangeEvent<HTMLInputElement>) =>
-        setData({ ...data, [name]: event.target.value }),
-    },
+        setData({ ...data, [name]: event.target.value })
+    }
   }))
 
 function assertFC<P>(
@@ -84,13 +84,13 @@ function ChallengeForm<T>(
     eventHandlersAdded,
     props.errors ?? []
   )
-  const formErrors = props.errors?.filter((error) => !error.fields) ?? []
+  const formErrors = props.errors?.filter(error => !error.fields) ?? []
   return (
     <FlexForm>
       <FormHeader>
         <FormError role="alert">
           {formErrors
-            .map((error) =>
+            .map(error =>
               error.message.endsWith(".")
                 ? error.message.slice(0, -1)
                 : error.message
@@ -101,7 +101,7 @@ function ChallengeForm<T>(
       {errorMessagesAdded}
       <Button
         primary
-        onClick={(event) => {
+        onClick={event => {
           if (data) {
             props.onSubmit?.(data)
             event.preventDefault()

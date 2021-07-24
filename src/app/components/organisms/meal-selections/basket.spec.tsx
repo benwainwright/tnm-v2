@@ -1,6 +1,6 @@
 import { mount } from "enzyme"
 import Basket from "./basket"
-import { QuantityStepper } from "@common/components/molecules"
+import { QuantityStepper } from "@app/components/molecules"
 import { act } from "react-dom/test-utils"
 import { render, screen } from "@testing-library/react"
 
@@ -40,20 +40,20 @@ test.skip("The <Basket> component disables the plus button if the total has reac
         {
           id: "1",
           title: "foo-sb",
-          description: "baz",
+          description: "baz"
         },
 
         {
           id: "2",
           title: "foobar-sb",
-          description: "bazBash",
-        },
+          description: "bazBash"
+        }
       ]}
       itemWord="foo"
       itemWordPlural="foos"
       selectedMeals={{
         1: 2,
-        2: 3,
+        2: 3
       }}
       setSelected={jest.fn()}
       max={4}
@@ -69,20 +69,20 @@ test.skip("disables the plus button if the total has reached the max", () => {
         {
           id: "1",
           title: "foo",
-          description: "baz",
+          description: "baz"
         },
 
         {
           id: "2",
           title: "foobar",
-          description: "bazBash",
-        },
+          description: "bazBash"
+        }
       ]}
       itemWord="foo"
       itemWordPlural="foos"
       selectedMeals={{
         "1": 1,
-        "2": 3,
+        "2": 3
       }}
       max={4}
     />
@@ -90,9 +90,9 @@ test.skip("disables the plus button if the total has reached the max", () => {
 
   const fooIncrease = wrapper
     .find(QuantityStepper)
-    .findWhere((counter) => counter.prop("label") === "foo")
+    .findWhere(counter => counter.prop("label") === "foo")
     .find("button")
-    .findWhere((button) => button.prop("aria-label") === "Increase")
+    .findWhere(button => button.prop("aria-label") === "Increase")
 
   expect(fooIncrease.at(0).prop("disabled")).toEqual(true)
 })
@@ -105,20 +105,20 @@ test.skip("fires the setSelectedHandler if a quantityStepper button is clicked",
         {
           id: "1",
           title: "foo",
-          description: "baz",
+          description: "baz"
         },
 
         {
           id: "2",
           title: "foobar",
-          description: "bazBash",
-        },
+          description: "bazBash"
+        }
       ]}
       itemWord="foo"
       itemWordPlural="foos"
       selectedMeals={{
         "1": 1,
-        "2": 1,
+        "2": 1
       }}
       setSelected={setSelected}
       max={4}
@@ -127,9 +127,9 @@ test.skip("fires the setSelectedHandler if a quantityStepper button is clicked",
 
   const fooIncrease = wrapper
     .find(QuantityStepper)
-    .findWhere((counter) => counter.prop("label") === "foo")
+    .findWhere(counter => counter.prop("label") === "foo")
     .find("button")
-    .findWhere((button) => button.prop("aria-label") === "Increase")
+    .findWhere(button => button.prop("aria-label") === "Increase")
 
   act(() => {
     fooIncrease.at(0).simulate("click")
