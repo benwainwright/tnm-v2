@@ -238,10 +238,6 @@ jobs:
     name: Deploy to Test
     needs:
       [
-        types,
-        lint,
-        lint-styles,
-        unit-test,
         build-frontend,
         build-storybook-test,
       ]
@@ -412,7 +408,16 @@ jobs:
 
   deploy-to-prod:
     name: Deploy to Production
-    needs: [e2e-tests, build-storybook-prod]
+
+    needs:
+      [
+        e2e-tests,
+        build-storybook-prod,
+        types,
+        lint,
+        lint-styles,
+        unit-test
+      ]
 
     runs-on: ubuntu-latest
     steps:
