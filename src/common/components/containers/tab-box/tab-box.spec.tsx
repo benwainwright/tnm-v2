@@ -1,136 +1,81 @@
-import { shallow } from "enzyme"
 import { act } from "react-dom/test-utils"
 import TabBox from "./tab-box"
-import TabButton from "./tab-button"
 import Tab from "./tab"
+import { render, screen } from "@testing-library/react"
+import userEvent from "@testing-library/user-event"
 
 describe("The <TabBox> component", () => {
   it("renders without errors", () => {
-    shallow(<TabBox />)
+    render(<TabBox />)
   })
 
   it("renders the first tab by default", () => {
-    const wrapper = shallow(
+    render(
       <TabBox>
         <Tab tabTitle="one">One</Tab>
         <Tab tabTitle="two">Two</Tab>
       </TabBox>
     )
-    expect(
-      wrapper.findWhere((node) => node.prop("tabTitle") === "one")
-    ).toHaveLength(1)
+    expect(screen.queryByText("One")).toBeInTheDocument()
   })
 
   it("doesn't render the second tab by default", () => {
-    const wrapper = shallow(
+    render(
       <TabBox>
         <Tab tabTitle="one">One</Tab>
         <Tab tabTitle="two">Two</Tab>
       </TabBox>
     )
 
-    expect(
-      wrapper.findWhere((node) => node.prop("tabTitle") === "two")
-    ).toHaveLength(0)
+    expect(screen.queryByText("Two")).not.toBeInTheDocument()
   })
 
   it("renders a list of buttons for each tab", () => {
-    const wrapper = shallow(
+    render(
       <TabBox>
         <Tab tabTitle="oneTitle">One</Tab>
         <Tab tabTitle="twoTitle">Two</Tab>
       </TabBox>
     )
 
-    expect(
-      wrapper
-        .find(TabButton)
-        .findWhere((button) => button.prop("children") === "oneTitle")
-    ).toHaveLength(1)
+    const tabOne = screen.queryByRole("tab", { name: "oneTitle" })
+    expect(tabOne).toBeInTheDocument()
 
-    expect(
-      wrapper
-        .find(TabButton)
-        .findWhere((button) => button.prop("children") === "twoTitle")
-    ).toHaveLength(1)
+    const tabTwo = screen.queryByRole("tab", { name: "twoTitle" })
+    expect(tabTwo).toBeInTheDocument()
   })
 
   it("shows the second tab when the second button is clicked", () => {
-    const wrapper = shallow(
+    render(
       <TabBox>
         <Tab tabTitle="oneTitle">One</Tab>
         <Tab tabTitle="twoTitle">Two</Tab>
       </TabBox>
     )
 
+    const tabTwo = screen.getByRole("tab", { name: "twoTitle" })
+
     act(() => {
-      wrapper
-        .find(TabButton)
-        .findWhere((button) => button.prop("children") === "twoTitle")
-        .simulate("click")
+      userEvent.click(tabTwo)
     })
 
-    expect(
-      wrapper.findWhere((node) => node.prop("tabTitle") === "twoTitle")
-    ).toHaveLength(1)
+    expect(screen.queryByText("Two")).toBeInTheDocument()
   })
 
   it("hides the second tab when the second button is clicked", () => {
-    const wrapper = shallow(
+    render(
       <TabBox>
         <Tab tabTitle="oneTitle">One</Tab>
         <Tab tabTitle="twoTitle">Two</Tab>
       </TabBox>
     )
+
+    const tabTwo = screen.getByRole("tab", { name: "twoTitle" })
 
     act(() => {
-      wrapper
-        .find(TabButton)
-        .findWhere((button) => button.prop("children") === "twoTitle")
-        .simulate("click")
+      userEvent.click(tabTwo)
     })
 
-    expect(
-      wrapper.findWhere((node) => node.prop("tabTitle") === "oneTitle")
-    ).toHaveLength(0)
-  })
-
-  it("The first tab button is 'active' by default", () => {
-    const wrapper = shallow(
-      <TabBox>
-        <Tab tabTitle="oneTitle">One</Tab>
-        <Tab tabTitle="twoTitle">Two</Tab>
-      </TabBox>
-    )
-
-    expect(
-      wrapper
-        .find(TabButton)
-        .at(0)
-        .findWhere((button) => button.prop("active"))
-    ).toHaveLength(1)
-  })
-
-  it("The second tab button is 'active' when clicked", () => {
-    const wrapper = shallow(
-      <TabBox>
-        <Tab tabTitle="oneTitle">One</Tab>
-        <Tab tabTitle="twoTitle">Two</Tab>
-      </TabBox>
-    )
-
-    act(() => {
-      wrapper
-        .find(TabButton)
-        .findWhere((button) => button.prop("children") === "twoTitle")
-        .simulate("click")
-    })
-
-    expect(
-      wrapper
-        .find(TabButton)
-        .at(1)
-        .findWhere((button) => button.prop("active"))
-    ).toHaveLength(1)
+    expect(screen.queryByText("One")).not.toBeInTheDocument()
   })
 })
