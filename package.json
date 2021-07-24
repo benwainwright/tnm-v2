@@ -125,6 +125,7 @@
     "build": "NODE_ENV=production gatsby build",
     "develop": "NODE_ENV=development gatsby develop",
     "format": "prettier --write \"**/*.{js,jsx,ts,tsx,json,md}\"",
+    "deploy:acl": "cdk deploy TnmV2AppAclStack",
     "deploy:frontend": "cdk deploy test-TnmV2AppStack",
     "deploy:frontend:prod": "cdk deploy prod-TnmV2AppStack",
     "deploy:frontend:dev": "cdk deploy dev-TnmV2AppStack",

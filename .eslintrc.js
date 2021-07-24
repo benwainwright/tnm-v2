@@ -67,6 +67,7 @@ module.exports = {
     "unicorn/prefer-node-protocol": "off",
     "unicorn/no-array-callback-reference": "off",
     "unicorn/no-useless-undefined": "off",
+    "unicorn/no-array-for-each": "off",
     "unicorn/no-reduce": "off",
     "unicorn/no-null": "off",
     "unicorn/no-array-reduce": "off",

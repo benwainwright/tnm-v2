@@ -1,5 +1,6 @@
 import * as cdk from "aws-cdk-lib"
 import * as cognito from "aws-cdk-lib/aws-cognito"
+import { IUserPool } from "aws-cdk-lib/aws-cognito"
 import { Construct } from "constructs"
 
 interface BackendStackProps extends cdk.StackProps {
@@ -8,12 +9,15 @@ interface BackendStackProps extends cdk.StackProps {
 }
 
 export class BackendStack extends cdk.Stack {
+  public userPool: IUserPool
   constructor(scope: Construct, props: BackendStackProps) {
-    super(scope, `${props.environmentName}-TnmV2BackendStack`)
+    super(scope, `${props.environmentName}-TnmV2BackendStack`, {
+      env: props.env
+    })
 
     const verificationString = `Hey {username}! Thanks for signing up to The Nutritionist Manchester. Your verification code is {####}`
     const invitationString = `Hey {username}! you have been invited to join The Nutritionist Manchester. Your temporary password is {####}`
-    const pool = new cognito.UserPool(this, "Users", {
+    this.userPool = new cognito.UserPool(this, "Users", {
       userPoolName: `${props.environmentName}-tnm-users`,
       selfSignUpEnabled: true,
 
@@ -21,19 +25,19 @@ export class BackendStack extends cdk.Stack {
         emailBody: verificationString,
         emailSubject: `TNM signup`,
         emailStyle: cognito.VerificationEmailStyle.CODE,
-        smsMessage: verificationString,
+        smsMessage: verificationString
       },
 
       userInvitation: {
         emailSubject: `TNM invite`,
         emailBody: invitationString,
-        smsMessage: invitationString,
+        smsMessage: invitationString
       },
 
       signInAliases: {
         username: true,
         email: true,
-        phone: true,
+        phone: true
       },
       customAttributes: {
         salutation: new cognito.StringAttribute({ mutable: true }),
@@ -47,42 +51,42 @@ export class BackendStack extends cdk.Stack {
         legacyPrice: new cognito.NumberAttribute({ mutable: true }),
         breakfast: new cognito.BooleanAttribute({ mutable: true }),
         plan: new cognito.StringAttribute({ mutable: true }),
-        exclusions: new cognito.StringAttribute({ mutable: true }),
-      },
+        exclusions: new cognito.StringAttribute({ mutable: true })
+      }
     })
 
     new cdk.CfnOutput(this, "UserPoolId", {
-      value: pool.userPoolId,
+      value: this.userPool.userPoolId
     })
 
-    const client = pool.addClient("Client", {
+    const client = this.userPool.addClient("Client", {
       oAuth: {
-        callbackUrls: [props.callbackUrl],
-      },
+        callbackUrls: [props.callbackUrl]
+      }
     })
 
     new cdk.CfnOutput(this, "ClientId", {
-      value: client.userPoolClientId,
+      value: client.userPoolClientId
     })
 
-    const domain = pool.addDomain("Domain", {
+    const domain = this.userPool.addDomain("Domain", {
       cognitoDomain: {
-        domainPrefix: `${props.environmentName}-tnmv2-auth`,
-      },
+        domainPrefix: `${props.environmentName}-tnmv2-auth`
+      }
     })
 
     const signInUrl = domain.signInUrl(client, {
-      redirectUri: props.callbackUrl,
+      redirectUri: props.callbackUrl
     })
 
     const url = domain.baseUrl()
 
     new cdk.CfnOutput(this, "Auth Url", {
-      value: url,
+      value: url
     })
 
     new cdk.CfnOutput(this, "Redirect Url", {
-      value: signInUrl,
+      value: signInUrl
     })
   }
 }
