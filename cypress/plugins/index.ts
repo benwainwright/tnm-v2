@@ -1,4 +1,6 @@
+/* eslint-disable no-console */
 import { CognitoIdentityServiceProvider } from "aws-sdk"
+import { seedCognito } from "../../src/scripts/lib/seed-cognito"
 
 const cognito = new CognitoIdentityServiceProvider({ region: "eu-west-2" })
 /// <reference types="cypress" />
@@ -20,6 +22,31 @@ const plugins = (on, config) => {
   require("@cypress/code-coverage/task")(on, config)
 
   on("task", {
+    async seedCognito({
+      poolId,
+      email,
+      password,
+      registerUser,
+      testUserEmail,
+      testUserPassword
+    }: {
+      poolId: string
+      email: string
+      password: string
+      registerUser: string
+      testUserEmail: string
+      testUserPassword: string
+    }) {
+      await seedCognito(
+        poolId,
+        email,
+        password,
+        registerUser,
+        testUserEmail,
+        testUserPassword
+      )
+      return null
+    },
     async adminConfirmSignup({ user, pool }: { user: string; pool: string }) {
       await cognito
         .adminConfirmSignUp({

@@ -8,9 +8,12 @@
   "viewportHeight": 1000,
   "env": {
     "CYPRESS_POOL_ID": "eu-west-2_STGr0ooNo",
+    "CYPRESS_CLIENT_ID": "1ee4eqjm7mpi85rngf5rese5g9",
     "CYPRESS_TEST_USER_INITIAL_PASSWORD": "Asdasdfasdad.a123",
-    "CYPRESS_TEST_EMAIL": "something@someone.com",
+    "CYPRESS_TEST_EMAIL": "somethin2g@someone.com",
     "CYPRESS_TEST_USER_FINAL_PASSWORD": "Asdasdfasdasd.asd113",
-    "CYPRESS_TEST_REGISTER_USER": "cypress-test-register-user"
+    "CYPRESS_TEST_REGISTER_USER": "cypress-test-register-user",
+    "CYPRESS_INT_TEST_EMAIL": "another@this.com",
+    "CYPRESS_INT_TEST_PASSWORD": "123.123.aA"
   }
 }

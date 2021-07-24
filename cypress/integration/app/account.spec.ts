@@ -13,8 +13,8 @@ describe("The account page", () => {
   describe("when logged in", () => {
     beforeEach(() => {
       cy.loginByCognitoApi(
-        Cypress.env("TEST_EMAIL"),
-        Cypress.env("TEST_USER_FINAL_PASSWORD")
+        Cypress.env("CYPRESS_INT_TEST_EMAIL"),
+        Cypress.env("CYPRESS_INT_TEST_PASSWORD")
       )
     })
 

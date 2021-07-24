@@ -30,17 +30,14 @@ declare global {
 }
 
 Cypress.Commands.add("seed", () => {
-  cy.exec("yarn ts-node src/scripts/seed-cognito.ts", {
-    env: {
-      CYPRESS_TEST_USER_INITIAL_PASSWORD: Cypress.env(
-        "CYPRESS_TEST_USER_INITIAL_PASSWORD"
-      ),
-      CYPRESS_TEST_EMAIL: Cypress.env("CYPRESS_TEST_EMAIL"),
-      CYPRESS_TEST_USER_FINAL_PASSWORD: Cypress.env(
-        "CYPRESS_TEST_USER_FINAL_PASSWORD"
-      ),
-      CYPRESS_TEST_REGISTER_USER: Cypress.env("CYPRESS_TEST_REGISTER_USER")
-    }
+  cy.task("seedCognito", {
+    poolId: Cypress.env("CYPRESS_POOL_ID"),
+    registerUser: Cypress.env("CYPRESS_TEST_REGISTER_USER"),
+    email: Cypress.env("CYPRESS_TEST_EMAIL"),
+    password: Cypress.env("CYPRESS_TEST_USER_INITIAL_PASSWORD"),
+    testUserEmail: Cypress.env("CYPRESS_INT_TEST_EMAIL"),
+    testUserPassword: Cypress.env("CYPRESS_INT_TEST_PASSWORD"),
+    clientId: Cypress.env("CYPRESS_CLIENT_ID")
   })
 })
 
@@ -59,6 +56,14 @@ Cypress.Commands.add("loginByCognitoApi", (username, password) => {
   log.snapshot("before")
 
   cy.wrap(signIn, { log: false }).then((cognitoResponse: any) => {
+    const log = Cypress.log({
+      displayName: "Here",
+      message: [
+        `🔐 Authenticated, saving tokens: `,
+        JSON.stringify(cognitoResponse, null, 2)
+      ]
+    })
+
     const keyPrefixWithUsername = `${cognitoResponse.keyPrefix}.${cognitoResponse.username}`
 
     window.localStorage.setItem(
