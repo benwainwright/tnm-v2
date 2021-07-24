@@ -1,5 +1,4 @@
 import { Dispatch, SetStateAction } from "react"
-import { ErrorResponse } from "@common/types/error-response"
 import {
   SrpData,
   LoginFormData,

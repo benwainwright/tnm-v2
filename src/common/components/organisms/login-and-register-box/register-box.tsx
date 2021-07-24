@@ -1,12 +1,11 @@
-import { FC, useState } from "react"
-import { ErrorResponse } from "@common/types/error-response"
+import { FC } from "react"
 import RegisterForm from "./register-form"
-import { handleRegister } from "./handle-register"
 import ConfirmMobileForm from "./ConfirmMobileForm"
+import { useRegisterBox } from "./use-register-box"
 
 export enum RegisterState {
   DoRegister = "DoRegister",
-  ConfirmMobile = "ConfirmMobile",
+  ConfirmMobile = "ConfirmMobile"
 }
 
 const getRegisterBox = (_state: RegisterState) => {
@@ -17,18 +16,13 @@ const getRegisterBox = (_state: RegisterState) => {
 }
 
 const RegisterBox: FC = () => {
-  const [errorMessage, setErrorMessage] = useState<ErrorResponse | undefined>()
-  const [registerState, setRegisterState] = useState<RegisterState>(
-    RegisterState.DoRegister
-  )
+  const { onSubmit, registerState, errorMessage } = useRegisterBox()
 
   const ChosenRegisterForm = getRegisterBox(registerState)
 
   return (
     <ChosenRegisterForm
-      onSubmit={(data) =>
-        handleRegister(data, registerState, setErrorMessage, setRegisterState)
-      }
+      onSubmit={onSubmit}
       errors={errorMessage ? [errorMessage] : undefined}
     />
   )

@@ -17,7 +17,7 @@ describe("The authenticate module", () => {
         UserPoolId: "pool-id",
         ClientId: "client-id",
         RedirectUrl: "redirect-url",
-        AuthUrl: "auth-url",
+        AuthUrl: "auth-url"
       })
 
       const mockResult = mock<ISignUpResult>()
@@ -32,8 +32,8 @@ describe("The authenticate module", () => {
             given_name: "foo-firstname",
             family_name: "foo-surname",
             address: "foo-address",
-            phone_number: "foo-telephone",
-          },
+            phone_number: "foo-telephone"
+          }
         })
         .mockResolvedValue(mockResult)
 
@@ -58,7 +58,7 @@ describe("The authenticate module", () => {
         UserPoolId: "pool-id",
         ClientId: "client-id",
         RedirectUrl: "redirect-url",
-        AuthUrl: "auth-url",
+        AuthUrl: "auth-url"
       })
 
       when(mocked(Auth.signIn))
@@ -77,7 +77,7 @@ describe("The authenticate module", () => {
         UserPoolId: "pool-id",
         ClientId: "client-id",
         RedirectUrl: "redirect-url",
-        AuthUrl: "auth-url",
+        AuthUrl: "auth-url"
       })
 
       mocked(Auth.signOut).mockResolvedValue("logoutResponse")
@@ -94,7 +94,7 @@ describe("The authenticate module", () => {
         UserPoolId: "pool-id",
         ClientId: "client-id",
         RedirectUrl: "redirect-url",
-        AuthUrl: "auth-url",
+        AuthUrl: "auth-url"
       })
 
       const usernameValue = "the-username"
@@ -111,13 +111,32 @@ describe("The authenticate module", () => {
     })
   })
 
+  describe("Confirmsignup", () => {
+    it("Returns the promise from Auth.confirmSignup", async () => {
+      mocked(getPoolConfig).mockResolvedValue({
+        UserPoolId: "pool-id",
+        ClientId: "client-id",
+        RedirectUrl: "redirect-url",
+        AuthUrl: "auth-url"
+      })
+
+      when(mocked(Auth.confirmSignUp))
+        .calledWith("foo", "bar")
+        .mockResolvedValue("confirmResponse")
+
+      const result = await authenticate.confirmSignup("foo", "bar")
+
+      expect(result).toEqual("confirmResponse")
+    })
+  })
+
   describe("currentUser()", () => {
     it("returns the promise from Auth.currentAuthenticatedUser", async () => {
       mocked(getPoolConfig).mockResolvedValue({
         UserPoolId: "pool-id",
         ClientId: "client-id",
         RedirectUrl: "redirect-url",
-        AuthUrl: "auth-url",
+        AuthUrl: "auth-url"
       })
 
       mocked(Auth.currentAuthenticatedUser).mockResolvedValue(
@@ -134,7 +153,7 @@ describe("The authenticate module", () => {
         UserPoolId: "pool-id",
         ClientId: "client-id",
         RedirectUrl: "redirect-url",
-        AuthUrl: "auth-url",
+        AuthUrl: "auth-url"
       })
 
       mocked(Auth.currentAuthenticatedUser).mockRejectedValue(

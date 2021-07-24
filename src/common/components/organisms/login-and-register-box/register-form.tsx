@@ -24,7 +24,7 @@ const FormDivider = styled.hr`
   border: 0;
 `
 
-const RegisterForm: FC<RegisterFormProps> = (props) => {
+const RegisterForm: FC<RegisterFormProps> = props => {
   return (
     <ChallengeForm
       submitText="Register"

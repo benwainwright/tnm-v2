@@ -13,8 +13,8 @@ const getConfigurer = () => {
         Auth: {
           region: REGION,
           userPoolId: outputs.UserPoolId,
-          userPoolWebClientId: outputs.ClientId,
-        },
+          userPoolWebClientId: outputs.ClientId
+        }
       })
     }
     return outputs
@@ -48,14 +48,19 @@ export const register = async (
       given_name: firstname,
       family_name: surname,
       address: address,
-      phone_number: telephone,
-    },
+      phone_number: telephone
+    }
   })
 }
 
 export const signOut = async () => {
   await configureAuth()
   return Auth.signOut()
+}
+
+export const confirmSignup = async (username: string, code: string) => {
+  await configureAuth()
+  return Auth.confirmSignUp(username, code)
 }
 
 export const currentUser = async () => {
