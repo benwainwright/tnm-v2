@@ -1,3 +1,6 @@
+import { CognitoIdentityServiceProvider } from "aws-sdk"
+
+const cognito = new CognitoIdentityServiceProvider({ region: "eu-west-2" })
 /// <reference types="cypress" />
 // ***********************************************************
 // This example plugins/index.js can be used to load plugins
@@ -15,6 +18,19 @@
 const plugins = (on, config) => {
   // eslint-disable-next-line unicorn/prefer-module
   require("@cypress/code-coverage/task")(on, config)
+
+  on("task", {
+    async adminConfirmSignup({ user, pool }: { user: string; pool: string }) {
+      await cognito
+        .adminConfirmSignUp({
+          UserPoolId: pool,
+          Username: user
+        })
+        .promise()
+
+      return null
+    }
+  })
   return config
 }
 

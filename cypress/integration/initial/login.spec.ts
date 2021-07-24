@@ -1,6 +1,6 @@
 describe("The login page", () => {
   before(() => {
-    cy.exec("yarn ts-node src/scripts/seed-cognito.ts")
+    cy.seed()
   })
 
   it("Should load a page with a login form", () => {

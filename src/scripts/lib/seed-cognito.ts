@@ -9,9 +9,17 @@ export const seedCognito = async () => {
 
   const config = await readJson("public/backend-config.json")
 
+  const name = Object.keys(config)[0]
+
+  if (name.startsWith("prod")) {
+    // eslint-disable-next-line fp/no-throw
+    throw new Error("You really don't want to run this script on prod!")
+  }
+
   const poolId = (Object.values(config)[0] as any).UserPoolId
   const email = process.env.CYPRESS_TEST_EMAIL
   const password = process.env.CYPRESS_TEST_USER_INITIAL_PASSWORD
+  const registerUser = process.env.CYPRESS_TEST_REGISTER_USER
 
   if (!email) {
     // eslint-disable-next-line fp/no-throw
@@ -23,6 +31,11 @@ export const seedCognito = async () => {
     throw new Error("CYPRESS_TEST_USER_INITIAL_PASSWORD not configured")
   }
 
+  if (!registerUser) {
+    // eslint-disable-next-line fp/no-throw
+    throw new Error("CYPRESS_TEST_REGISTER_USER not configured")
+  }
+
   try {
     await cognito
       .adminDeleteUser({
@@ -30,9 +43,15 @@ export const seedCognito = async () => {
         Username: TEST_USER
       })
       .promise()
+
+    await cognito
+      .adminDeleteUser({
+        UserPoolId: poolId,
+        Username: registerUser
+      })
+      .promise()
   } catch {
-    // eslint-disable-next-line no-console
-    console.log(`'${TEST_USER}' doesn't exist`)
+    // NOop
   }
 
   await cognito

@@ -1,4 +1,8 @@
 describe("The account page", () => {
+  before(() => {
+    cy.seed()
+  })
+
   describe("when logged out", () => {
     it("should redirect you to login page", () => {
       cy.visit("/account/")

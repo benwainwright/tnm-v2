@@ -80,3 +80,4 @@ tags.files
 tags.lock
 storybook
 junit
+cypress.env.json
