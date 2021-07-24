@@ -6,8 +6,7 @@ import { navigate } from "gatsby"
 import { mock } from "jest-mock-extended"
 import { when } from "jest-when"
 import { mocked } from "ts-jest/utils"
-import { RegisterState } from "./register-box"
-import { useRegisterBox } from "./use-register-box"
+import { RegisterState, useRegisterBox } from "./use-register-box"
 
 jest.mock("@common/aws/authenticate")
 jest.mock("gatsby")

@@ -1,12 +1,7 @@
 import { FC } from "react"
 import RegisterForm from "./register-form"
 import ConfirmMobileForm from "./ConfirmMobileForm"
-import { useRegisterBox } from "./use-register-box"
-
-export enum RegisterState {
-  DoRegister = "DoRegister",
-  ConfirmMobile = "ConfirmMobile"
-}
+import { RegisterState, useRegisterBox } from "./use-register-box"
 
 const getRegisterBox = (_state: RegisterState) => {
   if (_state === RegisterState.DoRegister) {

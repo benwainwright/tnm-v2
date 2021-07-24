@@ -14,7 +14,7 @@ const MainContainer = styled("main")`
   padding-bottom: 4rem;
 `
 
-const Layout: FC = (props) => {
+const Layout: FC = props => {
   const [user, setUser] = useState<User | undefined>(undefined)
   useAxe()
 

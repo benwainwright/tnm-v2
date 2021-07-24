@@ -1,14 +1,13 @@
-import {
-  confirmSignup,
-  currentUser,
-  login,
-  register
-} from "@common/aws/authenticate"
+import { confirmSignup, login, register } from "@common/aws/authenticate"
 import { ErrorResponse } from "@common/types/error-response"
 import { MfaFormData, RegisterFormData, SrpData } from "@common/types/srp-data"
 import { navigate } from "gatsby"
 import { useState } from "react"
-import { RegisterState } from "./register-box"
+
+export enum RegisterState {
+  DoRegister = "DoRegister",
+  ConfirmMobile = "ConfirmMobile"
+}
 
 const isRegister = (
   _data: SrpData,
