@@ -6,6 +6,8 @@ import { CognitoIdentityServiceProvider } from "aws-sdk"
 export const TEST_USER = "cypress-test-user-2"
 export const TEST_USER_2 = "cypress-test-user-3"
 
+const USER_DOES_NOT_EXIST = "User does not exist."
+
 export const seedCognito = async (
   poolId: string,
   email: string,
@@ -41,7 +43,7 @@ export const seedCognito = async (
       })
       .promise()
   } catch (error) {
-    if (error.message !== "User does not exist.") {
+    if (error.message !== USER_DOES_NOT_EXIST) {
       throw error
     }
     console.log(`Did not delete ${TEST_USER} because the user didn't exist`)
@@ -55,7 +57,7 @@ export const seedCognito = async (
       })
       .promise()
   } catch (error) {
-    if (error.message !== "User does not exist.") {
+    if (error.message !== USER_DOES_NOT_EXIST) {
       // eslint-disable-next-line fp/no-throw
       throw error
     }
@@ -71,7 +73,7 @@ export const seedCognito = async (
       })
       .promise()
   } catch (error) {
-    if (error.message !== "User does not exist.") {
+    if (error.message !== USER_DOES_NOT_EXIST) {
       // eslint-disable-next-line fp/no-throw
       throw error
     }
