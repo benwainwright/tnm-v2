@@ -138,11 +138,4 @@ describe("seed cognito", () => {
 
     await expect(seedCognito()).rejects.toThrow()
   })
-
-  it("Throws an error if there is no poolId", async () => {
-    process.env.CYPRESS_TEST_USER_INITIAL_PASSWORD = "password-thing"
-    process.env.CYPRESS_TEST_EMAIL = "foo@bar.com"
-
-    await expect(seedCognito()).rejects.toThrow()
-  })
 })
