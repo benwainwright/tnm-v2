@@ -1,6 +1,6 @@
 /* eslint-disable no-console */
 import { CognitoIdentityServiceProvider } from "aws-sdk"
-import { seedCognito } from "../../src/scripts/lib/seed-cognito"
+import { seedCognito } from "../support/seed-cognito"
 
 const cognito = new CognitoIdentityServiceProvider({ region: "eu-west-2" })
 /// <reference types="cypress" />

@@ -8,6 +8,8 @@ describe("the register page", () => {
     cy.get("form").find("button").contains("Register")
   })
 
+  it("Should fail to create a user if the email already exists in the database", () => {})
+
   it("Should allow you to create a user then redirect you to the login page when it is successful", () => {
     cy.visit("/register/")
     cy.get("form").should("be.visible")
