@@ -1,3 +1,4 @@
+import { Snack } from "."
 import Exclusion from "./exclusion"
 import Plan from "./plan"
 
