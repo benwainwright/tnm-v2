@@ -160,7 +160,7 @@
     "storybook:build": "build-storybook --static-dir ./src/app/assets --output-dir ./storybook",
     "lint": "eslint .",
     "lint:styles": "stylelint  './src/**/*.css' './src/**/*.tsx' './src/**/*.ts'",
-    "types": "tsc && tsc --project ./cypress/tsconfig.json",
+    "types": "yarn generatetypes && tsc && tsc --project ./cypress/tsconfig.json",
     "build-storybook": "build-storybook"
   },
   "repository": {
