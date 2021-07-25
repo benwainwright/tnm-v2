@@ -3,6 +3,8 @@ import * as cdk from "aws-cdk-lib"
 import * as cognito from "aws-cdk-lib/aws-cognito"
 import { UserPool } from "aws-cdk-lib/aws-cognito"
 import {
+  AuthorizationType,
+  CognitoUserPoolsAuthorizer,
   Cors,
   LambdaIntegration,
   RestApi
@@ -127,9 +129,24 @@ export class BackendStack extends cdk.Stack {
 
     const apiFunction = new NodejsFunction(this, "ApiFunction", {
       functionName: `${props.environmentName}-tnmv2-api-function`,
-      entry: path.resolve(__dirname, "..", "app", "api", HANDLER_FILE_NAME)
+      entry: path.resolve(__dirname, "..", "app", "api", HANDLER_FILE_NAME),
+      bundling: {
+        nodeModules: ["ts-tiny-invariant"],
+        loader: {
+          ".graphql": "text"
+        }
+      }
     })
+
+    const auth = new CognitoUserPoolsAuthorizer(this, "ApiAuthoriser", {
+      cognitoUserPools: [this.userPool]
+    })
+
     const apiIntegration = new LambdaIntegration(apiFunction)
-    appApi.root.addMethod("GET", apiIntegration)
+
+    appApi.root.addMethod("GET", apiIntegration, {
+      authorizer: auth,
+      authorizationType: AuthorizationType.COGNITO
+    })
   }
 }
