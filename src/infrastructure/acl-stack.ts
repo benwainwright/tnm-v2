@@ -35,12 +35,13 @@ export class AclStack extends Stack {
     super(scope, `TnmV2AppAclStack`, { env: props.env })
 
     const accountManagementPolicies = [
-      ManagedPolicy.fromAwsManagedPolicyName("SupportUser"),
-      ManagedPolicy.fromAwsManagedPolicyName("Billing")
+      ManagedPolicy.fromAwsManagedPolicyName("job-function/SupportUser"),
+      ManagedPolicy.fromAwsManagedPolicyName("job-function/Billing"),
+      ManagedPolicy.fromAwsManagedPolicyName("job-function/ViewOnlyAccess")
     ]
 
     const poolManagerPolicy = new ManagedPolicy(this, "managerPolicy", {
-      managedPolicyName: "TnmV2UserManagersPolicy",
+      managedPolicyName: "tnm-pool-manager-policy",
       statements: [
         new PolicyStatement({
           actions: [
@@ -75,7 +76,7 @@ export class AclStack extends Stack {
     })
 
     const businessManagers = new Group(this, "CognitoManagersGroup", {
-      groupName: "TnmUserManagers",
+      groupName: "tnm-business-managers",
       managedPolicies: [poolManagerPolicy, ...accountManagementPolicies]
     })
 
@@ -90,7 +91,7 @@ export class AclStack extends Stack {
 
     const appDevelopers = new Group(this, "AppDevelopersGroup", {
       managedPolicies: appDevelopingPolicies,
-      groupName: "TnmDevelopers"
+      groupName: "tnm-developers"
     })
 
     makeUsersWithGroups(this, props.poolManagers, [businessManagers])
@@ -98,7 +99,7 @@ export class AclStack extends Stack {
 
     new User(this, "TnmAppCiUser", {
       managedPolicies: appDevelopingPolicies,
-      userName: "TnmAppCiUser"
+      userName: "tnm-app-ci-user"
     })
   }
 }

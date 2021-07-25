@@ -1,0 +1,29 @@
+name: Access Management Stack Pipeline
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - "src/infrastructure/acl-stack.ts"
+
+jobs:
+  deploy-stack:
+    name: Deploy ACL stack
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Configure node 12
+        uses: actions/setup-node@v1
+        with:
+          node-version: "12"
+
+      - name: Yarn install
+        run: yarn install
+
+      - name: Deploy Stack
+        run: yarn deploy:acl
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          AWS_DEFAULT_REGION: eu-west-2
+
