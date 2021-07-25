@@ -1,5 +1,5 @@
 import { Auth } from "@aws-amplify/auth"
-import { getPoolConfig } from "../../src/common/aws/getPoolConfig"
+import { getPoolConfig } from "../../src/app/aws/getPoolConfig"
 
 const configureCognitoAndSignIn = async (
   username: string,
