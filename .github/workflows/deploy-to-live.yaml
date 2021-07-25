@@ -5,6 +5,7 @@ on:
       - main
     paths-ignore:
       - "**.md"
+      - "src/infrastructure/acl-stack.ts"
 
 jobs:
   install:
