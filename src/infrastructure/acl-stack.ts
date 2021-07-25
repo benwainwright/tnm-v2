@@ -83,6 +83,7 @@ export class AclStack extends Stack {
     const appDevelopingPolicies = [
       ...accountManagementPolicies,
       ManagedPolicy.fromAwsManagedPolicyName("AWSCloudFormationFullAccess"),
+      ManagedPolicy.fromAwsManagedPolicyName("AmazonSSMFullAccess"),
       ManagedPolicy.fromAwsManagedPolicyName("AmazonCognitoPowerUser"),
       ManagedPolicy.fromAwsManagedPolicyName("AmazonS3FullAccess"),
       ManagedPolicy.fromAwsManagedPolicyName("CloudFrontFullAccess"),
