@@ -7,7 +7,7 @@
   "viewportWidth": 1600,
   "viewportHeight": 1000,
   "env": {
-    "CYPRESS_POOL_ID": "eu-west-2_AEm41FO1h",
+    "CYPRESS_POOL_ID": "eu-west-2_mK8ORQmkJ",
     "CYPRESS_CLIENT_ID": "1ee4eqjm7mpi85rngf5rese5g9",
     "CYPRESS_TEST_USER_INITIAL_PASSWORD": "Asdasdfasdad.a123",
     "CYPRESS_TEST_EMAIL": "somethin2g@someone.com",
