@@ -1,5 +1,6 @@
 /* eslint-disable unicorn/prefer-module */
 import * as cdk from "aws-cdk-lib"
+import { RemovalPolicy } from "aws-cdk-lib"
 import * as cognito from "aws-cdk-lib/aws-cognito"
 import { UserPool } from "aws-cdk-lib/aws-cognito"
 import {
@@ -13,9 +14,10 @@ import { AttributeType, BillingMode, Table } from "aws-cdk-lib/lib/aws-dynamodb"
 import { NodejsFunction } from "aws-cdk-lib/lib/aws-lambda-nodejs"
 import { Construct } from "constructs"
 import path from "path"
+import { EnvironmentName } from "./environment-name"
 
 interface BackendStackProps extends cdk.StackProps {
-  environmentName: string
+  environmentName: EnvironmentName
   callbackUrl: string
 }
 
@@ -28,9 +30,15 @@ export class BackendStack extends cdk.Stack {
       env: props.env
     })
 
+    const removalPolicy =
+      props.environmentName === "prod"
+        ? RemovalPolicy.RETAIN
+        : RemovalPolicy.DESTROY
+
     const verificationString = `Hey {username}! Thanks for signing up to The Nutritionist Manchester. Your verification code is {####}`
     const invitationString = `Hey {username}! you have been invited to join The Nutritionist Manchester. Your temporary password is {####}`
     this.userPool = new cognito.UserPool(this, "Users", {
+      removalPolicy,
       userPoolName: `${props.environmentName}-tnm-users`,
       selfSignUpEnabled: true,
 
@@ -103,6 +111,7 @@ export class BackendStack extends cdk.Stack {
     })
 
     new Table(this, "CustomisationsTable", {
+      removalPolicy,
       tableName: `${props.environmentName}-TnmV2-customisations-table`,
       billingMode: BillingMode.PAY_PER_REQUEST,
       partitionKey: {
@@ -112,6 +121,7 @@ export class BackendStack extends cdk.Stack {
     })
 
     new Table(this, "RecipesTable", {
+      removalPolicy,
       tableName: `${props.environmentName}-TnmV2-recipes-table`,
       billingMode: BillingMode.PAY_PER_REQUEST,
       partitionKey: {

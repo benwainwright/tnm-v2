@@ -6,16 +6,24 @@ import * as cloudfrontOrigins from "aws-cdk-lib/aws-cloudfront-origins"
 import * as cloudfront from "aws-cdk-lib/aws-cloudfront"
 
 import { Construct } from "constructs"
+import { EnvironmentName } from "./environment-name"
+import { RemovalPolicy } from "aws-cdk-lib"
 
 interface ApplicationStackProps extends cdk.StackProps {
-  environmentName: string
+  environmentName: EnvironmentName
 }
 
 export class ApplicationStack extends cdk.Stack {
   constructor(scope: Construct, props: ApplicationStackProps) {
     super(scope, `${props.environmentName}-TnmV2AppStack`, { env: props.env })
 
+    const removalPolicy =
+      props.environmentName === "prod"
+        ? RemovalPolicy.RETAIN
+        : RemovalPolicy.DESTROY
+
     const deployBucket = new s3.Bucket(this, "TnmV2DeployBucket", {
+      removalPolicy,
       bucketName: `${props.environmentName}-tnm-v2-app-deploy-bucket`,
       publicReadAccess: true,
       websiteIndexDocument: "index.html"

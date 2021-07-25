@@ -6,7 +6,7 @@ import { BackendStack } from "./backend-stack"
 const app = new cdk.App()
 
 const env = {
-  account: "426446031572",
+  account: "568693217207",
   region: "eu-west-2"
 }
 

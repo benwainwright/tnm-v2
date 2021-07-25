@@ -34,6 +34,11 @@ export class AclStack extends Stack {
   constructor(scope: Construct, props: AclStackProps & StackProps) {
     super(scope, `TnmV2AppAclStack`, { env: props.env })
 
+    const accountManagementPolicies = [
+      ManagedPolicy.fromAwsManagedPolicyName("SupportUser"),
+      ManagedPolicy.fromAwsManagedPolicyName("Billing")
+    ]
+
     const poolManagerPolicy = new ManagedPolicy(this, "managerPolicy", {
       managedPolicyName: "TnmV2UserManagersPolicy",
       statements: [
@@ -69,12 +74,13 @@ export class AclStack extends Stack {
       ]
     })
 
-    const cognitoManagers = new Group(this, "CognitoManagersGroup", {
+    const businessManagers = new Group(this, "CognitoManagersGroup", {
       groupName: "TnmUserManagers",
-      managedPolicies: [poolManagerPolicy]
+      managedPolicies: [poolManagerPolicy, ...accountManagementPolicies]
     })
 
     const appDevelopingPolicies = [
+      ...accountManagementPolicies,
       ManagedPolicy.fromAwsManagedPolicyName("AWSCloudFormationFullAccess"),
       ManagedPolicy.fromAwsManagedPolicyName("AmazonCognitoPowerUser"),
       ManagedPolicy.fromAwsManagedPolicyName("AmazonS3FullAccess"),
@@ -87,7 +93,7 @@ export class AclStack extends Stack {
       groupName: "TnmDevelopers"
     })
 
-    makeUsersWithGroups(this, props.poolManagers, [cognitoManagers])
+    makeUsersWithGroups(this, props.poolManagers, [businessManagers])
     makeUsersWithGroups(this, props.developers, [appDevelopers])
 
     new User(this, "TnmAppCiUser", {
