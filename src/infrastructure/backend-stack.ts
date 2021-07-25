@@ -17,6 +17,8 @@ interface BackendStackProps extends cdk.StackProps {
   callbackUrl: string
 }
 
+const HANDLER_FILE_NAME = "handler.ts"
+
 export class BackendStack extends cdk.Stack {
   public userPool: UserPool
   constructor(scope: Construct, props: BackendStackProps) {
@@ -98,7 +100,7 @@ export class BackendStack extends cdk.Stack {
       value: signInUrl
     })
 
-    const customisationsTable = new Table(this, "CustomisationsTable", {
+    new Table(this, "CustomisationsTable", {
       tableName: `${props.environmentName}-TnmV2-customisations-table`,
       billingMode: BillingMode.PAY_PER_REQUEST,
       partitionKey: {
@@ -123,56 +125,11 @@ export class BackendStack extends cdk.Stack {
       restApiName: `${props.environmentName}-api`
     })
 
-    const customersFunction = new NodejsFunction(this, "CustomersApiFunction", {
-      functionName: `${props.environmentName}-TnmV2-customers-api-function`,
-      entry: path.resolve(
-        __dirname,
-        "..",
-        "app",
-        "api",
-        "handlers",
-        "customers.ts"
-      )
+    const apiFunction = new NodejsFunction(this, "ApiFunction", {
+      functionName: `${props.environmentName}-tnmv2-api-function`,
+      entry: path.resolve(__dirname, "..", "app", "api", HANDLER_FILE_NAME)
     })
-    const customersResource = appApi.root.addResource("customers")
-    const customersIntegration = new LambdaIntegration(customersFunction)
-    customersResource.addMethod("GET", customersIntegration)
-
-    const recipesFunction = new NodejsFunction(this, "RecipesApiFunction", {
-      functionName: `${props.environmentName}-TnmV2-recipes-api-function`,
-      entry: path.resolve(
-        __dirname,
-        "..",
-        "app",
-        "api",
-        "handlers",
-        "recipes.ts"
-      )
-    })
-    const recipesResource = appApi.root.addResource("recipes")
-    const recipesIntegration = new LambdaIntegration(recipesFunction)
-    recipesResource.addMethod("GET", recipesIntegration)
-
-    const customisationsFunction = new NodejsFunction(
-      this,
-      "CustomisationsApiFunction",
-      {
-        functionName: `${props.environmentName}-TnmV2-customisations-api-function`,
-        entry: path.resolve(
-          __dirname,
-          "..",
-          "app",
-          "api",
-          "handlers",
-          "customisations.ts"
-        )
-      }
-    )
-    const customisationsResource = appApi.root.addResource("customisations")
-    const customisationsIntegration = new LambdaIntegration(
-      customisationsFunction
-    )
-    customisationsResource.addMethod("GET", customisationsIntegration)
-    customisationsTable.grantReadData(customisationsFunction)
+    const apiIntegration = new LambdaIntegration(apiFunction)
+    appApi.root.addMethod("GET", apiIntegration)
   }
 }
