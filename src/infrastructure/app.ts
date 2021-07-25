@@ -16,7 +16,7 @@ const BASE_DOMAIN_NAME = "app.thenutritionistmcr.com"
 
 const dnsZone = new DnsZoneStack(app, { env })
 
-const devCertificate = new CertificateStack(app, {
+new CertificateStack(app, {
   zone: dnsZone.hostedZone,
   environmentName: "dev",
   baseDomainName: BASE_DOMAIN_NAME
@@ -40,7 +40,7 @@ const devBackend = new BackendStack(app, {
 new CertificateStack(app, {
   zone: dnsZone.hostedZone,
   environmentName: "test",
-  baseDomainName: "app.thenutritionistmcr.com"
+  baseDomainName: BASE_DOMAIN_NAME
 })
 
 new ApplicationStack(app, {
@@ -61,7 +61,7 @@ const testBackend = new BackendStack(app, {
 new CertificateStack(app, {
   zone: dnsZone.hostedZone,
   environmentName: "prod",
-  baseDomainName: "app.thenutritionistmcr.com"
+  baseDomainName: BASE_DOMAIN_NAME
 })
 
 new ApplicationStack(app, {

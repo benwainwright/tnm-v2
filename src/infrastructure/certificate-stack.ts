@@ -1,10 +1,9 @@
 import { Stack, StackProps } from "aws-cdk-lib"
 import {
   Certificate,
-  CertificateValidation,
-  ValidationMethod
+  CertificateValidation
 } from "aws-cdk-lib/lib/aws-certificatemanager"
-import { HostedZone, IHostedZone } from "aws-cdk-lib/lib/aws-route53"
+import { IHostedZone } from "aws-cdk-lib/lib/aws-route53"
 import { Construct } from "constructs"
 import { EnvironmentName } from "./environment-name"
 
