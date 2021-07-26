@@ -8,13 +8,12 @@ import { Construct } from "constructs"
 import { EnvironmentName } from "./environment-name"
 import { RemovalPolicy } from "aws-cdk-lib"
 import { ARecord, IHostedZone, RecordTarget } from "aws-cdk-lib/lib/aws-route53"
-import { Certificate } from "aws-cdk-lib/lib/aws-certificatemanager"
+import { DnsValidatedCertificate } from "aws-cdk-lib/lib/aws-certificatemanager"
 import { CloudFrontTarget } from "aws-cdk-lib/lib/aws-route53-targets"
 
 interface ApplicationStackProps extends cdk.StackProps {
   environmentName: EnvironmentName
   dnsZone: IHostedZone
-  certificateArn: string
   baseDomainName: string
 }
 
@@ -30,7 +29,7 @@ export class ApplicationStack extends cdk.Stack {
     const domainPrefix =
       props.environmentName !== "prod" ? `${props.environmentName}.` : ""
 
-    const domainName = `${domainPrefix}${props.baseDomainName}`
+    const domainName = `${domainPrefix}app.${props.baseDomainName}`
 
     const deployBucket = new s3.Bucket(this, "TnmV2DeployBucket", {
       removalPolicy,
@@ -38,6 +37,12 @@ export class ApplicationStack extends cdk.Stack {
       publicReadAccess: true,
       websiteIndexDocument: "index.html",
       websiteErrorDocument: "index.html"
+    })
+
+    const cert = new DnsValidatedCertificate(this, "BensWebsiteCertificate", {
+      domainName: domainName,
+      hostedZone: props.dnsZone,
+      region: "us-east-1"
     })
 
     const distribution = new cloudfront.CloudFrontWebDistribution(
@@ -54,11 +59,7 @@ export class ApplicationStack extends cdk.Stack {
           }
         ],
         viewerCertificate: cloudfront.ViewerCertificate.fromAcmCertificate(
-          Certificate.fromCertificateArn(
-            this,
-            "AppCertificate",
-            props.certificateArn
-          ),
+          cert,
           { aliases: [domainName] }
         )
       }

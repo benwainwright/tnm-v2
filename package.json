@@ -138,7 +138,7 @@
     "checks": "concurrently 'yarn test:coverage' 'yarn lint' 'yarn lint:styles' 'yarn types'",
     "build": "yarn generatetypes && NODE_ENV=production gatsby build",
     "generatetypes": "graphql-codegen",
-    "develop": "generatetypes && NODE_ENV=development gatsby develop",
+    "develop": "yarn generatetypes && NODE_ENV=development gatsby develop",
     "format": "prettier --write \"**/*.{js,jsx,ts,tsx,json,md}\"",
     "deploy:acl": "cdk deploy TnmV2AppAclStack",
     "deploy:frontend": "cdk deploy test-TnmV2AppStack",

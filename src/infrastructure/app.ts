@@ -12,69 +12,57 @@ const env = {
   region: "eu-west-2"
 }
 
-const BASE_DOMAIN_NAME = "app.thenutritionistmcr.com"
+const BASE_DOMAIN_NAME = "thenutritionistmcr.com"
 
 const dnsZone = new DnsZoneStack(app, { env })
 
-new CertificateStack(app, {
-  zone: dnsZone.hostedZone,
-  environmentName: "dev",
-  baseDomainName: BASE_DOMAIN_NAME
-})
+////// Dev ////////
 
 new ApplicationStack(app, {
   dnsZone: dnsZone.hostedZone,
   baseDomainName: BASE_DOMAIN_NAME,
   environmentName: "dev",
-  certificateArn:
-    "arn:aws:acm:us-east-1:568693217207:certificate/dd2edad9-21ad-48e1-bea9-5a3df4655cf5",
   env
 })
 
 const devBackend = new BackendStack(app, {
   environmentName: "dev",
+  dnsZone: dnsZone.hostedZone,
+  baseDomainName: BASE_DOMAIN_NAME,
   callbackUrl: "https://d2bnp0b9ah9f76.cloudfront.net/",
   env
 })
 
-new CertificateStack(app, {
-  zone: dnsZone.hostedZone,
-  environmentName: "test",
-  baseDomainName: BASE_DOMAIN_NAME
-})
+////// Test /////
 
 new ApplicationStack(app, {
   dnsZone: dnsZone.hostedZone,
   baseDomainName: BASE_DOMAIN_NAME,
-  certificateArn:
-    "arn:aws:acm:us-east-1:568693217207:certificate/b30c0783-1879-4396-8b8d-bb444e8d1502",
   environmentName: "test",
   env
 })
 
 const testBackend = new BackendStack(app, {
   environmentName: "test",
+  dnsZone: dnsZone.hostedZone,
+  baseDomainName: BASE_DOMAIN_NAME,
   callbackUrl: "https://d2bnp0b9ah9f76.cloudfront.net/",
   env
 })
 
-new CertificateStack(app, {
-  zone: dnsZone.hostedZone,
-  environmentName: "prod",
-  baseDomainName: BASE_DOMAIN_NAME
-})
+////// Prod /////
 
 new ApplicationStack(app, {
   dnsZone: dnsZone.hostedZone,
   baseDomainName: BASE_DOMAIN_NAME,
   environmentName: "prod",
-  certificateArn:
-    "arn:aws:acm:us-east-1:568693217207:certificate/a0647c72-985a-4343-86fa-2749cd632909",
   env
 })
 
 const prodBackend = new BackendStack(app, {
   environmentName: "prod",
+  dnsZone: dnsZone.hostedZone,
+  baseDomainName: BASE_DOMAIN_NAME,
   callbackUrl: "https://dw40nwmhtomz7.cloudfront.net",
   env
 })
