@@ -2,7 +2,6 @@ import * as cdk from "aws-cdk-lib"
 import { AclStack } from "./acl-stack"
 import { ApplicationStack } from "./application-stack"
 import { BackendStack } from "./backend-stack"
-import { CertificateStack } from "./certificate-stack"
 import { DnsZoneStack } from "./dns-stack"
 
 const app = new cdk.App()
