@@ -1,8 +1,10 @@
 {
   "dev-TnmV2BackendStack": {
-    "UserPoolId": "eu-west-2_9H0lMvN2b",
+    "UserPoolId": "eu-west-2_x58UnAGpZ",
+    "ExportsOutputFnGetAttUsers0A0EEA89Arn6658B146": "arn:aws:cognito-idp:eu-west-2:568693217207:userpool/eu-west-2_x58UnAGpZ",
     "AuthUrl": "https://dev-tnmv2-auth.auth.eu-west-2.amazoncognito.com",
-    "ClientId": "5a4apnputbtdiso76mqgheu17d",
-    "RedirectUrl": "https://dev-tnmv2-auth.auth.eu-west-2.amazoncognito.com/login?client_id=5a4apnputbtdiso76mqgheu17d&response_type=code&redirect_uri=https://d2bnp0b9ah9f76.cloudfront.net/"
+    "ClientId": "2cp47o9vg8njvsk91dctmss2vc",
+    "RedirectUrl": "https://dev-tnmv2-auth.auth.eu-west-2.amazoncognito.com/login?client_id=2cp47o9vg8njvsk91dctmss2vc&response_type=code&redirect_uri=https://d2bnp0b9ah9f76.cloudfront.net/",
+    "apiEndpoint9349E63C": "https://8z3ws8rzvj.execute-api.eu-west-2.amazonaws.com/prod/"
   }
 }

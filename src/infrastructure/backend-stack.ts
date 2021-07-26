@@ -7,11 +7,14 @@ import {
   AuthorizationType,
   CognitoUserPoolsAuthorizer,
   Cors,
-  LambdaIntegration,
-  RestApi
+  EndpointType,
+  LambdaRestApi
 } from "aws-cdk-lib/lib/aws-apigateway"
+import { DnsValidatedCertificate } from "aws-cdk-lib/lib/aws-certificatemanager"
 import { AttributeType, BillingMode, Table } from "aws-cdk-lib/lib/aws-dynamodb"
 import { NodejsFunction } from "aws-cdk-lib/lib/aws-lambda-nodejs"
+import { ARecord, IHostedZone, RecordTarget } from "aws-cdk-lib/lib/aws-route53"
+import { ApiGatewayDomain } from "aws-cdk-lib/lib/aws-route53-targets"
 import { Construct } from "constructs"
 import path from "path"
 import { EnvironmentName } from "./environment-name"
@@ -19,6 +22,8 @@ import { EnvironmentName } from "./environment-name"
 interface BackendStackProps extends cdk.StackProps {
   environmentName: EnvironmentName
   callbackUrl: string
+  dnsZone: IHostedZone
+  baseDomainName: string
 }
 
 const HANDLER_FILE_NAME = "handler.ts"
@@ -130,13 +135,6 @@ export class BackendStack extends cdk.Stack {
       }
     })
 
-    const appApi = new RestApi(this, "api", {
-      defaultCorsPreflightOptions: {
-        allowOrigins: Cors.ALL_ORIGINS
-      },
-      restApiName: `${props.environmentName}-api`
-    })
-
     const apiFunction = new NodejsFunction(this, "ApiFunction", {
       functionName: `${props.environmentName}-tnmv2-api-function`,
       entry: path.resolve(__dirname, "..", "app", "api", HANDLER_FILE_NAME),
@@ -152,11 +150,44 @@ export class BackendStack extends cdk.Stack {
       cognitoUserPools: [this.userPool]
     })
 
-    const apiIntegration = new LambdaIntegration(apiFunction)
+    const domainPrefix =
+      props.environmentName !== "prod" ? `${props.environmentName}.` : ""
 
-    appApi.root.addMethod("GET", apiIntegration, {
-      authorizer: auth,
-      authorizationType: AuthorizationType.COGNITO
+    const domainName = `${domainPrefix}api.${props.baseDomainName}`
+
+    const certificate = new DnsValidatedCertificate(
+      this,
+      "BensWebsiteCertificate",
+      {
+        domainName: domainName,
+        hostedZone: props.dnsZone,
+        region: "us-east-1"
+      }
+    )
+
+    const api = new LambdaRestApi(this, "api", {
+      defaultCorsPreflightOptions: {
+        allowOrigins: Cors.ALL_ORIGINS
+      },
+      restApiName: `${props.environmentName}-api`,
+      handler: apiFunction,
+      defaultMethodOptions: {
+        authorizationType: AuthorizationType.COGNITO,
+        authorizer: auth
+      },
+      proxy: true
+    })
+
+    const apiDomainName = api.addDomainName("CustomAPIDomainName", {
+      domainName,
+      certificate,
+      endpointType: EndpointType.EDGE
+    })
+
+    new ARecord(this, "ApiARecord", {
+      zone: props.dnsZone,
+      recordName: domainName,
+      target: RecordTarget.fromAlias(new ApiGatewayDomain(apiDomainName))
     })
   }
 }

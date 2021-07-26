@@ -8,7 +8,7 @@ export class DnsZoneStack extends Stack {
   constructor(scope: Construct, props: StackProps) {
     super(scope, `TnmV2DnsStack`, { env: props.env })
 
-    this.domainName = `app.thenutritionistmcr.com`
+    this.domainName = `thenutritionistmcr.com`
 
     this.hostedZone = new PublicHostedZone(this, "HostedZone", {
       zoneName: this.domainName
