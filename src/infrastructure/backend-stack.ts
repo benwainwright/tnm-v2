@@ -173,7 +173,7 @@ export class BackendStack extends cdk.Stack {
       restApiName: `${props.environmentName}-api`
     })
 
-    api.root.addMethod("GET", new LambdaIntegration(apiFunction), {
+    api.root.addMethod("POST", new LambdaIntegration(apiFunction), {
       authorizationType: AuthorizationType.COGNITO,
       authorizer
     })
