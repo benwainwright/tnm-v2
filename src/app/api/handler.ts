@@ -20,4 +20,11 @@ const server = new ApolloServer({
   resolvers: { Query: { ...resolvers.Query } }
 })
 
-export const handler = server.createHandler()
+export const handler = server.createHandler({
+  expressGetMiddlewareOptions: {
+    cors: {
+      origin: "*",
+      credentials: true
+    }
+  }
+})
