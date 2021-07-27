@@ -215,7 +215,7 @@ jobs:
         with:
           node-version: "12"
 
-      - name: Get yarn cache directory path
+      - name: Get yarn config get cacheFolderectory path
         id: yarn-cache-dir-path
         run: echo "::set-output name=dir::$(yarn config get cacheFolder)"
 
