@@ -8,7 +8,9 @@ import {
   CognitoUserPoolsAuthorizer,
   Cors,
   EndpointType,
-  LambdaRestApi
+  LambdaIntegration,
+  LambdaRestApi,
+  RestApi
 } from "aws-cdk-lib/lib/aws-apigateway"
 import { DnsValidatedCertificate } from "aws-cdk-lib/lib/aws-certificatemanager"
 import { AttributeType, BillingMode, Table } from "aws-cdk-lib/lib/aws-dynamodb"
@@ -146,7 +148,7 @@ export class BackendStack extends cdk.Stack {
       }
     })
 
-    const auth = new CognitoUserPoolsAuthorizer(this, "ApiAuthoriser", {
+    const authorizer = new CognitoUserPoolsAuthorizer(this, "ApiAuthoriser", {
       cognitoUserPools: [this.userPool]
     })
 
@@ -165,17 +167,16 @@ export class BackendStack extends cdk.Stack {
       }
     )
 
-    const api = new LambdaRestApi(this, "api", {
+    const api = new RestApi(this, "api", {
       defaultCorsPreflightOptions: {
         allowOrigins: Cors.ALL_ORIGINS
       },
-      restApiName: `${props.environmentName}-api`,
-      handler: apiFunction,
-      defaultMethodOptions: {
-        authorizationType: AuthorizationType.COGNITO,
-        authorizer: auth
-      },
-      proxy: true
+      restApiName: `${props.environmentName}-api`
+    })
+
+    api.root.addMethod("GET", new LambdaIntegration(apiFunction), {
+      authorizationType: AuthorizationType.COGNITO,
+      authorizer
     })
 
     const apiDomainName = api.addDomainName("CustomAPIDomainName", {
