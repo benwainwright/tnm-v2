@@ -9,7 +9,6 @@ import {
   Cors,
   EndpointType,
   LambdaIntegration,
-  LambdaRestApi,
   RestApi
 } from "aws-cdk-lib/lib/aws-apigateway"
 import { DnsValidatedCertificate } from "aws-cdk-lib/lib/aws-certificatemanager"
