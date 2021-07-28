@@ -13,6 +13,7 @@ import {
 } from "aws-cdk-lib/lib/aws-apigateway"
 import { DnsValidatedCertificate } from "aws-cdk-lib/lib/aws-certificatemanager"
 import { AttributeType, BillingMode, Table } from "aws-cdk-lib/lib/aws-dynamodb"
+import { Effect, PolicyStatement } from "aws-cdk-lib/lib/aws-iam"
 import { NodejsFunction } from "aws-cdk-lib/lib/aws-lambda-nodejs"
 import { ARecord, IHostedZone, RecordTarget } from "aws-cdk-lib/lib/aws-route53"
 import { ApiGatewayDomain } from "aws-cdk-lib/lib/aws-route53-targets"
@@ -138,6 +139,9 @@ export class BackendStack extends cdk.Stack {
 
     const apiFunction = new NodejsFunction(this, "ApiFunction", {
       functionName: `${props.environmentName}-tnmv2-api-function`,
+      environment: {
+        COGNITO_POOL_ID: this.userPool.userPoolId
+      },
       entry: path.resolve(__dirname, "..", "app", "api", HANDLER_FILE_NAME),
       bundling: {
         nodeModules: ["ts-tiny-invariant"],
@@ -146,6 +150,14 @@ export class BackendStack extends cdk.Stack {
         }
       }
     })
+
+    const accessCognitoStatement = new PolicyStatement({
+      actions: ["cognito-idp:AdminList*", "cognito-idp:AdminGet*"],
+      effect: Effect.ALLOW,
+      resources: [this.userPool.userPoolArn]
+    })
+
+    apiFunction.addToRolePolicy(accessCognitoStatement)
 
     const authorizer = new CognitoUserPoolsAuthorizer(this, "ApiAuthoriser", {
       cognitoUserPools: [this.userPool]

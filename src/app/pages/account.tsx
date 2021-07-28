@@ -1,11 +1,22 @@
-import { FC } from "react"
+import { FC, useEffect, useState } from "react"
 import { Hero, Layout } from "@app/components/containers"
+import { API } from "@aws-amplify/api"
+import {
+  ApolloClient,
+  InMemoryCache,
+  ApolloProvider,
+  useQuery,
+  gql
+} from "@apollo/client"
+
 import AccountIcon from "@app/assets/images/icons/TNM_Icons_Final_Account.png"
 import Authenticated, {
   Redirect
 } from "@app/components/organisms/login-and-register-box/authenticated"
 import Seo from "../components/seo"
 import styled from "@emotion/styled"
+import { getClient } from "@app/api/client"
+import { currentUser } from "@app/aws/authenticate"
 
 const YourAccountHeaderBox = styled("div")`
   text-align: center;
@@ -23,7 +34,28 @@ const YourAccountHeader = styled("h1")`
   margin: 0.5rem 0 0 0;
 `
 
+const query = getClient("https://dev.api.thenutritionistmcr.com")
+
 const Account: FC = () => {
+  // const [data, setData] = useState()
+
+  // useEffect(() => {
+  //   ;(async () => {
+  //     const user = await currentUser()
+  //     const response = await query(
+  //       gql`
+  //         {
+  //           getCustomerByUsername(username: "${user.username}") {
+  //             firstName,
+  //             surname,
+  //             telephone
+  //           }
+  //         }
+  //       `
+  //     )
+  //   })()
+  // }, [])
+
   return (
     <Authenticated redirect={Redirect.IfLoggedOut} redirectPath="/login/">
       <Layout>

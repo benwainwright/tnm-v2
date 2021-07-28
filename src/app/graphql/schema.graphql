@@ -111,31 +111,6 @@ input UpdateCustomerInput {
   requiredCustomisationIds: [String!]!
 }
 
-input DeleteCustomerInput {
-  id: ID!
-}
-
-type Query {
-  getCustomisationsById(id: String!): Customisation
-  listCustomisations: [Customisation] 
-  getRecipeById(recipeId: String!): Recipe
-  listRecipes: [Recipe]
-  getCustomerById(customerId: String!): Customer
-  listCustomers: [Customer]
-}
-
-type Mutation {
-  updateRecipe(input: UpdateRecipeInput): Recipe
-  deleteRecipe(input: DeleteRecipeInput): String
-  createRecipe(input: RecipeInput): Recipe
-  updateCustomer(input: UpdateCustomerInput): Customer
-  createCustomer(input: CustomerInput): Customer
-  deleteCustomer(input: DeleteCustomerInput): String
-  updateCustomisation(input: UpdateCustomisationInput): Customisation
-  createCustomisation(input: CustomisationInput): Customisation
-  deleteCustomisation(input: DeleteCustomisationInput): String
-}
-
 type Plan {
   name: String!
   mealsPerDay: Int!

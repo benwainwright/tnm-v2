@@ -64,6 +64,7 @@ export class AclStack extends Stack {
             "cognito-idp:ForgotPassword",
             "cognito-idp:Describe*",
             "cognito-idp:AdminList*",
+            "cognito-idp:AdminGet*",
             "cognito-idp:Get*",
             "cognito-idp:ResendConfirmationCode",
             "cognito-idp:StartUserInputJob",

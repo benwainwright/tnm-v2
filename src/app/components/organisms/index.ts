@@ -1,7 +1,7 @@
 import {
   LoginAndRegisterBox,
   Authenticated,
-  Redirect,
+  Redirect
 } from "./login-and-register-box"
 import { Footer } from "./footer"
 import { Header } from "./header"

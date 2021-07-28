@@ -1,9 +1,16 @@
 import schema from "./schema.graphql"
 import { ApolloServer } from "apollo-server-lambda"
+import { listCustomers } from "./listCustomers"
+import { getCustomerByUsername } from "./getCustomerByUsername"
 import { Query } from "./types"
+import * as Types from "./types"
 
-// eslint-disable-next-line fp/no-rest-parameters
-type QueryType = { [K in keyof Query]: (...args: unknown[]) => Query[K] }
+type QueryType = {
+  [K in keyof Query]: <T extends keyof typeof Types>(
+    // eslint-disable-next-line fp/no-rest-parameters
+    ...args: T[]
+  ) => Query[K] | Promise<Query[K]>
+}
 
 interface Resolvers {
   Query: QueryType
@@ -11,7 +18,8 @@ interface Resolvers {
 
 const resolvers: Resolvers = {
   Query: {
-    listCustomers: () => []
+    listCustomers,
+    getCustomerByUsername
   }
 }
 

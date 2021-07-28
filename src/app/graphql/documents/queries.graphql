@@ -1,0 +1,8 @@
+type Query {
+  getCustomisationsById(id: String!): Customisation
+  listCustomisations: [Customisation] 
+  getRecipeById(recipeId: String!): Recipe
+  listRecipes: [Recipe]
+  getCustomerByUsername(username: String!): Customer
+  listCustomers: [Customer]
+}

@@ -1,5 +1,5 @@
 const babelOptions = {
-  plugins: ["emotion"],
+  plugins: ["@emotion"],
   presets: [
     ["@babel/preset-env", { targets: { node: "current" } }],
     "babel-preset-gatsby",
